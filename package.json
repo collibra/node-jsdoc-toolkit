@@ -7,7 +7,7 @@
     "type": "git",
     "url": "git://github.com/collibra/node-jsdoc-toolkit.git"
   },
-  "main": "app/run.js",
+  "main": "app/nodemodule.js",
   "scripts": {
     "test": "app/test.js"
   },
