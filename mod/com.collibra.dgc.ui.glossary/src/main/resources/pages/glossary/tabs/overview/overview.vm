@@ -1,5 +1,0 @@
-<div>This is the term content page.<br>The signifier of this term is $termComponent.getTerm($id).getSignifier() !</div>
-<div>$msg.get("languagekey1", "parameter")</div>
-#if ($id)
-  <div>The ID of the term to render: $id</div>
-#end

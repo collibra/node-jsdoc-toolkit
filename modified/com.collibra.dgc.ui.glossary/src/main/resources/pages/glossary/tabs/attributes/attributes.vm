@@ -1,7 +1,0 @@
-## Include the Attribute creation bar.
-#renderModule('modules/content/attributecreation', false)
-
-## Include additional dynamic widgets here(prob. this should be in term.vm)
-##set($widgetsDynamic = [{"path" : "widgets/dgc-widget-2", "column" : "0", "row" : 5, "remote": "false"}])
-
-#renderRegion("content", false)

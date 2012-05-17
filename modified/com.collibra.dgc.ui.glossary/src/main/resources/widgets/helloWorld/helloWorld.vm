@@ -1,3 +1,0 @@
-custom widget from widgets/
-<div style="height: 250px;">hello<span class="helloWorld-123">$!msg.get("helloWorld.world")</span></div>
-$id

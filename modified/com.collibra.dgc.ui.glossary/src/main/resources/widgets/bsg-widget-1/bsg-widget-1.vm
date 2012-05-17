@@ -1,5 +1,0 @@
-#set($resourcePath = "${contextPath}resources/internal/widgets/bsg-widget-1/")
-<div class="bsg-widget-1">
-	This is my widget baby! And it has a translatable variable: $!msg.get("bsg-widget-1.languagekey1")
-	<p><img src="${resourcePath}images/logo.png" alt="Collibra Logo"/></p>
-</div>

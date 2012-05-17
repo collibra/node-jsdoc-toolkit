@@ -1,7 +1,0 @@
-bootstrap = Bootstrap
-basic = Basic
-basic.description = Only the absolute basics for making Collibra Data Governance Center work are bootstrapped.
-demo1 = Demo 1
-demo1.description = This is a demo setup which doesn't exist yet.
-demo2 = Demo 2
-demo2.description = This is another demo setup which doesn't exist yet.

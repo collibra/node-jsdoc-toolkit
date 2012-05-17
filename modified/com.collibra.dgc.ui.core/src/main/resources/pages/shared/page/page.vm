@@ -1,8 +1,0 @@
-## Get all frequently used macros, less elements, etc.
-#parse('/pages/shared/global/global.vm')
-
-#renderModule("pages/shared/header")
-<div id="contentcolumn">
-  #renderRegion("content", false)
-</div>
-#renderModule("pages/shared/footer")

@@ -1,3 +1,0 @@
-<div class="content">
-	$msg.get("login.unauthorized")
-</div>

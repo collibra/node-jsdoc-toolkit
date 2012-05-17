@@ -1,5 +1,0 @@
-Customer=Collibra Glossary Internal
-Company=Collibra
-NumberOfLightUsers=50
-NumberOfFullUsers=30
-Expire=10-10-2050

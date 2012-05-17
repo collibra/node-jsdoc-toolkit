@@ -1,5 +1,0 @@
-#renderModule('modules/menus/tabbar')
-
-<div>
-  This is simple content from tabbar.vm
-</div>
