@@ -1,0 +1,431 @@
+@font-face {
+  font-family: 'Gill Sans Light';
+  src: url('fonts/gillsanslight-webfont.eot');
+  src: url('fonts/gillsanslight-webfont.eot?#iefix') format('embedded-opentype'),
+       url('fonts/gillsanslight-webfont.woff') format('woff'),
+       url('fonts/gillsanslight-webfont.ttf') format('truetype'),
+       url('fonts/gillsanslight-webfont.svg#GillSansLight') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Monaco';
+  src: url('fonts/monaco-webfont.eot');
+  src: url('fonts/monaco-webfont.eot?#iefix') format('embedded-opentype'),
+       url('fonts/monaco-webfont.woff') format('woff'),
+       url('fonts/monaco-webfont.ttf') format('truetype'),
+       url('fonts/monaco-webfont.svg#MonacoRegular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body{
+  margin: 0;
+  padding: 0;
+  background: #EAEAEA;
+  font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+  font-size: 12px;
+  color: #333;
+}
+
+hr {
+  display:none;
+}
+
+h1,h2,h3 {
+  font-family: 'Gill Sans Light';
+  font-weight: normal;
+  padding: 0;
+  margin: 0;
+}
+
+h1 {
+  font-size: 26px;
+}
+
+h2 {
+  font-size: 22px;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+a {
+  color: #0A92b7;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+pre {
+  margin: 0px;
+  padding: 0px;
+}
+
+.collibraSearchInput{
+  width:160px;
+  border: solid 1px #b7b7b7;
+  border-radius:3px;
+  padding:3px;
+  color: #cacaca;
+}
+
+.collibraSearchInput:focus{
+  color: #000;
+}
+
+.logo img {
+  margin: 10px;
+  border: none;
+}
+
+.pageheader h1.title {
+  color:#d8665a;
+  padding-left:5px;
+}
+
+.border-radius{
+  border: solid 1px #B7B7B7;
+  border-radius: 3px;
+}
+
+div.templateheader {
+  background: #333;
+  height: 100px;
+  color: #fff;
+}
+
+/*
+ * MAIN MENU 
+ */
+/* Start menu */
+div.index {
+  width: 20%;
+  float: left;
+}
+
+div.index .searchwrapper{
+  text-align: center;
+  position: relative;
+}
+
+/* TEMP */
+.content .collibraSearchInput{
+  display:none;
+}
+
+div.index .searchwrapper .icon-search{
+  display: block;
+  width: 14px;
+  height: 14px;
+  background: url("../images/icons.gif") no-repeat scroll -84px -14px transparent;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+
+div.index .fineprint {
+  font-size: 10px;
+  text-align: center;
+  color: #666;
+}
+
+div.index .menu {
+  background: #fff;
+  margin: 5px;
+  padding: 5px;
+}
+
+div.index nav ul.mainLevel {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+div.index nav span.menuHeader {
+  display: block;
+  padding: 5px;
+  background:#ededed;
+  border: solid 1px #b7b7b7;
+  border-radius: 3px;
+  margin-top: 5px;
+  /* for W3C-compliant browsers */
+  background-image: linear-gradient(top, rgba(253,253,253,255) 0%, rgba(245,245,245,255) 50%, rgba(237,237,237,255) 100%);
+  /* for Safari 5.03+ and Chrome 7+ */
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgba(253,253,253,255)), color-stop(0.5042969, rgba(245,245,245,255)), color-stop(1, rgba(237,237,237,255)));
+  /* for Firefox 3.6+ */
+  background-image: -moz-linear-gradient(top, rgba(253,253,253,255) 0%, rgba(245,245,245,255) 50%, rgba(237,237,237,255) 100%);
+  /* for Opera 11.1+ */
+  background-image: -o-linear-gradient(top, rgba(253,253,253,255) 0%, rgba(245,245,245,255) 50%, rgba(237,237,237,255) 100%);
+  /* for IE */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fdfdfd', endColorstr='#f5f5f5'endColorstr='#ededed');
+}
+
+div.index nav ul.subLevel {
+  list-style:none;
+  padding: 0 10px;
+  margin:0;
+}
+
+div.index nav li.subLevel {
+  padding:5px 0;
+}
+
+div.index nav ul ul {
+  list-style:none;
+  margin-top:-2px;
+  border:solid 1px #b7b7b7;
+  border-top:none;
+}
+
+div.index nav ul ul ul {
+  margin: 0px;
+  border: none
+}
+
+/* Content column */
+div.content {
+  width: 80%;
+  float:left;
+}
+
+div.content .section {
+  position: relative;
+  margin: 5px;
+  padding: 5px;
+  background: #fff;
+}
+
+div.content .section h2.sectiontitle {
+  color:#b7b7b7;
+  padding: 0 0 5px 4px;
+}
+
+div.content .description{
+  color: #333;
+}
+
+div.content ul.sectionitems {
+  list-style:none;
+  margin: 0;
+  padding: 0;
+}
+
+div.content li.sectionitem {
+  margin: 0 0 10px 0;
+  padding: 0;
+}
+/*
+ * Page header
+ */
+div.content .pageheader .path{
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  color: #999;
+}
+
+div.content .pageheader .path .icon-home{
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  background: url("../images/icons.gif") no-repeat scroll -182px -14px transparent;
+  margin-bottom: -2px;
+}
+
+div.content .pageheader .description{
+  margin-left:20px;
+}
+
+/*
+ * Method Summary
+ */
+div.summaryfilterwrapper {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 170px;
+}
+
+div.content div.methodsummary {
+  padding: 10px 20px;
+}
+
+div.content ul.methodsummarylist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+div.content ul.methodsummarylist li {
+  padding: 0 0 5px 0;
+}
+
+div.content ul.methodsummarylist .methodname {
+  display: inline;
+  font-weight: bold;
+  font-family: Monaco;
+}
+
+div.content ul.methodsummarylist .methodarguments {
+  display: inline;
+  font-family: Monaco;
+}
+
+div.content ul.methodsummarylist .methoddescription {
+  margin-left: 15px;
+  color: #999;
+}
+
+/*
+ * Method Detail
+ */
+
+/* ITEM HEADER */
+div.content .sectionitem  .itemheader{
+  font-family: 'Monaco';
+  font-size: 14px;
+  font-weight:bold;
+  margin: 0;
+  padding: 10px;
+  background: #333;
+  color: #fff;
+  border-radius:3px;
+  position: relative;
+}
+
+div.content .sectionitem  .itemheader .argument{
+  font-weight:normal;
+  color:#ccc;
+}
+
+div.content .sectionitem  .itemheader .itemtype{
+  display:inline;
+  right: 10px;
+  position: absolute;
+  color:#666;
+}
+
+/* ITEM CONTENT */
+div.content li.sectionitem .itemcontent {
+  margin-top:-2px;
+  padding: 10px;
+  border: solid 1px #B7B7B7;
+  border-top:none;
+}
+
+div.content li.sectionitem  .definedin{
+  color: #ccc;
+  font-size: 10px;
+  text-align:right;
+  margin-top: -4px;
+}
+
+div.content li.sectionitem  .definedin > .label{
+  display:none;
+}
+
+div.content li.sectionitem  .description{
+  padding: 2px 0 10px 0;
+}
+
+div.content .sectionitem h3{
+  color:#d8665a;
+  padding: 10px 0 5px 0;
+}
+
+div.content li.sectionitem  .authors{
+  text-align:right;
+}
+
+div.content li.sectionitem  .authors .icon-eye,
+div.content li.sectionitem  .authors .icon-cogwheel{
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  background: url("../images/icons.gif") no-repeat scroll -238px -14px transparent;
+  margin-bottom: -2px;
+}
+
+div.content li.sectionitem  .authors .icon-eye{
+  background: url("../images/icons.gif") no-repeat scroll -252px -14px transparent;
+}
+
+div.content li.sectionitem  .examplecode{
+  overflow-x:auto;
+  font-size: 11px;
+  border:solid 1px #B7B7B7;
+  padding: 5px;
+  background: #ffffE6;
+  border-radius: 3px;
+  margin: 0;
+}
+
+div.content li.sectionitem  .authors .implementation{
+  margin-left: 10px;
+}
+
+
+/* ITEM PARAMS */
+
+div.content ul.params{
+  padding: 0 0 0 20px;
+  list-style:none;
+}
+
+div.content li.sectionitem .paramname{
+  font-weight:bold;
+  display: inline;
+}
+
+div.content li.sectionitem .paramname span{
+  color: blue;
+}
+
+div.content li.sectionitem .paramtype{
+  color: #999;
+  font-weight:bold;
+  display: inline;
+}
+
+div.content li.sectionitem .paramoptional{
+  color: #333;
+  font-weight:bold;
+  font-style:italic;
+  display: inline;
+}
+
+div.content li.sectionitem .paramdefault{
+  color: #666;
+  display: inline;
+  background: #eee;
+  padding: 3px;
+  border-radius: 1px 3px;
+}
+
+div.content ul.params .description{
+  padding: 0 0 6px 10px;
+  color: #999;
+}
+
+div.content li.sectionitem ul.paramoptions{
+  background: #f9f9f9;
+  border-radius: 3px;
+  font-size: 90%;
+  list-style: none;
+  padding: 5px;
+  margin-left: 20px;
+}
+
+/* ITEM RETURNS */
+div.content li.sectionitem .returns .paramtype{
+  margin-left: 20px;
+}
+div.content li.sectionitem .returns .description{
+  display: inline;
+  color: #999;
+}
