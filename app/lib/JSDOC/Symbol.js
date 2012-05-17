@@ -149,7 +149,7 @@ JSDOC.Symbol.prototype.setTags = function() {
 	if (authors.length) {
 		this.author = authors.map(function($){return $.desc;}).join(", ");
 	}
-	
+
   var respA = this.comment.getTag("responsibleAPI");
   if (respA.length) {
     this.respA = respA.map(function($){return $.desc;}).join(", ");
@@ -573,6 +573,16 @@ JSDOC.Symbol.prototype.setTags = function() {
 		// todo
 	*/
 		
+  // @enum
+	var enums = this.comment.getTag("enum");
+	if (enums.length) {
+		this.classDesc = enums[0].desc;
+		this.isNamespace = true;
+	}
+	
+	/*t:
+	  // TODO
+  */
 	if (JSDOC.PluginManager) {
 		JSDOC.PluginManager.run("onSetTags", this);
 	}
