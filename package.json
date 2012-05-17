@@ -2,7 +2,7 @@
   "author": "Collibra <clovis@collibra.com>",
   "name": "collibra-jsdoc",
   "description": "JSDoc Toolkit",
-  "version": "0.1",
+  "version": "0.1.0",
   "repository": {
     "type": "git",
     "url": "git://github.com/collibra/node-jsdoc-toolkit.git"
