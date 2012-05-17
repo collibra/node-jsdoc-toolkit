@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:cmof="http://schema.omg.org/spec/MOF/2.0/cmof.xml">
+  <cmof:Package xmi:id="StatusesVocabulary" name="Statuses Vocabulary" uri="http://www.collibra.com/glossary/statuses">
+    <ownedMember xmi:type="cmof:Class" name="candidate" xmi:id="candidate" superClass="statusType"/>
+    <ownedMember xmi:type="cmof:Class" name="accepted" xmi:id="accepted" superClass="statusType"/>
+    <ownedMember xmi:type="cmof:Class" name="standard" xmi:id="standard" superClass="statusType"/>
+    <ownedMember xmi:type="cmof:Class" name="obsolete" xmi:id="obsolete" superClass="statusType"/>
+    <ownedMember xmi:type="cmof:Class" name="in progress" xmi:id="inProgress" superClass="statusType"/>
+    <ownedMember xmi:type="cmof:Class" name="under review" xmi:id="underReview" superClass="statusType"/>
+    <ownedMember xmi:type="cmof:Class" name="reviewed" xmi:id="reviewed" superClass="statusType"/>
+    <ownedMember xmi:type="cmof:Class" name="rejected" xmi:id="rejected" superClass="statusType"/>
+    <ownedMember xmi:type="cmof:Class" name="approval pending" xmi:id="approvalPending" superClass="statusType"/>
+    <ownedMember xmi:type="cmof:Class" name="thing" xmi:id="thing" />
+    <ownedMember xmi:type="cmof:Class" name="status type" xmi:id="statusType" superClass="thing"/>
+  </cmof:Package>
+  <cmof:Tag name="org.omg.xmi.nsPrefix" value="collibra" element="StatusesVocabulary"/>
+  <cmof:Tag name="org.omg.xmi.nsURI" value="http://www.collibra.com/glossary/statuses" element="StatusesVocabulary"/>
+  <cmof:Tag name="org.omg.xmi.xmiName" value="candidate" element="candidate"/>
+  <cmof:Tag name="org.omg.xmi.xmiName" value="accepted" element="accepted"/>
+  <cmof:Tag name="org.omg.xmi.xmiName" value="standard" element="standard"/>
+  <cmof:Tag name="org.omg.xmi.xmiName" value="obsolete" element="obsolete"/>
+  <cmof:Tag name="org.omg.xmi.xmiName" value="inProgress" element="inProgress"/>
+  <cmof:Tag name="org.omg.xmi.xmiName" value="underReview" element="underReview"/>
+  <cmof:Tag name="org.omg.xmi.xmiName" value="reviewed" element="reviewed"/>
+  <cmof:Tag name="org.omg.xmi.xmiName" value="rejected" element="rejected"/>
+  <cmof:Tag name="org.omg.xmi.xmiName" value="approvalPending" element="approvalPending"/>
+</xmi:XMI>

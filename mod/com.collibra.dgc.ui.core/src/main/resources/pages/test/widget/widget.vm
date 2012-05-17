@@ -1,0 +1,207 @@
+<style>
+#widgetboard .column{
+  float: left;
+  width: 32%;
+  padding: 1px;
+  margin: 5px;
+  /* border: dashed 2px #eee; */
+}
+
+/*
+ *  TEMP STYLE FOR WIDGETS 
+ */
+.widget {
+  display: block;
+  margin-bottom: 20px;
+  padding-top: 25px;
+}
+
+.widget .widget-container {
+  border: 1px solid #d6d6d6;
+  background-color: #ffffff;
+  color: #3a4551;
+  position: relative;
+  min-height: 190px;
+  min-width: 290px;
+}
+
+.widget-menu {
+  display: none;
+  position: absolute;
+  top: -10px;
+  right: -8px;
+}
+
+ul.widget-menu-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.widget-menu-item {
+  margin: 0;
+  padding: 3px;
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  border-radius: 20px;
+  background: #F6F6F6;
+  border: 1px solid #CCCCCC;
+  cursor: pointer;
+  -webkit-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+.widget-menu-item:hover,
+.widget-menu-item.focused {
+  background: #A3CF16;
+}
+
+.widget-title {
+  font-family: 'Lucida Grande', Helvetica;
+  font-weight: normal;
+  font-size: 1.4em;
+  color: #db563e;
+  position: absolute;
+  top: -25px;
+}
+
+/* ON EDIT */
+.widget.state-editing .widget-container{
+  background: #f6f6f6;
+}
+.widget.state-editing .widget-menu{
+  display:block;
+}
+
+/* ON MOVE */
+.widget.state-moving {
+  padding-top: 0px; 
+}
+
+.widget.state-moving .widget-title {
+  color: #fff;
+  background: #4d4d4d;
+  display: inline-block;
+  border-radius: 2px;
+  padding: 5px 11px;
+  margin: 5px;
+  position: relative;
+  top: 0;
+}
+
+/* ON LOAD */
+.widget.state-loading .widget-container{
+  background: #f6f6f6;
+}
+.widget.state-loading .widget-content{
+  text-align: center;
+}
+
+.widget-loading-content{
+  font-family: 'Lucida Grande', Helvetica;
+  font-weight: normal;
+  color:  #3a4551;
+  padding: 70px 20px 0;
+  font-size: 1.4em;
+}
+
+.widget-loading-content .loading-indicator {
+  display: block;
+  width: 128px;
+  height: 15px;
+  clear: left;
+  margin: 5px auto;
+  background: url("${contextPath}resources/library/images/loaders/loading-bar.gif") no-repeat;
+}
+
+</style>
+
+
+
+
+<div id="widgetboard">
+  <div id="column1" class="column">
+  
+    <div class="widget">
+      <div class="widget-container">
+        <div class="widget-head">
+            <div class="widget-title">Widget title - default</div>
+            <div class="widget-menu">
+              <ul class="widget-menu-items">
+                <li class="widget-menu-item"><i class="icon-cogwheel"></i></li>
+                <li class="widget-menu-item"><i class="icon-move"></i></li>
+                <li class="widget-menu-item"><i class="icon-delete"></i></li>
+              </ul>
+            </div>
+        </div>
+        <div class="widget-content">
+            <p>[Content Preview]</p>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="widget state-loading">
+      <div class="widget-container">
+        <div class="widget-head">
+            <div class="widget-title">Widget title - loading</div>
+            <div class="widget-menu">
+              <ul class="widget-menu-items">
+                <li class="widget-menu-item"><i class="icon-cogwheel"></i></li>
+                <li class="widget-menu-item"><i class="icon-move"></i></li>
+                <li class="widget-menu-item"><i class="icon-delete"></i></li>
+              </ul>
+            </div>
+        </div>
+        <div class="widget-content">
+            <div class="widget-loading-content">Loading ...<i class="loading-indicator"></i></div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  <div id="column2" class="column">
+  
+    <div class="widget state-editing">
+      <div class="widget-container">
+        <div class="widget-head">
+            <div class="widget-title">Widget title - editing</div>
+            <div class="widget-menu">
+              <ul class="widget-menu-items">
+                <li class="widget-menu-item"><i class="icon-cogwheel"></i></li>
+                <li class="widget-menu-item"><i class="icon-move"></i></li>
+                <li class="widget-menu-item"><i class="icon-delete"></i></li>
+              </ul>
+            </div>
+        </div>
+        <div class="widget-content">
+            <p>[Content Preview]</p>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  <div id="column3" class="column">
+    
+    <div class="widget state-editing state-moving">
+      <div class="widget-container">
+        <div class="widget-head">
+            <div class="widget-title">Widget title - moving</div>
+            <div class="widget-menu">
+              <ul class="widget-menu-items">
+                <li class="widget-menu-item"><i class="icon-cogwheel"></i></li>
+                <li class="widget-menu-item focused"><i class="icon-move"></i></li>
+                <li class="widget-menu-item"><i class="icon-delete"></i></li>
+              </ul>
+            </div>
+        </div>
+        <div class="widget-content">
+            <p>[Content Preview]</p>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>

@@ -1,0 +1,25 @@
+defaults.nonSelection = Select the text you wish to link
+defaults.label = Click here and start typing..
+defaults.button.save.label = save
+defaults.button.discard.label = cancel
+
+controls.bold = Bold
+controls.italic = Italic
+controls.underline = Underline
+controls.strikeThrough = Strike-through
+controls.fontSize = Font size
+controls.fontColor = Font color
+controls.highlight = Highlight text
+controls.justifyLeft = Align left
+controls.justifyCenter = Align center
+controls.justifyRight = Aling right
+controls.list = Insert list
+controls.indent = Indent
+controls.outdent = Outdent
+controls.insertHorizontalRule = Insert horizontal rule
+controls.createLink = Create link
+controls.insertImage = insert Image
+controls.insertTable Insert table
+controls.removeFormat = Remove formatting
+controls.sourceCode = Show source code
+controls.fullScreen = Fullscreen

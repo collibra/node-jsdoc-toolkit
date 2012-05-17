@@ -1,0 +1,40 @@
+<br /><br />
+
+<textarea id="wysiwyg_large"></textarea><br /><br />
+<textarea id="wysiwyg_small"></textarea>
+
+<script language="JavaScript" type="text/javascript">
+  core.dom.ready(function() {
+  core.module.use('library/uielements/texteditor', function(TextEditor) {
+    TextEditor.create('#wysiwyg_small', TextEditor.REDUCED, {
+      save: {
+        automatic: false,
+        buttons: {
+          show: true,
+          position: "bottom",
+          
+          onSave: function(e) {
+            TextEditor.save('#wysiwyg_small');
+          },
+          onDiscard: function(e) {
+            TextEditor.resetContent('#wysiwyg_small');
+          }
+        },
+        url: "http://localhost/treeGET.php",
+        onSuccess: function() {
+          
+        }
+      },
+      label: 'Here goes label for reduced editor'
+    });
+    TextEditor.create('#wysiwyg_large', TextEditor.FULL, {
+        save:{
+            buttons: {
+                show: true
+            }
+        },
+        label: 'Here goes label for full editor'
+    });
+  });
+  });
+</script>

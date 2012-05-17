@@ -1,0 +1,54 @@
+<project name="ui.core" basedir="../">
+  <taskdef resource="net/sf/antcontrib/antlib.xml">
+    <classpath>
+      <pathelement location="${basedir}/../com.collibra.tools/ant/ant-contrib-1.0b3.jar"/>
+    </classpath>
+  </taskdef>
+
+  <property environment="env" />
+
+  <macrodef name="jake">
+    <attribute name="target" />
+    <attribute name="params" default="" />
+    <attribute name="other" default="" />
+
+    <sequential>
+      <exec dir="${basedir}/build/" executable="cmd.exe" failonerror="true" osfamily="windows">
+        <arg line='/c jake @{target}[@{params},windows] @{other}'/>
+      </exec>
+      <exec dir="${basedir}/build/" executable="/opt/local/bin/jake" resolveexecutable="true" failonerror="true" osfamily="unix">
+        <env key="PATH" value="/opt/local/bin:/opt/local/sbin:/opt/subversion/bin:/usr/local/mysql/bin:/usr/local/bin:${env.PATH}" />
+        <arg line="@{target}[@{params}] @{other}" />
+      </exec>
+    </sequential>
+  </macrodef>
+
+  <target name="build.changed">
+    <propertyregex property="eclipse.buildfiles" input="${eclipse.buildfiles}" override="true" regexp='\" \"' replace='::' global="true" />
+    <propertyregex property="eclipse.buildfiles" input="${eclipse.buildfiles}" override="true" regexp='[A-Z]{1}:' replace='' global="true" />
+    <propertyregex property="eclipse.buildfiles" input="${eclipse.buildfiles}" override="true" regexp='\\' replace='/' global="true" />
+    <propertyregex property="eclipse.buildfiles" input="${eclipse.buildfiles}" override="true" regexp='\s' replace='___' global="true" />
+    
+    <jake target="filechanged" params="'${eclipse.buildfiles}'" other="--trace" />
+  </target>
+
+  <target name="build.all">
+    <jake target="build:all" />
+  </target>
+
+  <target name="build.all.production">
+    <jake target="build:all.production" />
+  </target>
+
+  <target name="build.core">
+    <jake target="build:core" />
+  </target>
+
+  <target name="build.core.production">
+    <jake target="build:core.production" />
+  </target>
+
+  <target name="build.modules">
+    <jake target="build:modules" />
+  </target>
+</project>

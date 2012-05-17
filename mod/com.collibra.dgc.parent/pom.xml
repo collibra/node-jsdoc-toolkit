@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.collibra</groupId>
+	<artifactId>com.collibra.dgc.parent</artifactId>
+	<version>4.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.resources.sourceEncoding>UTF-8</project.resources.sourceEncoding>
+		<spring.framework.version>3.1.1.RELEASE</spring.framework.version>
+		<jersey.framework.version>1.8</jersey.framework.version>
+	</properties>
+
+	<modules>
+		<module>../com.collibra.dgc.core</module>
+		<module>../com.collibra.dgc.ui.core</module>
+		<module>../com.collibra.dgc.ui.glossary</module>
+		<module>../com.collibra.dgc.war</module>
+		<module>../com.collibra.dgc.rest.core</module>
+	</modules>
+
+	<scm>
+		<!-- anonymous access -->
+		<connection>scm:svn:https://buzz.collibra.com/svn/collibra/Products/DGC/trunk</connection>
+		<!-- developer access -->
+		<developerConnection>scm:svn:https://buzz.collibra.com/svn/collibra/Products/DGC/trunk</developerConnection>
+		<!-- web access -->
+		<url>https://buzz.collibra.com/svn/collibra/Products/DGC/trunk</url>
+	</scm>
+
+  <distributionManagement>
+    <site>
+      <id>api.collibra.com</id>
+      <url>${site.deploy.url}/${project.artifactId}</url>
+    </site>
+  </distributionManagement>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>servlet-api</artifactId>
+				<version>3.0</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+		
+	<build>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.apache.maven.plugins
+										</groupId>
+										<artifactId>
+											maven-antrun-plugin
+										</artifactId>
+										<versionRange>
+											[1.7,)
+										</versionRange>
+										<goals>
+											<goal>run</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+						<encoding>${project.build.sourceEncoding}</encoding>
+						<sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

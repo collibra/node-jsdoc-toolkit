@@ -1,0 +1,63 @@
+/**
+ * LESS/CSS code for Tooltip.
+ *
+ * Copyright Collibra 2012.
+ * @author Michal Hans <michal@collibra.com>
+ * @author Clovis Six <clovis@collibra.com>
+ */
+
+// Tooltip background colors
+@tooltipDefaultBackgroundColor: #363636;
+@tooltipErrorBackgroundColor: @red;
+@tooltipSuccessBackgroundColor: @lightGreen;
+@tooltipWarningBackgroundColor: @darkestYellow;
+
+// Tooltip font colors
+@tooltipDefaultFontColor: #FFF;
+@tooltipErrorFontColor: @tooltipDefaultFontColor;
+@tooltipSuccessFontColor: @tooltipDefaultBackgroundColor;
+@tooltipWarningFontColor: @tooltipDefaultBackgroundColor;
+
+.ui-tooltip-titlebar,
+.ui-tooltip-content {
+  border: none;
+  font-size: @controlFontSize;
+  line-height: 1.4em;
+  .border-radius();
+}
+
+.ui-tooltip-default {
+  .ui-tooltip-titlebar,
+  .ui-tooltip-content {
+    background-color: @tooltipDefaultBackgroundColor;
+    color: @tooltipDefaultFontColor;
+    border:solid 0px @tooltipDefaultBackgroundColor;
+  }
+}
+
+.ui-tooltip-success {
+  .ui-tooltip-titlebar,
+  .ui-tooltip-content {
+    background-color: @tooltipSuccessBackgroundColor;
+    color: @tooltipSuccessFontColor;
+    border:solid 0px @tooltipSuccessBackgroundColor;
+  }
+}
+
+.ui-tooltip-warning {
+  .ui-tooltip-titlebar,
+  .ui-tooltip-content {
+    background-color: @tooltipWarningBackgroundColor;
+    color: @tooltipWarningFontColor;
+    border:solid 0px @tooltipWarningBackgroundColor;
+  }
+}
+
+.ui-tooltip-danger {
+  .ui-tooltip-titlebar,
+  .ui-tooltip-content {
+    background-color: @tooltipErrorBackgroundColor;
+    color: @tooltipErrorFontColor;
+    border:solid 0px @tooltipErrorBackgroundColor;
+  }
+}

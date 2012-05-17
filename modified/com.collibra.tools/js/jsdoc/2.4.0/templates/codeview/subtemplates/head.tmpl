@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="{+IO.encoding+}" />
+    <title>Data Governance Center JavaScript API</title>
+    
+    <link type="image/x-icon" href="{+Link.base+}images/favicon.ico" rel="shortcut icon">
+    <link rel="stylesheet" href="{+Link.base+}css/screen.css" />
+    
+    <script src="{+Link.base+}javascript/jquery.js"></script>
+    <script src="{+Link.base+}javascript/shCore.js"></script>
+    <script src="{+Link.base+}javascript/shBrushJScript.js"></script>
+    <script src="{+Link.base+}javascript/jquery.beautyOfCode.js"></script>
+    
+    
+    <script>
+    $(document).ready(function(){
+      $("a.namespace").live("click", function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          $(".content").load($(this).attr("href"), function(){
+            if (!($.browser.msie && $.browser.version === '7.0')) {
+              $.beautyOfCode.beautifyAll(); //syntax hilighting
+            }
+          });
+      });
+      
+      // MENU
+      $('.menu span.menuHeader').unbind('click').click( function(){
+        var submenu = $(this).parent().find('ul');
+        if(submenu.is(':visible')) {
+          submenu.slideUp('fast');
+        } else {
+          $('.menu li.mainLevel > ul').slideUp('fast');
+          submenu.slideDown('slow');
+        }
+      }).css('cursor','pointer');
+      
+      $('.menu li.mainLevel > ul').slideUp('fast');
+      
+      
+      //SEARCH CLASS
+      jQuery.expr[':'].Contains = function(a, i, m) { 
+        return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0; 
+      };
+      var searchClassInput = $('input[name=classFilter]');
+      
+      searchClassInput.keyup( function(){
+        var query = searchClassInput.val(),
+            matchedElements = false;
+        
+        if (query.length) {
+          $(".menu ul ul, .menu ul ul li").hide();
+          matchedElements = $(".menu li.subLevel:Contains("+ query +")").show();
+          $(".menu li:Contains("+ query +")").parentsUntil("nav").show();
+          if (matchedElements.size() === 1) {
+            $(".content").load(matchedElements.find('a').attr("href"), function(){
+              if (!($.browser.msie && $.browser.version === '7.0')) {
+                $.beautyOfCode.beautifyAll(); //syntax hilighting
+              }
+            });
+          }
+        } else {
+          $(".menu ul ul li").show();
+          matchedElements = false;
+        }
+      });
+      
+      searchClassInput.focus( function(){
+        var query = searchClassInput.val();
+        if (query === searchClassInput.attr("title")) {
+          searchClassInput.val("");
+        }
+      });
+      
+      searchClassInput.blur( function(){
+        var query = searchClassInput.val();
+        if (!query.length) {
+          searchClassInput.val(searchClassInput.attr("title"));
+        }
+      });
+      
+      //SYNTAX HILIGHTING
+      $.beautyOfCode.init({
+        defaults: { gutter: false },
+        brushes: ['JScript']
+      });
+      
+    });
+    </script>
+    
+  </head>
+
+  <body>
+    <div class="templateheader">
+      <a href="/" class="logo"><img src="{+Link.base+}images/logo.png" alt="LOGO" /></a>
+    </div>

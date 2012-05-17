@@ -1,0 +1,5 @@
+.bsg-widget-1 {
+	background-image: url('${modulePath}images/logo.png');
+	font-size: 14px;
+	padding: 20px;
+}

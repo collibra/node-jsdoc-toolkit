@@ -1,0 +1,27 @@
+#set($columns = $pd.getProperty("columns"))
+#set($widgets = $pd.getProperty("widgets"))
+
+## If dynamic widgets are added here, merge those from config with them.
+#if($widgetsDynamic)
+  #foreach($wd in $widgetsDynamic)
+    #set($a = $widgets.put("widgetD1", $wd))
+  #end
+#end
+
+#set($colInd = 0)
+<br>
+<div id="widgetboard" >
+  ## create columns based on desired number
+  #foreach($column in $columns)
+    <div class="column" style="width: $column.width%">
+      
+      ## add widget velocity in correct column
+      #foreach($widget in $widgets)
+        #if ($widget.column == $colInd)
+          #renderWidget($widget.path, $widget.remote, $widget.column, $widget.row)
+        #end
+      #end
+    </div>
+    #set($colInd = $colInd + 1)
+  #end
+</div>

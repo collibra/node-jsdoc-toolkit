@@ -1,0 +1,33 @@
+##
+## English Translations 123Navigator
+##
+
+docForward=
+
+bar.text=Navigator
+bar.expanded_text=Navigator
+bar.switcher.empty=
+bar.switcher.onetwothree=Show Column Navigation
+bar.switcher.tree=Show Tree Navigation
+
+url.tree=
+url.onetwothree=
+url.info=
+
+ajax.error=An <b>error</b> occurred while trying to get the communities and vocabularies for the <b>navigator</b>. Refresh the page and contact your administrator if the problem persists.
+
+info.one=Select a Semantic Community.
+info.two=Select a Speech Community or subcommunity.
+info.three=Select a Vocabulary.
+
+filter=Filter...
+
+linear.empty.sem=There are no semantic communities.
+linear.empty.spe=There are no speech or sub communities.
+linear.empty.voc=There are no vocabularies.
+linear.actions.add=Add New
+linear.actions.remove=Delete Selected
+linear.actions.removeall=Delete All Shown
+linear.loading=Loading...
+
+rights.canCreateCommunity=true

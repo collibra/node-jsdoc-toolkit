@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page-definition name="Bootstrap" description="">
+	<configuration>
+           <module name="pages/shared/page">
+               <regions>
+                   <content>
+                       <module name="pages/bootstrap" />
+                   </content>
+               </regions>
+           </module>
+       </configuration>
+       <matching-rules>
+           <rule path="bootstrap" />
+       </matching-rules>
+</page-definition>

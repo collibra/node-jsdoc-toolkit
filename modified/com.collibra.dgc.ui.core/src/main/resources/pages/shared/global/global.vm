@@ -1,0 +1,151 @@
+###
+### Global Page Module
+###
+### Contains code that should be included in every single page.
+### Macro's, variables, css code, etc etc.
+### Copyright Collibra 2012.
+### @author Clovis Six <clovis@collibra.com>
+### @author Grzegorz Kaczan <gkaczan@collibra.com>
+###
+###
+
+#**
+ * Render the modules of the given region.
+ *
+ * @param $region The name of the region of the current module as defined in the page definition.
+ *#
+#macro(renderRegion $region)
+	$pd.enterRegion($region)
+
+	#foreach ($module in $pd.getModules())
+		$pd.enterModule($module)
+
+    #parse($pd.getModuleTemplate())
+
+		$pd.leaveModule()
+	#end
+
+	$pd.leaveRegion()
+#end
+
+#**
+ * Macro that displays a specific module. It should have been defined 
+ * in the 'dependencies' in the properties file of the current module.
+ *
+ * @param $module The full path of the module to render.
+ *#
+#macro(renderModule $module)
+  #set($template = $pd.getModuleTemplate($module))
+
+  #if($template)
+	  #parse($template)
+  #end
+#end
+
+#**
+ * Macro that displays a widget.
+ * @param $url The url of the widget.
+ *#
+#macro(renderWidget $widgetUrl $remote $column $row)
+  #set($widgetTitle = $!pd.getProperty($widgetUrl, "widget-title"))
+  #set($widgetName = $!pd.getProperty($widgetUrl, "widget-name"))
+  #set($widgetSettings = false)
+  #set($widgetSettings = $pd.getProperty($widgetUrl, "settings"))
+  #set($widgetDefaults = false)
+  #set($locked = "")
+  #set($widgetDefaults = $pd.getProperty($widgetUrl, "defaults"))
+
+  #if($widgetDefaults.locked && $widgetDefaults.locked == "true")
+    #set($locked = "locked")
+  #end
+
+  #set($pre_class = "")
+  #set($Integer = 0)
+  #set($hashCode = $widgetUrl + $column + $row)
+  #set($hashCode = $hashCode.hashCode())
+  #set($hashCode = $mathtool.toInteger($hashCode))
+
+  #if($hashCode < 0)
+    #set( $hashCode =  $hashCode * -1 )
+  #end
+
+  #if ($widgetDefaults.bare)
+    #set( $pre_class = "bare" )
+  #end
+
+  #if ($remote == true)
+    #set( $pre_class = $pre_class + " state-loading" )
+  #end
+
+  <div id="widget-$hashCode" class="widget $pre_class state-default" name="$widgetName" col="$column" row="$row" remote="$remote" path="$widgetUrl">
+    <div class="widget-container">
+      <div class="widget-head">
+        <div class="widget-title">
+          #if ($widgetTitle)
+            $widgetTitle
+          #end
+        </div>
+        <div class="widget-menu">
+          <ul class="widget-menu-items">
+            <li class="widget-menu-item widget-config"><i class="icon-cogwheel"></i></li>
+            <li class="widget-menu-item widget-handle $locked"><i class="icon-move"></i></li>
+            <li class="widget-menu-item widget-remove"><i class="icon-delete"></i></li>
+          </ul>
+        </div>
+      </div>
+      <div class="widget-content">
+        #set($template = $pd.getModuleTemplate($widgetUrl))
+        
+        #if($template)
+          #if($remote == false)
+            #parse($template)
+          #else
+            <div class="widget-loading-content">Loading ...<i class="loading-indicator"></i></div>
+          #end
+        #end
+      </div>
+      <div class="widget-settings">
+        <div class="widget-settings-content">
+          <div class="widget-settings-common">
+            <input type="checkbox" setting="default.locked" name="widget-locked"/><label for="widget-locked">Locked</label>
+          </div>
+          
+          <fieldset class="widget-settings-custom">
+            <legend>Content</legend>
+
+            #if($widgetSettings)
+              #foreach($key in $widgetSettings.keySet())
+                #set($map = $widgetSettings.get($key))
+
+                #if(!$map.placeholder)
+                  #set($map.placeholder = "")
+                #end
+
+                <p>
+
+                #if($map.type)
+                  <input setting="$key" placeholder="$map.placeholder" type="$map.type" id="widget-${hashCode}-setting-${key}" />
+                  
+                  #if($map.label)
+                    <label for="widget-${hashCode}-setting-${key}">$map.label</label>
+                  #end
+                #end
+                
+                </p>
+              #end
+            #end
+          </fieldset>
+        </div>
+        <div class="widget-settings-buttons">
+          <button class="btn-success no-label"><i class="icon-ok white"></i></button>
+          <button class="btn-danger no-label"><i class="icon-delete"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+#end
+
+#set($session = $request.getSession())
+
+## Initialize most used variables
+##set($licenseValid    = $cockpit.getLicenseValidator().isValid())

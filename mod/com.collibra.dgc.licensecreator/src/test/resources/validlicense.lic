@@ -1,0 +1,9 @@
+Customer=Hudson
+Company=Collibra
+Feature1=true
+Feature2=true
+Expire=10-10-2099
+Issued=rO0ABXNyAA5qYXZhLnV0aWwuRGF0ZWhqgQFLWXQZAwAAeHB3CAAAASZmYy+2eA==
+UnsignedFeature=This text can be changed while the license will be still valid
+SignCode=3F
+Signature=302C02142FF72D2E4E4558EFA99B7B331FA83BDAA8031F4402140F14822244701596027ECEB36F5B7E53BE3924E3

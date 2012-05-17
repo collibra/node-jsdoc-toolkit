@@ -1,0 +1,233 @@
+<style>
+
+.test-textinput ul{
+  overflow:hidden;
+}
+.test-textinput li{
+  width:33%;
+  float:left;
+}
+</style>
+
+<div class="test-textinput" style="margin:20px auto; width: 900px;">
+  <div class="browser"></div>
+  <div class="halfpage">
+	  <h2>TextInput - NORMAL</h2>
+	  <ul class="input-normal">
+	    <li>
+	      <div class="inputType">Empty:</div>
+	      <input type="text" /><button>OK</button>
+	    </li>
+	    <li>
+	      <div class="inputType">Value:</div>
+	      <input type="text" value="Sample value" title="Here goes title!" />
+	    </li>
+	    <li>
+          <div class="inputType">Password:</div>
+          <input type="password" value="Sample value" title="Here goes title!" />
+        </li>
+	    <li>
+	      <div class="inputType">Placeholder:</div>
+	      <input type="text" placeholder="Sample placeholder" />
+	    </li>
+	    <li>
+          <div class="inputType">Disabled:</div>
+          <input class="disabled" type="text" disabled="disabled" />
+        </li>
+	    <li>
+	      <div class="inputType">Disabled with value (+class):</div>
+	      <input class="disabled" type="text" value="Sample disabled value" disabled="disabled" />
+	    </li>
+	    <li>
+          <div class="inputType">Disabled with value:</div>
+          <input type="text" value="Sample disabled value" disabled="disabled" />
+        </li>
+	    <li>
+	      <div class="inputType">Focused with value:</div>
+	      <input class="focus" type="text" value="Sample value"  />
+	    </li>
+	    <li>
+          <div class="inputType">Validated:</div>
+          <input class="validated" type="text" value="Validated" />
+        </li>
+        <li>
+          <div class="inputType">Validated - success:</div>
+          <input class="validated success" type="text" value="Success" />
+        </li>
+        <li>
+          <div class="inputType">Validated - error:</div>
+          <input class="validated error" type="text" value="Error" />
+        </li>
+        <li>
+          <div class="inputType">Validated - warning:</div>
+          <input class="validated warning" type="text" value="Warning" />
+        </li>
+	  </ul>
+  </div>
+  <div class="halfpage">
+	  <h2>TextInput - SMALL</h2>
+	  <ul class="input-small">
+	    <li>
+	      <div class="inputType">Empty:</div>
+	      <input class="small" type="text" /><button>OK</button>
+	    </li>
+	    <li>
+	      <div class="inputType">Value:</div>
+	      <input class="small" type="text" value="Sample value" />
+	    </li>
+	    <li>
+          <div class="inputType">Password:</div>
+          <input class="small" type="password" value="Sample value" title="Here goes title!" />
+        </li>
+	    <li>
+	      <div class="inputType">Placeholder:</div>
+	      <input class="small" type="text" placeholder="Sample placeholder" />
+	    </li>
+	    <li>
+	      <div class="inputType">Disabled:</div>
+	      <input class="small" type="text" disabled="disabled" />
+	    </li>
+	    <li>
+	      <div class="inputType">Disabled with value:</div>
+	      <input class="small" type="text" value="Sample disabled value" disabled="disabled" />
+	    </li>
+	    <li>
+	      <div class="inputType">Focused with value:</div>
+	      <input type="text" value="Sample value" class="small focus" />
+	    </li>
+	    <li>
+          <div class="inputType">Validated:</div>
+          <input class="small validated" type="text" value="Validated" />
+        </li>
+        <li>
+          <div class="inputType">Validated - success:</div>
+          <input class="small validated success" type="text" value="Success" />
+        </li>
+        <li>
+          <div class="inputType">Validated - error:</div>
+          <input class="small validated error" type="text" value="Error" />
+        </li>
+        <li>
+          <div class="inputType">Validated - warning:</div>
+          <input class="small validated warning" type="text" value="Warning" />
+        </li>
+	  </ul>
+  </div>
+  <div class="halfpage">
+	  <h2>TextInput - BIG</h2>
+	  <ul class="input-big">
+	    <li>
+	      <div class="inputType">Empty:</div>
+	    </li>
+	    <li>
+	      <div class="inputType">Value:</div>
+	      <input class="big" id="big-1" type="text" value="Sample value" />
+	    </li>
+        <li>
+          <div class="inputType">Password:</div>
+          <input class="big" type="password" value="Sample value" title="Here goes title!" />
+        </li>
+	    <li>
+	      <div class="inputType">Placeholder:</div>
+	      <input class="big" type="text" placeholder="Sample placeholder" />
+	    </li>
+	    <li>
+	      <div class="inputType">Disabled:</div>
+	      <input class="big" type="text" disabled="disabled" />
+	    </li>
+	    <li>
+	      <div class="inputType">Disabled with value:</div>
+	      <input class="big" type="text" value="Sample disabled value" disabled="disabled" />
+	    </li>
+	    <li>
+	      <div class="inputType">Focused with value:</div>
+	      <input type="text" value="Sample value" class="big focus" />
+	    </li>
+	    <li>
+          <div class="inputType">Validated:</div>
+          <input class="big validated" type="text" value="Validated" />
+        </li>
+        <li>
+          <div class="inputType">Validated - success:</div>
+          <input class="big validated success" type="text" value="Success" />
+        </li>
+        <li>
+          <div class="inputType">Validated - error:</div>
+          <input class="big validated error" type="text" value="Error" />
+        </li>
+        <li>
+          <div class="inputType">Validated - warning:</div>
+          <input class="big validated warning" type="text" value="Warning" />
+        </li>
+	  </ul>
+  </div>
+  <div class="halfpage">
+	  <h2>TextInput - MULTI</h2>
+	  <ul class="input-multi">
+	    <li>
+	      <div class="inputType">Empty:</div>
+	      <textarea></textarea>
+	    </li>
+	    <li>
+	      <div class="inputType">Value:</div>
+	      <textarea>Sample value</textarea>
+	    </li>
+	    <li>
+	      <div class="inputType">Placeholder:</div>
+	      <textarea placeholder="Sample placeholder"></textarea>
+	    </li>
+	    <li>
+	      <div class="inputType">Disabled:</div>
+	      <textarea disabled="disabled"></textarea>
+	    </li>
+	    <li>
+	      <div class="inputType">Disabled with value:</div>
+	      <textarea disabled="disabled">Here we have some value</textarea>
+	    </li>
+	    <li>
+	      <div class="inputType">Focused with value:</div>
+	      <textarea class="focus">Sample value</textarea>
+	    </li>
+	    <li>
+          <div class="inputType">Validated:</div>
+          <textarea class="validated">Validated</textarea>
+        </li>
+        <li>
+          <div class="inputType">Validated - success:</div>
+          <textarea class="validated success">Success</textarea>
+        </li>
+        <li>
+          <div class="inputType">Validated - error:</div>
+          <textarea class="validated error">Error</textarea>
+        </li>
+        <li>
+          <div class="inputType">Validated - warning:</div>
+          <textarea class="validated warning">Warning</textarea>
+        </li>
+        <li>
+          <div class="inputType">Big:</div>
+          <textarea class="big" placeholder="Sample placeholder"></textarea>
+        </li>
+	  </ul>
+  </div>
+</div>
+
+
+
+
+<script language="JavaScript" type="text/javascript">
+core.dom.ready(function() {
+  core.module.use('library/uielements/textinput', function(TextInput) {
+    window.TextInput = TextInput;
+
+    core.dom.each('.test-textinput .big', function(el){
+     //core.dom.generateID(el);
+     TextInput.create(el, TextInput.TYPE_BIG);
+    });
+    
+    //Show browser type
+    core.dom.select('.browser').text('Browser: '+navigator.userAgent);
+
+  });
+});
+</script>

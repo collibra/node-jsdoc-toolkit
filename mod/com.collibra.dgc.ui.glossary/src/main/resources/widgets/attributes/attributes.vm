@@ -1,0 +1,108 @@
+#**
+* Attributes Widget
+*
+* Copyright Collibra 2012
+* @author Michal Hans <michal@collibra.com>
+*#
+#set($termId = $id)
+#set($termObj = $termComponent.getTerm($termId))
+#set($termAttributes = $termObj.getAttributes())
+
+#if($termAttributes.size())
+  ## group attributes by type
+  #set($termAttributesGroups = {})
+  
+  #foreach($termAttribute in $termAttributes)
+    #set($termAttributeType = $termAttribute.getLabel().getSignifier())
+  
+    ## create type group if not exist
+    #if(!$termAttributesGroups.get($termAttributeType))
+      #set($group = $termAttributesGroups.put($termAttributeType, []))
+    #end
+    
+    ## add attribute to group by type
+    #set($group = $termAttributesGroups.get($termAttributeType))
+    #set($ok = $group.add($termAttribute))
+  
+  #end
+  
+  ## for each group
+  #foreach($termAttributesGroup in $termAttributesGroups.keySet())
+  <div class="attributes-type-container">
+    <div class="attributes-type-container-title">${termAttributesGroup}</div>
+    <div class="attributes-wrapper">
+    
+    ## for each attribute in group
+    #foreach($termAttribute in $termAttributesGroups.get($termAttributesGroup))
+      #set($termAttributeResourceId = $termAttribute.getId())
+      #set($termAttributeType = $termAttribute.getLabel().getSignifier())
+      #set($termAttributeLongExpression = $termAttribute.getValue())
+      #set($termAttributeAuthor = $termAttribute.getLastModifiedBy())
+      #set($termAttributeCreationDate = $datetool.toDate($termAttribute.getLastModified()))
+      #set($termAttributeCreationDate = $datetool.format('dd-MM-yyyy', $termAttributeCreationDate))
+      #set($canEdit = true)
+      #set($canRemove = true)
+      
+      <div class="attribute-container attribute-type-description attribute-${termAttributeResourceId}" data-resourceid="${termAttributeResourceId}">
+        ## View Mode
+        <div class="attribute-mode-view">
+        
+          ## Attribute menu (edit & remove)
+          #if($canEdit || $canRemove)
+          <div class="attribute-menu">
+            <ul>
+              #if($canEdit)
+              <li>
+                <div class="attribute-menu-item edit">
+                    <i class="icon-edit"></i> $!msg.get("attributes.buttons.edit.label")
+                </div>
+              </li>
+              #end
+              #if($canRemove)
+              <li>
+                <div class="attribute-menu-item delete">
+                  <i class="icon-close-thin"></i> $!msg.get("attributes.buttons.delete.label")
+                </div>
+              </li>
+              #end
+            </ul>
+          </div>
+          #end
+        
+          ## Attribute content
+          <div class="attribute-content">$!{termAttributeLongExpression}</div>
+        
+          ## Attribute info (author & date)
+          #if($termAttributeAuthor || $termAttributeCreationDate)
+          <div class="attribute-info">
+            <div class="attribute-info-author"><a href="${contextPath}user/$!{termAttributeAuthor}">$!{termAttributeAuthor}</a></div>
+            <div class="attribute-info-date">$!{termAttributeCreationDate}</div>
+          </div>
+          #end
+        </div>
+        
+        ## Edit Mode
+        #if($canEdit)
+        <div class="attribute-mode-edit" style="display:none;">
+          <textarea>$!{termAttributeLongExpression}</textarea>
+        </div>
+        #end
+        
+        ## Remove Mode
+        #if($canRemove)
+        <div class="attribute-mode-remove" style="display:none;">
+          <div class="widget-overlay"></div>
+          <div class="attribute-remove-buttons">
+            <div class="attribute-remove-label">Are you sure?</div>
+            <button class="attribute-remove-button-confirm btn-success no-label"><i class="icon-ok white"></i></button>
+            <button class="attribute-remove-button-cancel btn-danger no-label"><i class="icon-delete white"></i></button>
+          </div>
+        </div>
+        #end
+        
+      </div>
+    #end
+    </div> <!-- end of wrapper -->
+  </div>
+  #end
+#end

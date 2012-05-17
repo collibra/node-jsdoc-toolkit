@@ -1,0 +1,23 @@
+/**
+ * LESS/CSS code for WidgetBoard
+ *
+ * Copyright Collibra 2012.
+ * @author Michal Hans <michal@collibra.com>
+ */
+
+@widgetMinHeight: 190px;
+@widgetMinWidth: 275px;
+
+#widgetboard{
+  .column{
+    float: left;
+    min-height: @widgetMinHeight; /* min-height to allow drop on empty */
+    min-width: @widgetMinWidth;
+    width: 33%;
+  }
+
+  .widget-placeholder {
+    border: 2px dashed #999;
+    margin-bottom: 20px;
+  }
+}

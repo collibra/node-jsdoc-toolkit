@@ -1,0 +1,160 @@
+#**
+* Titlebar Module
+*
+* Copyright Collibra 2011
+* @author Michal Hans <michal@collibra.com>
+*#
+
+#set($resourceType = $pd.getProperty("resource-type"))
+#set($removeTitlebar = false)
+#set($hideTitlebar = false)
+
+## TERM PAGE
+#if($resourceType == 'term')
+  #set($resourceObject = $termComponent.getTerm($id))
+  #if($resourceObject)
+	  #set($resourceTitle = $resourceObject.getSignifier())
+	  #set($resourceArticulationScore = 66) ## !TODO
+	  #set($resourceConfiguration = true)
+	  #set($resourceConceptType = $termComponent.getConceptType($id))
+	  #set($resourceStatus = $resourceObject.getStatus())
+	  #set($resourceURI = $resourceObject.getId())
+	  #set($possibleConceptTypes = $termComponent.findPossibleConceptTypes($id))
+	  #set($possibleStatuses = $termComponent.findPossibleStatuses($id))
+	  ## !TODO: #set($resourceContacts = [ { 'userName': 'Clovis Six', 'userPage': 'clovis.six' }, { 'userName': 'Michal Hans', 'userPage': 'michal.hans' } ])
+  #else
+    #set($resourceTitle = 'Resource not found')
+  #end
+  
+## VOCABULARY PAGE
+#elseif($resourceType == 'vocabulary')
+  #set($resourceObject = $vocabularyComponent.getVocabulary($id))
+  #if($resourceObject)
+      #set($resourceTitle = $resourceObject)
+      #set($resourceArticulationScore = 66) ## !TODO
+      #set($resourceConceptType = $resourceObject.getType())
+      #set($resourceURI = $resourceObject.getUri())
+  #else
+    #set($resourceTitle = 'Resource not found')
+  #end
+  
+## COMMUNITY PAGE
+#elseif($resourceType == 'community')
+  #set($resourceObject = $communityComponent.getCommunity($id))
+  #if($resourceObject)
+      #set($resourceTitle = $resourceObject)
+      #set($resourceArticulationScore = 66) ## !TODO
+      #set($resourceURI = $resourceObject.getUri())
+  #else
+    #set($resourceTitle = 'Resource not found')
+  #end
+#elseif($pageTitle)
+  #set($resourceTitle = $pageTitle)
+#else
+  #set($removeTitlebar = true)
+#end
+
+## PERMISSIONS
+## !TODO:
+#set($canOpenResourceConfiguration = true)
+#set($canEditResourceURI    = true)
+#set($canEditResourceType   = true)
+#set($canEditResourceStatus = true)
+
+
+#if(!$removeTitlebar)
+<div id="titlebar" class="${resourceType}" #if($hideTitlebar) style="display:none" #end >
+  
+  ## VIEW Mode
+  <div class="titlebar-view">
+    #if($resourceArticulationScore >= 0)
+    <div class="articulation-score-wrapper">
+      <div class="articulation-score">${resourceArticulationScore}%</div>
+    </div>
+    #end
+  
+    <div class="resource-info">
+      #if($resourceTitle)
+      <div class="resource-title">${resourceTitle}</div>
+      #end
+      #if($resourceConfiguration && $canOpenResourceConfiguration)
+      <div class="resource-configuration tooltip" title="$!{msg.get('modules.content.titlebar.resource.configuration')}"><i class="icon-cogwheel lightGrey tooltip" title="$!msg.get('modules.content.titlebar.resource.configuration')"></i></div>
+      #end
+      #if($resourceConceptType)
+      <div class="resource-type">$!msg.get('modules.content.titlebar.resource.concepttype'): <a href="${contextPath}term/$resourceConceptType.getResourceId()">$resourceConceptType.verbalise()</a></div>
+      #end
+      #if($resourceStatus)
+      <div class="resource-status">$!msg.get('modules.content.titlebar.resource.status'): <a href="${contextPath}term/$resourceStatus.getResourceId()">$resourceStatus.verbalise()</a></div>
+      #end
+    
+      #if($resourceContacts && $resourceContacts.size() > 0)
+      <div class="resource-contacts">
+        #foreach($resourceContact in $resourceContacts)
+        <div class="resource-contact">
+          <img src="#" alt="${resourceContact.userName}" title="${resourceContact.userPage}" />
+        </div>
+        #end
+      </div>
+      #end
+    </div>
+  </div>
+  
+  ## EDIT Mode
+  <div class="titlebar-settings" style="display:none">
+    ## URI
+    #if($resourceURI)
+    <div class="titlebar-settings-field titlebar-uri">
+      <span class="label">$!msg.get('modules.content.titlebar.resource.uri'):</span>
+      <span class="field">
+        <input #if(!$canEditResourceURI) disabled="disabled" #end id="titlebar-uri" name="titlebar-uri" type="text" value="${resourceURI}" />
+      </span>
+    </div>
+    #end
+    ## Concept Type
+    #if($resourceConceptType && $possibleConceptTypes)
+    <div class="titlebar-settings-field titlebar-type">
+      <span class="label">$!msg.get('modules.content.titlebar.resource.concepttype'):</span>
+      <span class="field">
+        <select #if(!$canEditResourceType) disabled="disabled" #end id="titlebar-type" name="titlebar-type">
+          #foreach($possibleConceptType in $possibleConceptTypes)
+            #if($possibleConceptType.getResourceId() == $resourceConceptType.getResourceId())
+              <option value="${possibleConceptType.getResourceId()}" selected="selected">${possibleConceptType.getSignifier()}</option>
+            #else
+              <option value="${possibleConceptType.getResourceId()}">${possibleConceptType.getSignifier()}</option>
+            #end
+          #end
+        </select>
+      </span>
+    </div>
+    #end
+    ## Status
+    #if($resourceStatus && $possibleStatuses)
+    <div class="titlebar-settings-field titlebar-status">
+      <span class="label">$!msg.get('modules.content.titlebar.resource.status'):</span>
+      <span class="field">
+        <select #if(!$canEditResourceStatus) disabled="disabled" #end id="titlebar-status" name="titlebar-status">
+          #foreach($possibleStatus in $possibleStatuses)
+            #if($possibleStatus.getResourceId() == $resourceStatus.getResourceId())
+              <option value="${possibleStatus.getResourceId()}" selected="selected">${possibleStatus.getSignifier()}</option>
+            #else
+              <option value="${possibleStatus.getResourceId()}">${possibleStatus.getSignifier()}</option>
+            #end
+          #end
+        </select>
+      </span>
+    </div>
+    #end
+    
+    ## HIDDEN INFO
+    <input type="hidden" disabled="disabled" id="titlebar-id" name="titlebar-id" value="$id" />
+    
+    ## Save/Cancel buttons
+    #if($canEditResourceURI || $canEditResourceType || $canEditResourceStatus)
+    <div class="titlebar-settings-field titlebar-savebuttons">
+      <div class="btn-success" id="titlebar-settings-save"><i class="icon-save" ></i>$!msg.get('modules.content.titlebar.button.save')</div>
+      <div class="btn-danger" id="titlebar-settings-cancel"><i class="icon-cancel"></i>$!msg.get('modules.content.titlebar.button.cancel')</div>
+    </div>
+    #end
+  </div>
+</div>
+#end

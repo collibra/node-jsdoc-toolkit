@@ -1,0 +1,14 @@
+<div id="login-wrapper">
+	<div class="login">
+		<div class="title">$msg.get("login.login")</div>
+		#if ($loginFailure)
+			<div class="login_error">$msg.get($loginFailure)</div>
+		#end
+	    <form name="loginform" action="" method="post">	
+          <div><input class="big" type="text" name="username" maxlength="30" placeholder="$msg.get('login.username')"></div>
+		  <div><input class="big" type="password" name="password" maxlength="30" placeholder="$msg.get('login.password')"></div>
+		  <div><input type="checkbox" name="rememberMe">$msg.get('login.rememberMe')</div>
+          <div><input type="submit" name="submit" value="$msg.get("login.login")"></div>
+        </form>
+	</div>
+</div>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!-- This is the configuration file containing all the default values. -->
+<configuration>
+	<system>
+		<core>
+			<datasource>
+				<!-- url>jdbc:mysql://localhost/dgctest</url -->
+				<url>jdbc:mysql://localhost/dgctest</url>
+				<username>root</username>
+				<password></password>
+				<driver>com.mysql.jdbc.Driver</driver>
+				<dialect>org.hibernate.dialect.MySQL5Dialect</dialect>
+				<pool>
+					<initial>5</initial>
+					<max>20</max>
+				</pool>
+				<!-- If true, the database will be dropped and recreated on startup. 
+					Used for testing -->
+				<recreate>true</recreate>
+				<!-- The database name is only used for testing environment (needed by 
+					bootstrapper) -->
+				<database>dgctest</database>
+			</datasource>
+
+			<!-- All about workflow -->
+			<workflow>
+				<engine>
+					<databaseSchemaUpdate>true</databaseSchemaUpdate>
+					<jobExecutorActivate>true</jobExecutorActivate>
+				</engine>
+			</workflow>
+
+			<!-- All about email -->
+			<mail>
+				<port>25</port>
+				<host>localhost</host>
+				<username></username>
+				<password></password>
+			</mail>
+
+			<!-- All about the security -->
+			<security>
+				<guest-access>true</guest-access>
+			</security>
+		</core>
+	</system>
+</configuration>

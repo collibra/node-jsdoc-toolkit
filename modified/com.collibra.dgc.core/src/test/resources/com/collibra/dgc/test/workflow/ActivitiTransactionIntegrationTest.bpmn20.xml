@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:activiti="http://activiti.org/bpmn" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:signavio="http://www.signavio.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" exporter="Signavio Process Editor, http://www.signavio.com" exporterVersion="" expressionLanguage="http://www.w3.org/1999/XPath" id="sid-f59e9864-dc23-4986-9855-5c6757707c98" targetNamespace="http://www.signavio.com/bpmn20" typeLanguage="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+   
+   <process id="TransactionIntegration" isExecutable="true" name="Glossary Activiti Transaction Integration">
+      <startEvent id="StartIntegrationTest" name=""/>
+      
+      <serviceTask id="GlossaryTask" name="Glossary Test Task" activiti:class="com.collibra.dgc.service.workflow.delegates.GlossaryTaskDelegate" />
+      <serviceTask id="ActivitiTask" name="Activiti Test Task" activiti:class="com.collibra.dgc.service.workflow.delegates.ActivitiTaskDelegate" />
+      
+      <endEvent id="EndIntegrationTest" name="" />
+            
+      <sequenceFlow id="SEQ1" name="" sourceRef="StartIntegrationTest" targetRef="GlossaryTask"/>
+      <sequenceFlow id="SEQ2" name="" sourceRef="GlossaryTask" targetRef="ActivitiTask"/>
+      <sequenceFlow id="SEQ3" name="" sourceRef="ActivitiTask" targetRef="EndIntegrationTest"/>
+   </process>
+   
+</definitions>

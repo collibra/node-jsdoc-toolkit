@@ -1,0 +1,734 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<dataset>
+	<table name="meanings">
+		<column>versioned_id</column>
+		<column>resource_id</column>
+		<column>version</column>
+		<column>mean_type</column>
+		
+		<column>concept_type_fk</column>
+		<column>general_concept_fk</column>
+
+		<!--  Meaning fragment of Meaning and Representation Vocabulary  -->
+		
+		<row>	<!-- 002: Meaning -->
+			<value>2</value>
+			<value>00000000-0000-0000-0000-000000000002</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>1</value>
+		</row>
+		
+		<row>	<!-- 003: Concept -->
+			<value>3</value>
+			<value>00000000-0000-0000-0000-000000000003</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>1</value>
+		</row>
+
+		<row>	<!-- 004: Noun Concept -->
+			<value>4</value>
+			<value>00000000-0000-0000-0000-000000000004</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>6</value>
+			<value>3</value>
+		</row>
+
+		<row>	<!-- 005: Object Type -->
+			<value>5</value>
+			<value>00000000-0000-0000-0000-000000000005</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>1</value>
+			<value>4</value>
+		</row>
+
+		<row>	<!-- 006: Concept Type -->
+			<value>6</value>
+			<value>00000000-0000-0000-0000-000000000006</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>1</value>
+			<value>5</value>
+		</row>
+		
+		<row>	<!-- 007: Role -->
+			<value>7</value>
+			<value>00000000-0000-0000-0000-000000000007</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>6</value>
+			<value>4</value>
+		</row>
+		
+		<row>	<!-- 008: Fact Type Role -->
+			<value>8</value>
+			<value>00000000-0000-0000-0000-000000000008</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>6</value>
+			<value>7</value>
+		</row>
+	
+		<row>	<!-- 009: Fact Type -->
+			<value>9</value>
+			<value>00000000-0000-0000-0000-000000000009</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>6</value>
+			<value>3</value>
+		</row>
+		
+			
+		<row>	<!-- 010: Characteristic -->
+			<value>10</value>
+			<value>00000000-0000-0000-0000-000000000010</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>9</value>
+		</row>
+
+		<row>	<!-- 011: Binary Fact Type -->
+			<value>11</value>
+			<value>00000000-0000-0000-0000-000000000011</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>9</value>
+		</row>
+		
+		<row>	<!-- 012: Individual Concept -->
+			<value>12</value>
+			<value>00000000-0000-0000-0000-000000000012</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>6</value>
+			<value>4</value>
+		</row>
+		
+
+		
+		<!-- 013: Concept specializes / specialized by Concept -->
+		<!-- 014: Concept is coextensive with / is coextensive with Concept -->
+		<!-- 015: Concept incorporates / incorporated by Characteristic -->
+		<!-- 016: Role ranges over / ranged over by Object Type  -->
+		<!-- 017: Fact Type has / of Role  -->
+
+		<row>	<!-- 018: Proposition -->
+			<value>18</value>
+			<value>00000000-0000-0000-0000-000000000018</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>2</value>
+		</row>
+
+		<!-- 019: Proposition is true -->
+		<!-- 020: Proposition is false -->
+		
+		<row>	<!-- 021: Fact -->
+			<value>21</value>
+			<value>00000000-0000-0000-0000-000000000021</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>18</value>
+		</row>		
+		
+		<row>	<!-- 26: Question -->
+			<value>26</value>
+			<value>00000000-0000-0000-0000-000000000026</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>2</value>
+		</row>
+		
+		<!-- Expressions fragment of Meaning and Representation Vocabulary -->
+		
+		<row>	<!-- 100: Expression -->
+			<value>100</value>
+			<value>00000000-0000-0000-0000-000000000100</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>1</value>		
+		</row>
+
+		<row>	<!-- 101: Signifier -->
+			<value>101</value>
+			<value>00000000-0000-0000-0000-000000000101</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>7</value>
+			<value>100</value>		
+		</row>
+
+		<row>	<!-- 102: Text -->
+			<value>102</value>
+			<value>00000000-0000-0000-0000-000000000102</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>100</value>		
+		</row>
+
+		<!-- 102: Starting Character Position -->
+		
+		<row>	<!-- 103: URI -->
+			<value>103</value>
+			<value>00000000-0000-0000-0000-000000000103</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>102</value>		
+		</row>
+		
+		<!-- Representations fragment of Meaning and Representation Vocabulary -->
+		
+		<row>	<!-- 200: Representation -->
+			<value>200</value>
+			<value>00000000-0000-0000-0000-000000000200</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>501</value>		
+		</row>
+		
+		<row>	<!-- 201: Designation -->
+			<value>201</value>
+			<value>00000000-0000-0000-0000-000000000201</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>200</value>		
+		</row>
+
+		<row>	<!-- 202: Definition -->
+			<value>202</value>
+			<value>00000000-0000-0000-0000-000000000202</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>200</value>		
+		</row>
+				
+		<row>	<!-- 203: Statement -->
+			<value>203</value>
+			<value>00000000-0000-0000-0000-000000000203</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>200</value>		
+		</row>
+		
+		<row>	<!-- 204: Fact Type Form -->
+			<value>204</value>
+			<value>00000000-0000-0000-0000-000000000204</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>200</value>		
+		</row>
+		
+		<row>	<!-- 205: Sentenial Form -->
+			<value>205</value>
+			<value>00000000-0000-0000-0000-000000000205</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>204</value>		
+		</row>
+
+		<row>	<!-- 206: ReadingDirection -->
+			<value>206</value>
+			<value>00000000-0000-0000-0000-000000000206</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>201</value>		
+		</row>
+
+		<row>	<!-- 207: Namespace -->
+			<value>207</value>
+			<value>00000000-0000-0000-0000-000000000207</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>1</value>		
+		</row>
+
+		<row>	<!-- 208: Vocabulary Namespace -->
+			<value>208</value>
+			<value>00000000-0000-0000-0000-000000000208</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>1</value>		
+		</row>
+		
+		<!-- 209: Attributive Namespace -->
+		<!-- 210: Subject Concept -->
+
+		<row>	<!-- 211: Language -->
+			<value>211</value>
+			<value>00000000-0000-0000-0000-000000000211</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>1</value>		
+		</row>
+		
+		<!-- Reference Schemes fragment of Meaning and Representation Vocabulary -->
+		<!-- 300 -->
+		<!-- Conceptual Schemas and Models fragment of Meaning and Representation Vocabulary -->
+		<!-- 400 -->
+		<!-- Extensions fragment of Meaning and Representation Vocabulary -->
+		<!-- 500 -->
+		
+		<row>	<!-- 500: State of Affairs -->
+			<value>500</value>
+			<value>00000000-0000-0000-0000-000000000500</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>2</value>		
+		</row>
+
+		<row>	<!-- 501: Actuality -->
+			<value>501</value>
+			<value>00000000-0000-0000-0000-000000000501</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>500</value>		
+		</row>
+		
+		<row>	<!-- 502: Extension -->
+			<value>502</value>
+			<value>00000000-0000-0000-0000-000000000502</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>7</value>
+			<value>601</value>		
+		</row>
+			
+		<row>	<!-- 503: Instance -->
+			<value>503</value>
+			<value>00000000-0000-0000-0000-000000000503</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>7</value>
+			<value>1</value>		
+		</row>		
+		
+		<!-- Elementary Concepts fragment of Meaning and Representation Vocabulary -->
+		
+		<row>	<!-- 1: Thing (the most abstract concept) -->
+			<value>1</value>
+			<value>00000000-0000-0000-0000-000000000001</value>
+			<value>1</value>
+			<value>OT</value>
+			
+      		<value>5</value>
+     		<null />			
+		</row>
+		
+		<row>	<!-- 601: Set -->
+			<value>601</value>
+			<value>00000000-0000-0000-0000-000000000601</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>1</value>
+		</row>
+		
+		<row>	<!-- 602: Cardinality -->
+			<value>602</value>
+			<value>00000000-0000-0000-0000-000000000602</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>7</value>
+			<value>606</value>
+		</row>
+		
+		<row>	<!-- 603: Quantity -->
+			<value>603</value>
+			<value>00000000-0000-0000-0000-000000000603</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>4</value>
+		</row>
+
+		<row>	<!-- 604: Number -->
+			<value>604</value>
+			<value>00000000-0000-0000-0000-000000000604</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>603</value>
+		</row>
+		
+		<row>	<!-- 605: Integer -->
+			<value>605</value>
+			<value>00000000-0000-0000-0000-000000000605</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>604</value>
+		</row>		
+
+		<row>	<!-- 606: Nonnegative Integer -->
+			<value>606</value>
+			<value>00000000-0000-0000-0000-000000000606</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>604</value>
+		</row>	
+
+		<row>	<!-- 607: Positive Integer -->
+			<value>607</value>
+			<value>00000000-0000-0000-0000-000000000607</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>606</value>
+		</row>	
+						
+		<!-- 3000 -->
+		<!-- Business Meaning Fragment of Describing Business Vocabularies -->
+		
+		<row>	<!-- 3001: Community -->
+			<value>3001</value>
+			<value>00000000-0000-0000-0000-000000003001</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>1</value>
+		</row>
+		
+		<row>	<!-- 3002: Semantic Community -->
+			<value>3002</value>
+			<value>00000000-0000-0000-0000-000000003002</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>3001</value>
+		</row>
+		
+		<row>	<!-- 3003: Speech Community -->
+			<value>3003</value>
+			<value>00000000-0000-0000-0000-000000003003</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>3001</value>
+		</row>
+		
+		<!-- 3004: Body of Shared Meanings -->
+		<!-- 3005: body of shared concepts -->
+		<!-- 3006: elementary fact type -->
+		
+		<row>	<!-- 3007: Vocabulary -->
+			<value>3007</value>
+			<value>00000000-0000-0000-0000-000000003007</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>601</value>
+		</row>
+		
+		<row>	<!-- 3008: Business Vocabulary -->
+			<value>3008</value>
+			<value>00000000-0000-0000-0000-000000003008</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>3007</value>
+		</row>
+
+		<row>	<!-- 3009: Terminological Dictionary -->
+			<value>3009</value>
+			<value>00000000-0000-0000-0000-000000003009</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>1</value>
+		</row>
+		
+		<!-- Business Representation Fragment of Describing Business Vocabularies -->
+		
+		<!-- 3100 Subject Field -->
+		<!-- 3101 Designation Context -->
+		
+		<row>	<!-- 3102 Term -->
+			<value>3102</value>
+			<value>00000000-0000-0000-0000-000000003102</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>201</value>
+		</row>
+		<row>	<!-- 3103 Name -->
+			<value>3103</value>
+			<value>00000000-0000-0000-0000-000000003103</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>201</value>
+		</row>
+		<!-- 3104 nonverbal designation -->
+		<!-- 3105 icon -->
+		<!-- 3106 fact symbol -->
+		<!-- 3107 fact type role designation -->
+		<!-- 3108 res -->
+		<!-- 3109 preferred designation -->
+		<!-- 3110 prohibited designation -->
+		<!-- 3111 Representation Formality -->
+		<!-- 3112 informal representation -->
+		<!-- 3113 formal representation -->
+		
+		<row>	<!-- 3114 Description -->
+			<value>3114</value>
+			<value>00000000-0000-0000-0000-000000003114</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>200</value>
+		</row>
+		<row>	<!-- 3115 Descriptive Example -->
+			<value>3115</value>
+			<value>00000000-0000-0000-0000-000000003115</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>200</value>
+		</row>
+		<row>	<!-- 3116 Note -->
+			<value>3116</value>
+			<value>00000000-0000-0000-0000-000000003116</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>200</value>
+		</row>
+
+		<!-- 4000 -->
+		<!-- Vocabulary for describing Business Rules -->
+		<row>	<!-- 4005 Rule -->
+			<value>4005</value>
+			<value>00000000-0000-0000-0000-000000004005</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>18</value>
+		</row>
+
+		<!-- 5000 -->
+		<!-- Vocabulary for describing Collibra extensions to SBVR -->
+		<row>	<!-- 5001 SimpleProposition -->
+			<value>5001</value>
+			<value>00000000-0000-0000-0000-000000005001</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>18</value>
+		</row>
+		
+		<row>	<!-- 5002 Constraint type -->
+			<value>5002</value>
+			<value>00000000-0000-0000-0000-000000005002</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>1</value>		
+		</row>
+		
+
+		<row>	<!-- 5003 Mandatory constraint type -->
+			<value>5003</value>
+			<value>00000000-0000-0000-0000-000000005003</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>5002</value>		
+		</row>
+
+		<row>	<!-- 5004 Uniqueness constraint type -->
+			<value>5004</value>
+			<value>00000000-0000-0000-0000-000000005004</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>5002</value>		
+		</row>
+		
+		<row>	<!-- 5005 Semi-parsed constraint type -->
+			<value>5005</value>
+			<value>00000000-0000-0000-0000-000000005005</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>5002</value>		
+		</row>
+		
+		<row>	<!-- 5006 Frequency constraint type -->
+			<value>5006</value>
+			<value>00000000-0000-0000-0000-000000005006</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>5002</value>		
+		</row>
+
+		<row>	<!-- 5007 Status Type -->
+			<value>5007</value>
+			<value>00000000-0000-0000-0000-000000005007</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>5100</value>		
+		</row>
+
+		<row>	<!-- 5008 Candidate -->
+			<value>5008</value>
+			<value>00000000-0000-0000-0000-000000005008</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5007</value>
+			<value>1</value>		
+		</row>
+		
+		<row>	<!-- 5009 Accepted -->
+			<value>5009</value>
+			<value>00000000-0000-0000-0000-000000005009</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5007</value>
+			<value>1</value>		
+		</row>
+
+		<row>	<!-- 5010 Standard -->
+			<value>5010</value>
+			<value>00000000-0000-0000-0000-000000005010</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5007</value>
+			<value>1</value>		
+		</row>
+
+		<row>	<!-- 5011 Deperecated -->
+			<value>5011</value>
+			<value>00000000-0000-0000-0000-000000005011</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5007</value>
+			<value>1</value>		
+		</row>
+		
+		<row>	<!-- 5014 RoleType -->
+			<value>5014</value>
+			<value>00000000-0000-0000-0000-000000005014</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>5</value>		
+		</row>		
+
+		<row>	<!-- 5100 Attribute Type -->
+			<value>5100</value>
+			<value>00000000-0000-0000-0000-000000005100</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>5</value>		
+		</row>
+		
+		<!-- 9999 -->
+		<!-- This is a dummy entry to reserve anything below 10000 as version ID is reserved for Collibra. -->
+		<row>	<!-- 9999 Dummy entry to reserve the IDs in meaning table -->
+			<value>9999</value>
+			<value>00000000-0000-0000-0000-000000009999</value>
+			<value>1</value>
+			<value>OT</value>
+			
+			<value>5</value>
+			<value>1</value>
+		</row>
+		
+		
+	</table>
+	
+</dataset>

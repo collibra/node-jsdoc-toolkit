@@ -1,0 +1,9 @@
+username=User name
+password=Password
+login=Sign In
+rememberMe=Remember me
+loginUnknownAccount = The specified user name is not known by the system.
+loginIncorrectCredentials = The specified password is not correct.
+loginDisabledAccount = This user account has been disabled. If you think this is wrong, please contact your system administrator.
+loginFailed = Login failed.
+loginTooManyConcurrentUsers = The maximum of concurrent users has been reached.

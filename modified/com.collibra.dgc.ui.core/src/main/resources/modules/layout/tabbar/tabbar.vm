@@ -1,0 +1,132 @@
+<div class="twocolumnlayout">
+  <div class="leftcolumn-background"></div>
+  <div class="leftcolumn">
+    ## !TODO: Get the request url, and parse the fragment part for the 'tab' key and it's value.
+    ## Show the correct tab.
+    ##
+    ## Some tips:
+    ## $request.getRequestURL()
+    ## The hash of a URL is called the fragment.
+
+    ### TabBar begins here ###
+    <div id="tabbar">
+      <ul class="tabmenu">
+          #foreach($tab in $sorttool.sort($pd.getProperty("tabs"), 'index'))
+            #if($tab.enable && ${tab.enable} == 'true')
+
+              <li event="$!{tab.id}" data-key="$!{tab.id}" #if(${tab.domid}) id="${tab.domid}" #end #if(${tab.domclass} || $!{tab.defaultactive} == 'true') class="$!{tab.domclass} #if($!{tab.defaultactive} == 'true')active #end" #end>
+                    ###  An icon that allows to access tab's settings  ###
+                    #if($tab.enablesettings && ${tab.enablesettings} == 'true')
+                      <div class="tabsettings">
+                        <i class="icon-cogwheel lightgrey"></i>
+                      </div>
+                    #end
+
+                    ###  An icon for a tab ###
+                    #if(${tab.icon})
+                      <i class="${tab.icon}"></i>
+                    #end
+
+                    ###  The tab ###
+                    #if(${tab.id})
+                      <div class="label" regionpath='${pd.getRegionPath("$!{tab.id}")}' module="$!{tab.module}">$!{tab.id}</div>
+                    #end
+
+                    ###  Additional actions ###
+                    #foreach($action in $sorttool.sort($tab.get('actions'), 'index'))
+
+                      #if($action.enable && ${action.enable} == 'true')
+                        <div data-key="$!{action.id}" #if(${action.domid}) id="${action.domid}" #end class="action#if(${action.domclass}) ${action.domclass}#end" event="$!{tab.id}::$!{action.id}">
+
+                          ###  An icon for a tab that wraps actions ###
+                          #if(${action.icon})
+                            <i class="${action.icon}"></i>
+                          #end
+
+                          ###  The tab that wraps actions (when it's clicked actions are shown) ###
+                          #if(${action.id})
+                            <div module="#">$!{action.id}</div>
+                          #end
+
+                        </div>
+                      #end
+
+                    #end
+                    ###  Additional actions end here###
+
+              </li>
+
+            #end
+          #end
+
+              <li class="moremenu" event="more">
+                <i class="icon-list"></i>
+                <div class="label" module="more">More</div>  ##TODO: add to translations
+              </li>
+
+      </ul>
+    </div>
+    ### TabBar finishes here ###
+
+  </div>
+  <div class="rightcolumn">
+    <div class="pagecontent">
+      ## Content from tabs goes here.
+ 
+      ## Load first tab.
+      ##renderRegion('overview')
+
+      ##hard-code for now
+      #if($resourceType == "term")
+        <div>This is the term content page.<br>The signifier of this term is $termComponent.getTerm($id).getSignifier() !</div>
+        <div>$msg.get("languagekey1", "parameter")</div>
+        #if ($id)
+          <div>The ID of the term to render: $id</div>
+        #end
+      #elseif($resourceType == "vocabulary")
+        <div>This is the vocabulary page!</div>
+        #set($resourceObject = $vocabularyComponent.getVocabulary($id))
+        
+        #set($childrenObjects = $resourceObject.getTerms())
+        #if($childrenObjects.size() > 0)
+          <div>Terms:
+            <ul>
+            #foreach($child in $childrenObjects)
+              <li><a href="${contextPath}term/$child.getResourceId()">$child.verbalise()</a></li>
+            #end
+            </ul>
+          </div>
+        #end
+      #elseif($resourceType == "community")
+        <div>This is the community page!</div>
+        #set($resourceObject = $communityComponent.getCommunity($id))
+        
+        #set($childrenObjects = $resourceObject.getSubCommunities())
+        #if($childrenObjects.size() > 0)
+          <div>SubCommunities:
+            <ul>
+            #foreach($child in $childrenObjects)
+              <li><a href="${contextPath}community/$child.getResourceId()">$child.verbalise()</a></li>
+            #end
+            </ul>
+          </div>
+        #end
+        
+        #set($childrenObjects = $resourceObject.getVocabularies())
+        #if($childrenObjects.size() > 0)
+          <div>Vocabularies:
+            <ul>
+            #foreach($child in $childrenObjects)
+              <li><a href="${contextPath}vocabulary/$child.getResourceId()">$child.verbalise()</a></li>
+            #end
+            </ul>
+          </div>
+        #end
+      #end
+      ##end hard-code
+
+    <div>
+  </div>
+  <div class="clearfloats"></div>
+</div>
+

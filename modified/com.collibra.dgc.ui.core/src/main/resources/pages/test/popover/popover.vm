@@ -1,0 +1,113 @@
+<style>
+  li { margin: 20px 0; }
+  
+  .colors li {
+    width: 230px;
+    display: inline-block;
+  }
+</style>
+<div class="test-popover" style="width:80%; margin:20px auto;">
+  <div class="browser"></div>
+  <h3>Popover</h3>
+  <ul>
+    <li><span id="p1" title="Default popover content from title.">(click) From url: http://localhost:8080/com.collibra.dgc.war/test/textinput [long-name-for-test-screen-long-name-for-test-screen-long-name-for-test-screen-]</span></li>
+    <li><span id="p2" title="Default popover content from title.">(hover) Default</span></li>
+    <li><span id="p3" title="Default popover content from title.">(click) Default</span></li>
+    <li><span id="p4" title="Default popover content from title.">No pop-over here.</span></li>
+  </ul>
+  <ul class="colors">
+    <li><span id="p5" title="Default popover content from title.">Default</span></li>
+    <li><span id="p6" title="Danger popover content from title.">Danger</span></li>
+    <li><span id="p7" title="Warning popover content from title.">Warning</span></li>
+    <li><span id="p8" title="Success popover content from title.">Success</span></li>
+  </ul>
+</div>
+
+
+
+<script language="JavaScript" type="text/javascript">
+core.dom.ready(function() {
+  core.module.use('library/uielements/popover', function(Popover) {
+    window.Popover = Popover;
+    
+    Popover.create('#p1',{
+     title:'Title', 
+     width: 250, 
+     height: 250, 
+     hide: {
+       blur: false, 
+       manual: true
+     },
+     icon: 'icon-cogwheel black',
+     url: 'http://localhost:8080/com.collibra.dgc.war/test/textinput?bare=true'
+    });
+
+    Popover.create('#p2',{
+      title:'Title',
+      width: 100, 
+      height: 100,
+      hide: {
+        blur: false,
+        manual: true
+      },
+      show: {
+        trigger: "hover"
+      },
+      orientation: Popover.ORIENTATION_ABOVE
+    });
+
+    Popover.create('#p3',{
+      hide:{
+        blur: false
+      },
+      orientation: Popover.ORIENTATION_LEFT
+    });
+
+    Popover.create('#p4',{
+      width: 100, 
+      height: 100,
+      hide:{
+        blur: false,
+        manual: true
+      },
+      orientation: Popover.ORIENTATION_RIGHT
+    });
+    
+    
+    // Colorfull PopOver
+    Popover.create('#p5',{
+      type: Popover.TYPE_DEFAULT,
+      hide: {
+        blur: false,
+        manual: true
+      }
+    });
+    Popover.create('#p6',{
+      type: Popover.TYPE_DANGER,
+      hide: {
+        blur: false,
+        manual: true
+      }
+    });
+    Popover.create('#p7',{
+      type: Popover.TYPE_WARNING,
+      hide: {
+        blur: false,
+        manual: true
+      }
+    });
+    Popover.create('#p8',{
+      type: Popover.TYPE_SUCCESS,
+      hide: {
+        blur: false,
+        manual: true
+      }
+    });
+
+
+    //Show browser type
+    core.dom.select('.browser').text('Browser: '+navigator.userAgent);
+
+  });
+});
+</script>

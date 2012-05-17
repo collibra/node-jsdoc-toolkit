@@ -1,0 +1,1293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema version="1.0"
+	xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+	jxb:version="2.1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/jaxb http://java.sun.com/xml/ns/jaxb/bindingschema_2_0.xsd"
+	xmlns:annox="http://annox.dev.java.net"
+	targetNamespace="http://www.collibra.com/dgc/1.0"
+	xmlns:dgc="http://www.collibra.com/dgc/1.0" elementFormDefault="qualified"
+	jxb:extensionBindingPrefixes="annox">
+
+	<!-- |||||||||| Elementary Types |||||||||| -->
+
+	<simpleType name="UUIDType">
+		<annotation>
+			<documentation>
+				A regular expression that makes sure that we have
+				proper UUIDs
+			</documentation>
+		</annotation>
+		<restriction base="ID">
+			<pattern
+				value="[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="UUIDTypeNotID">
+		<annotation>
+			<documentation>
+				A regular expression that makes sure that we have
+				proper UUIDs
+			</documentation>
+		</annotation>
+		<restriction base="string">
+			<pattern
+				value="[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}" />
+		</restriction>
+	</simpleType>
+	
+	<!-- DGC Configuration Types -->
+	
+	<complexType name="configurationPropertyType">
+		<sequence>
+			<element name="key" type="string" minOccurs="1" maxOccurs="1" />
+			<element name="value" type="string" minOccurs="1" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="configurationPropertiesSetType">
+		<annotation>
+			<documentation>
+				A set of attribute references
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="configElement" type="dgc:configurationPropertyType" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	
+	<!-- DGC Exception Types -->
+	
+	<complexType name="dgcException">
+		<complexContent>
+			<extension base="dgc:exception">
+				<sequence>
+					<element name="params" type="dgc:errorParams" minOccurs="1" maxOccurs="1" />
+				</sequence>
+				<attribute name="errorCode" type="string" />
+			</extension>
+		</complexContent>
+	</complexType>
+	
+	<complexType name="illegalArgumentException">
+		<complexContent>
+			<extension base="dgc:dgcException" />
+		</complexContent>
+	</complexType>
+	
+	<complexType name="entityNotFoundException">
+		<complexContent>
+			<extension base="dgc:dgcException" />
+		</complexContent>
+	</complexType>
+	
+	<complexType name="authorizationException">
+		<complexContent>
+			<extension base="dgc:dgcException">
+				<sequence>
+					<element name="userName" type="string" minOccurs="1" maxOccurs="1" />
+					<element name="permissions" type="dgc:permissions" minOccurs="1" maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	
+	<complexType name="licenseKeyException">
+		<complexContent>
+			<extension base="dgc:dgcException" />
+		</complexContent>
+	</complexType>
+	
+	<complexType name="errorParams">
+		<sequence>
+			<element name="param" type="string" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="permissions">
+		<sequence>
+			<element name="permission" type="string" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	
+	<!-- Jersey Exception Types -->
+	
+	<complexType name="notFoundException">
+		<annotation>
+			<documentation>This is a not found exception</documentation>	
+		</annotation>
+		<complexContent>
+			<extension base="dgc:exception">
+				<sequence>
+					<element name="uri" type="string" minOccurs="1" maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	
+	<!-- Java Lang Exception Types -->
+	
+	<complexType name="exception">
+		<annotation>
+			<documentation>This is a generic exception</documentation>	
+		</annotation>
+		<sequence>
+			<element name="message" type="string" minOccurs="1" maxOccurs="1" />
+			<element name="stackTrace" type="string" minOccurs="1" maxOccurs="1" />
+		</sequence>
+	</complexType>
+	
+	<!-- Resource Types -->
+	
+	<simpleType name="resourceTypeType">
+		<annotation>
+			<documentation>
+				Various types of the resources that can be returned by the search service:
+				<ul>
+					<li>AT: Attribute</li>
+<!-- 					<li>BI: Binary Fact Type Form</li> -->
+<!-- 					<li>CF: Characteristic Form</li> -->
+					<li>CO: Community</li>
+<!-- 					<li>FQR: Frequency Rule Statement</li> -->
+					<li>NA: Name</li>
+<!-- 					<li>RD: Reading Direction</li> -->
+<!-- 					<li>RE: Relation</li> -->
+<!-- 					<li>RS: Ruleset</li> -->
+<!-- 					<li>SPR: Semi-parsed Rule Statement</li> -->
+<!-- 					<li>SRS: Simple Rule Statement</li> -->
+					<li>TE: Term</li>
+					<li>VC: Vocabulary</li>
+				</ul>
+			</documentation>
+		</annotation>
+		<restriction base="string">
+			<enumeration value="AT" />
+<!-- 			<enumeration value="BI" /> -->
+<!-- 			<enumeration value="CF" /> -->
+			<enumeration value="CO" />
+<!-- 			<enumeration value="FQR" /> -->
+			<enumeration value="NA" />
+<!-- 			<enumeration value="RD" /> -->
+<!-- 			<enumeration value="RE" /> -->
+<!-- 			<enumeration value="RS" /> -->
+<!-- 			<enumeration value="SPR" /> -->
+<!-- 			<enumeration value="SRS" /> -->
+			<enumeration value="TE" />
+			<enumeration value="VC" />
+		</restriction>
+	</simpleType>
+
+	<!-- |||||||||| Referencing Type |||||||||| -->
+
+	<!-- A Referencing type contains only the necessary identification information 
+		for a resource -->
+	<attributeGroup name="resourceAttributeGroup">
+		<annotation>
+			<documentation>
+				A Resource in DGC. Currently these are the attributes:
+				<ul>
+					<li>id: that identifies the resource</li>
+					<li>lastModified: the timestamp when this resource was last changed.</li>
+					<li>lastModifiedBy: the user name of the user that last changed this resource.</li>
+					<li>createdOn: the timestamp when this resource was created.</li>
+					<li>createdBy: the user name of the user that created this resource.</li>
+				</ul>
+			</documentation>
+		</annotation>
+		<attribute name="resourceId" type="dgc:UUIDType" use="required">
+			<annotation>
+				<appinfo>
+					
+					<jxb:property name="resourceId"><jxb:javadoc><![CDATA[The id of the resource]]></jxb:javadoc></jxb:property>
+				</appinfo>
+			</annotation>
+		</attribute>
+		<attribute name="lastModified" type="long" use="optional">
+			<annotation>
+				<appinfo>
+					<jxb:property name="lastModified"><jxb:javadoc><![CDATA[The timestamp when this resource was last changed.]]></jxb:javadoc></jxb:property>
+				</appinfo>
+			</annotation>
+		</attribute>
+		<attribute name="lastModifiedBy" type="string" use="optional">
+			<annotation>
+				<appinfo>
+					<jxb:property name="lastModifiedBy"><jxb:javadoc><![CDATA[The user name of the user that last changed this resource.]]></jxb:javadoc></jxb:property>
+				</appinfo>
+			</annotation>
+		</attribute>
+		<attribute name="createdOn" type="long" use="optional">
+			<annotation>
+				<appinfo>
+					<jxb:property name="createdOn"><jxb:javadoc><![CDATA[The timestamp when this resource was created.]]></jxb:javadoc></jxb:property>
+				</appinfo>
+			</annotation>
+		</attribute>
+		<attribute name="createdBy" type="string" use="optional">
+			<annotation>
+				<appinfo>
+					<jxb:property name="createdBy"><jxb:javadoc><![CDATA[The user name of the user that created this resource.]]></jxb:javadoc></jxb:property>
+				</appinfo>
+			</annotation>
+		</attribute>
+	</attributeGroup>
+	
+	<complexType name="resource">
+			<annotation>
+				<appinfo>
+					<jxb:class><jxb:javadoc><![CDATA[A generic resource of the REST service.]]></jxb:javadoc></jxb:class>
+				</appinfo>
+			</annotation>
+			<sequence>
+				<element name="locked" type="boolean" minOccurs="1" maxOccurs="1">
+					<annotation>
+						<appinfo>
+							<jxb:property name="locked"><jxb:javadoc><![CDATA[Set if the resource is locked (<code>true</code>) or not (<code>false</code>)]]></jxb:javadoc></jxb:property>
+						</appinfo>
+					</annotation>
+				</element>
+			</sequence>
+			<attributeGroup ref="dgc:resourceAttributeGroup" />
+	</complexType>
+	
+	<!-- A Simple Referencing type contains only the necessary identification information 
+		for a resource -->
+		
+	<complexType name="communityReference">
+		<annotation>
+			<documentation>
+				A reference to a community.
+			</documentation>
+		</annotation>
+		<complexContent> 
+			<extension base="dgc:resource">
+				<sequence>
+					<element name="name" type="string" minOccurs="1" maxOccurs="1" />
+					<element name="uri" type="anyURI" minOccurs="1" maxOccurs="1" />
+					<element name="language" type="string" minOccurs="1" maxOccurs="1" />
+					<element name="sbvr" type="boolean" minOccurs="1" maxOccurs="1" />
+					<element name="meta" type="boolean" minOccurs="1" maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent> 
+	</complexType>
+	
+	<complexType name="memberReference">
+		<annotation>
+			<documentation>
+				A reference to a member.
+			</documentation>
+		</annotation>
+				<sequence>
+					<element name="ownerId" type="string" minOccurs="1" maxOccurs="1" />
+					<element name="role" type="dgc:roleReference" minOccurs="1" maxOccurs="1" />
+					<element name="resource" type="string" minOccurs="0" maxOccurs="1" />
+					<element name="group" type="boolean" minOccurs="1" maxOccurs="1" />
+				</sequence>
+	</complexType>
+	
+	<complexType name="groupReference">
+		<annotation>
+			<documentation>
+				A reference to a member.
+			</documentation>
+		</annotation>
+					<complexContent> 
+			<extension base="dgc:resource">
+				<sequence>
+					<element name="groupName" type="string" minOccurs="1" maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent> 
+	</complexType>
+	
+	<complexType name="roleReference">
+		<annotation>
+			<documentation>
+				A reference to a role.
+			</documentation>
+		</annotation>
+				<sequence>
+					<element name="roleName" type="string" minOccurs="1" maxOccurs="1" />
+					<element name="global" type="boolean" minOccurs="1" maxOccurs="1" />
+				</sequence>
+	</complexType>
+
+	<complexType name="vocabularyReference">
+		<annotation>
+			<appinfo>
+				<jxb:class>
+					<jxb:javadoc>
+						<![CDATA[A reference to a vocabulary resource.<br />
+						The different attributes are:
+						<ul>
+							<li>resourceId: The resource id of the vocabulary</li>
+							<li>name: The name of the vocabulary</li>
+							<li>uri: The URI of the vocabulary</li>
+						</ul>]]>
+					</jxb:javadoc>
+				</jxb:class>
+			</appinfo>
+		</annotation>
+		<complexContent>
+			<extension base="dgc:resource">
+				<sequence>
+					<element name="name" type="string" minOccurs="1" maxOccurs="1" />
+					<element name="uri" type="anyURI" minOccurs="1" maxOccurs="1" />
+					<element name="meta" type="boolean" minOccurs="1" maxOccurs="1" />
+					<element name="typeReference" type="dgc:termReference" minOccurs="1" maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	
+	<complexType name="representationReference">
+		<annotation>
+			<documentation>
+				A reference to a representation.
+			</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="dgc:resource">
+				<sequence>
+					<element name ="preferred" type="boolean" minOccurs="1" maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="termReference">
+		<annotation>
+			<documentation>
+				A reference to a term.
+			</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="dgc:representationReference">
+				<sequence>
+					<element name="signifier" type="string" minOccurs="1" maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="characteristicFormReference">
+		<annotation>
+			<documentation>
+				A reference to a characteristic form.
+			</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="dgc:representationReference">
+				<sequence>
+					<element name="term" type="dgc:simpleTerm" minOccurs="1" maxOccurs="1" />
+					<element name="role" type="string" minOccurs="1" maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="binaryFactTypeFormReference">
+		<annotation>
+			<documentation>
+				A reference to a binary fact type form.
+			</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="dgc:representationReference">
+				<sequence>
+					<element name="headTerm" type="dgc:simpleTerm" minOccurs="1" maxOccurs="1" />
+					<element name="role" type="string" minOccurs="1" maxOccurs="1" />
+					<element name="coRole" type="string" minOccurs="1" maxOccurs="1" />
+					<element name="tailTerm" type="dgc:simpleTerm" minOccurs="1" maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="userReference">
+		<annotation>
+			<appinfo>
+				<jxb:class>
+					<jxb:javadoc>
+						<![CDATA[A reference to a user Resource.<br />]]>
+					</jxb:javadoc>
+				</jxb:class>
+			</appinfo>
+		</annotation>
+				<sequence>
+					<element name="userName" type="string" minOccurs="1" maxOccurs="1" />
+					<element name="firstName" type="string" minOccurs="1" maxOccurs="1" />
+					<element name="lastName" type="string" minOccurs="1" maxOccurs="1" />
+					<element name="emailAddress" type="string" minOccurs="1" maxOccurs="1" />
+					<element name="language" type="string" minOccurs="1" maxOccurs="1" />
+				</sequence>
+
+	</complexType>
+
+	<!-- |||||||||| Reference Set Types |||||||||| -->
+
+	<!-- A set of referencing types -->
+	
+	<complexType name="communityReferenceSet">
+		<annotation>
+			<documentation>
+				A  Community Reference Set is a set of
+				references (e.g. pointers) to communities ({@link CommunityReferenceType}). It contains only
+				the identification details necessary and expects the user to query
+				again for the full details.
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="communityReference" type="dgc:communityReference"
+				minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="vocabularyReferenceSet">
+		<annotation>
+			<documentation>
+				A set of references to vocabularies.
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="vocabularyReference" type="dgc:vocabularyReference"
+				minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="representationReferenceSet">
+		<annotation>
+			<documentation>
+				A set of references to representation.
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="representationReference" type="dgc:representationReference" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="termReferenceSet">
+		<annotation>
+			<documentation>
+				A set of references to terms
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="termReference" type="dgc:termReference" minOccurs="0"
+				maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="characteristicFormReferenceSet">
+		<annotation>
+			<documentation>
+				A set of references to characteristic forms.
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="characteristicFormReference" type="dgc:characteristicFormReference"
+				minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="binaryFactTypeFormReferenceSet">
+		<annotation>
+			<documentation>
+				A set of references to binary fact type forms.
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="binaryFactTypeFormReference" type="dgc:binaryFactTypeFormReference"
+				minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="attributeReference">
+		<annotation>
+			<documentation>
+				A reference to an attribute.
+				The label reference is a term reference to the Label Term that represents the Attribute Type.
+				The short string value is the representation of the attribute value as a string of maximum 255 characters.
+			</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="dgc:resource">
+				<sequence>
+					<element name="labelReference" type="dgc:termReference" minOccurs="1" maxOccurs="1" />
+					<element name="shortStringValue" type="string" minOccurs="1" maxOccurs="1" />
+					<element name="kind" type="string" minOccurs="1" maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	
+	<complexType name="stringAttributeReference">
+		<complexContent>
+			<extension base="dgc:attributeReference">
+				<sequence>
+					<element name="longExpression" type="string" minOccurs="0" maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	
+	<complexType name="singleValueListAttributeReference">
+		<complexContent>
+			<extension base="dgc:attributeReference">
+				<sequence>
+					<element name="value" type="string" minOccurs="0" maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	
+	<complexType name="multiValueListAttributeReference">
+		<complexContent>
+			<extension base="dgc:attributeReference">
+				<sequence>
+					<element name="value" type="string" minOccurs="0" maxOccurs="unbounded" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="attributeReferenceSet">
+		<annotation>
+			<documentation>
+				A set of attribute references
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="attributeReference" type="dgc:attributeReference" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="relationReference">
+		<annotation>
+			<documentation>
+				A reference to a relation.
+				The type reference is a binaryfacttypeform reference to the Label BinaryFactTypeForm that represents the Relation Type.
+				The short string value is the representation of the attribute value as a string of maximum 255 characters.
+			</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="dgc:resource">
+				<sequence>
+					<element name="typeReference" type="dgc:binaryFactTypeFormReference" minOccurs="1" maxOccurs="1" />
+					<element name="sourceReference" type="dgc:termReference" minOccurs="1" maxOccurs="1" />
+					<element name="targetReference" type="dgc:termReference" minOccurs="1" maxOccurs="1" />
+					<element name="statusReference" type="dgc:termReference" minOccurs="0" maxOccurs="1" />
+					<element name="startingDate" type="date" minOccurs="0" maxOccurs="1" />
+					<element name="endingDate" type="date" minOccurs="0" maxOccurs="1" />
+					<element name="isGenerated" type="boolean" minOccurs="0" maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	
+	<complexType name="relationReferenceSet">
+		<annotation>
+			<documentation>
+				A set of relation references
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="relationReference" type="dgc:relationReference" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="relation">
+		<complexContent>
+			<extension base="dgc:relationReference">
+			</extension>
+		</complexContent>
+	</complexType>
+	
+	<complexType name="relationCollection">
+		<sequence>
+			<element name="relation" type="dgc:relation" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>	</complexType>
+
+	     <complexType name="phoneCollection">
+                <annotation>
+                        <documentation>
+                                A collection of phones.
+                        </documentation>
+                </annotation>
+                <sequence>
+                        <element name="phone" type="dgc:phone" minOccurs="0" maxOccurs="unbounded" />
+                </sequence>
+        </complexType>
+        
+        
+        <complexType name="addressCollection">
+                <annotation>
+                        <documentation>
+                                A collection of addresses.
+                        </documentation>
+                </annotation>
+                <sequence>
+                        <element name="address" type="dgc:address" minOccurs="0" maxOccurs="unbounded" />
+                </sequence>
+        </complexType>
+        
+                
+        <complexType name="instantMessagingAccountCollection">
+                <annotation>
+                        <documentation>
+                                A collection of IM accounts.
+                        </documentation>
+                </annotation>
+                <sequence>
+                        <element name="instantMessagingAccount" type="dgc:instantMessagingAccount" minOccurs="0" maxOccurs="unbounded" />
+                </sequence>
+        </complexType>
+        
+        <complexType name="websiteCollection">
+                <annotation>
+                        <documentation>
+                                A collection of website.
+                        </documentation>
+                </annotation>
+                <sequence>
+                        <element name="website" type="dgc:website" minOccurs="0" maxOccurs="unbounded" />
+                </sequence>
+        </complexType>
+
+	<!-- |||||||||| Main Types |||||||||| -->
+	<!-- Main types contain the literal information for the type -->
+	
+	<complexType name="community">
+		<annotation>
+			<documentation>
+				A Community is a group of people having a particular
+				unifying characteristic in common.
+			</documentation>
+		</annotation>
+		<complexContent> 
+			<extension base="dgc:communityReference">
+				<sequence>
+					<element name="parentReference" type="dgc:communityReference" minOccurs="0" maxOccurs="1" />
+					<element name="subCommunityReferences" type="dgc:communityReferenceSet" minOccurs="1" maxOccurs="1" />
+					<element name="vocabularyReferences" type="dgc:vocabularyReferenceSet" minOccurs="1" maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent> 
+	</complexType>
+
+	<complexType name="vocabulary">
+		<annotation>
+			<appinfo>
+				<jxb:class>
+					<jxb:javadoc>
+						<![CDATA[A Vocabulary is a Set of Designations and Fact Type
+						Forms primarily drawn
+						from a single language to express Concepts
+						within a Body of Shared Meanings.]]>
+					</jxb:javadoc>
+				</jxb:class>
+			</appinfo>
+		</annotation>
+		<complexContent>
+			<extension base="dgc:vocabularyReference">
+				<sequence>
+					<element name="communityReference" type="dgc:communityReference"
+						minOccurs="1" maxOccurs="1" />
+					<element name="termReferences" type="dgc:termReferenceSet" minOccurs="1"
+						maxOccurs="1" />
+					<element name="characteristicFormReferences" type="dgc:characteristicFormReferenceSet"
+						minOccurs="1" maxOccurs="1" />
+					<element name="binaryFactTypeFormReferences" type="dgc:binaryFactTypeFormReferenceSet"
+						minOccurs="1" maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="representation">
+		<complexContent>
+			<extension base="dgc:representationReference">
+				<sequence>
+					<element name="statusReference" type="dgc:termReference" minOccurs="1" maxOccurs="1" />
+					<element name="vocabularyReference" type="dgc:vocabularyReference" minOccurs="1" maxOccurs="1" />
+					<element name="conceptRId" type="string" minOccurs="1" maxOccurs="1" />
+					<element name="conceptType" type="dgc:simpleTerm" minOccurs="1" maxOccurs="1" />
+					<element name="generalConceptReference" type="dgc:representationReference" minOccurs="0" maxOccurs="1" />
+					<element name="specializedConceptReferences" type="dgc:representationReferenceSet" minOccurs="1" maxOccurs="1" />
+					<element name="synonymReferences" type="dgc:representationReferenceSet" minOccurs="1" maxOccurs="1" />
+					<element name="attributeReferences" type="dgc:attributeReferenceSet" minOccurs="1" maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	
+	<complexType name="simpleTerm">
+		<annotation>
+			<documentation>
+				A simple term is an extension of a term reference that adds the vocabulary reference.
+			</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="dgc:termReference">
+				<sequence>
+					<element name="vocabularyReference" type="dgc:vocabularyReference" minOccurs="1" maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="term">
+		<annotation>
+			<documentation>
+				A term is a representation (extension) that contains a signifier,
+				a collection of characteristic forms and binary fact type forms.
+			</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="dgc:representation">
+				<sequence>
+					<element name="signifier" type="string" minOccurs="1" maxOccurs="1" />
+					<element name="characteristicFormReferences" type="dgc:characteristicFormReferenceSet" minOccurs="1" maxOccurs="1" />
+					<element name="binaryFactTypeFormReferences" type="dgc:binaryFactTypeFormReferenceSet" minOccurs="1" maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="characteristicForm">
+		<annotation>
+			<documentation>
+				A characteristic is a representation (extension) that a term (simple term) and a role (string).
+			</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="dgc:representation">
+				<sequence>
+					<element name="term" type="dgc:simpleTerm" minOccurs="1" maxOccurs="1" />
+					<element name="role" type="string" minOccurs="1" maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="binaryFactTypeForm">
+		<annotation>
+			<documentation>
+				A characteristic is a representation (extension) that head and tail simple terms,
+				the role (string) and the co-role (string).
+			</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="dgc:representation">
+				<sequence>
+					<element name="headTerm" type="dgc:simpleTerm" minOccurs="1" maxOccurs="1" />
+					<element name="role" type="string" minOccurs="1" maxOccurs="1" />
+					<element name="coRole" type="string" minOccurs="1" maxOccurs="1" />
+					<element name="tailTerm" type="dgc:simpleTerm" minOccurs="1" maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	
+	<complexType name="attributeType">
+		<complexContent>
+			<extension base="dgc:termReference">
+				<sequence>
+					<element name="descriptionReference" type="dgc:attributeReference" minOccurs="0" maxOccurs="1" />
+					<element name="kind" type="string" minOccurs="1" maxOccurs="1" />
+					<element name="allowedValues" type="string" minOccurs="0" maxOccurs="unbounded" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	
+	<complexType name="attribute">
+		<complexContent>
+			<extension base="dgc:attributeReference">
+				<sequence>
+					<element name="owner" type="dgc:representationReference" minOccurs="1" maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	
+	<complexType name="stringAttribute">
+		<complexContent>
+			<extension base="dgc:attribute">
+				<sequence>
+					<element name="longExpression" type="string" minOccurs="0" maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	
+	<complexType name="singleValueListAttribute">
+		<complexContent>
+			<extension base="dgc:attribute">
+				<sequence>
+					<element name="value" type="string" minOccurs="0" maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	
+	<complexType name="multiValueListAttribute">
+		<complexContent>
+			<extension base="dgc:attribute">
+				<sequence>
+					<element name="value" type="string" minOccurs="0" maxOccurs="unbounded" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="searchResultItemType">
+		<sequence>
+			<element name="parent" type="dgc:searchResultItemType"
+				minOccurs="0" maxOccurs="1" />
+		</sequence>
+		<attribute name="resourceId" type="dgc:UUIDType" use="required" />
+		<attribute name="name" type="string" use="required" />
+		<attribute name="type" type="dgc:resourceTypeType" use="required" />
+		<attribute name="score" type="double" use="optional" />
+		<attribute name="attribute" type="string" use="optional" />
+	</complexType>
+	
+	<complexType name="user">
+		<annotation>
+			<appinfo>
+				<jxb:class>
+					<jxb:javadoc>
+						<![CDATA[A reference to a user Resource.<br />]]>
+					</jxb:javadoc>
+				</jxb:class>
+			</appinfo>
+		</annotation>
+		
+
+		<complexContent>
+			<extension base="dgc:resource">
+				<sequence>
+					<element name="userName" type="string" minOccurs="1" maxOccurs="1" />
+					<element name="firstName" type="string" minOccurs="1" maxOccurs="1" />
+					<element name="lastName" type="string" minOccurs="1" maxOccurs="1" />
+					<element name="emailAddress" type="string" minOccurs="1" maxOccurs="1" />
+					<element name="language" type="string" minOccurs="1" maxOccurs="1" />
+					<element name="phoneNumbers" type="dgc:phoneCollection" minOccurs="1" maxOccurs="1" />
+					<element name="instantMessagingAccounts" type="dgc:instantMessagingAccountCollection" minOccurs="1" maxOccurs="1" />
+					<element name="websites" type="dgc:websiteCollection" minOccurs="1" maxOccurs="1" />
+					<element name="addresses" type="dgc:addressCollection" minOccurs="1" maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	
+		
+	<complexType name="instantMessagingAccount">
+		<annotation>
+			<appinfo>
+				<jxb:class>
+					<jxb:javadoc>
+						<![CDATA[A reference to a phone resource.<br />]]>
+					</jxb:javadoc>
+				</jxb:class>
+			</appinfo>
+		</annotation>
+		<complexContent>
+			<extension base="dgc:resource">
+				<sequence>
+					<element name="account" type="string" minOccurs="1" maxOccurs="1" />
+					<element name="instantMessagingAccountType" type="dgc:instantMessagingAccountType" minOccurs="1" maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	
+	<complexType name="website">
+		<annotation>
+			<appinfo>
+				<jxb:class>
+					<jxb:javadoc>
+						<![CDATA[A reference to a phone resource.<br />]]>
+					</jxb:javadoc>
+				</jxb:class>
+			</appinfo>
+		</annotation>
+		<complexContent>
+			<extension base="dgc:resource">
+				<sequence>
+					<element name="url" type="string" minOccurs="1" maxOccurs="1" />
+					<element name="type" type="dgc:websiteType" minOccurs="1" maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	
+		<complexType name="address">
+		<annotation>
+			<appinfo>
+				<jxb:class>
+					<jxb:javadoc>
+						<![CDATA[A reference to a phone resource.<br />]]>
+					</jxb:javadoc>
+				</jxb:class>
+			</appinfo>
+		</annotation>
+		<complexContent>
+			<extension base="dgc:resource">
+				<sequence>
+					<element name="city" type="string" minOccurs="1" maxOccurs="1" />
+					<element name="street" type="string" minOccurs="1" maxOccurs="1" />
+					<element name="number" type="string" minOccurs="1" maxOccurs="1" />
+					<element name="province" type="string" minOccurs="1" maxOccurs="1" />
+					<element name="country" type="string" minOccurs="1" maxOccurs="1" />
+					<element name="addressType" type="dgc:addressType" minOccurs="1" maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	
+	<complexType name="phone">
+		<annotation>
+			<appinfo>
+				<jxb:class>
+					<jxb:javadoc>
+						<![CDATA[A reference to a phone resource.<br />]]>
+					</jxb:javadoc>
+				</jxb:class>
+			</appinfo>
+		</annotation>
+		<complexContent>
+			<extension base="dgc:resource">
+				<sequence>
+					<element name="number" type="string" minOccurs="1" maxOccurs="1" />
+					<element name="phoneType" type="dgc:phoneType" minOccurs="1" maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	
+		<complexType name="group">
+		<annotation>
+			<appinfo>
+				<jxb:class>
+					<jxb:javadoc>
+						<![CDATA[A reference to a phone resource.<br />]]>
+					</jxb:javadoc>
+				</jxb:class>
+			</appinfo>
+		</annotation>
+		<complexContent>
+			<extension base="dgc:resource">
+				<sequence>
+					<element name="groupName" type="string" minOccurs="1" maxOccurs="1" />
+					<element name="users" type="dgc:userCollection" minOccurs="1" maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	
+	<!-- Configuration Category types -->
+	<complexType name="configurationCategory">
+		<sequence>
+			<element name="representationReference" type="dgc:representationReference" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+		<attribute name="name" type="string" use="required"/>
+		<attribute name="description" type="string" use="optional"/>
+	</complexType>
+	
+	<complexType name="attributeAndRelationTypesConfigurationCategory">
+		<complexContent>
+			<extension base="dgc:configurationCategory" />
+		</complexContent>
+	</complexType>
+
+	<!-- |||||||||| Collection Types |||||||||| -->
+	<!-- Collection types, to return as result when multiple resources are to 
+		be returned -->
+		
+	<complexType name="communityCollection">
+		<annotation>
+			<documentation>
+				A collection of community.
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="community" type="dgc:community" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	
+		
+	<complexType name="userCollection">
+		<annotation>
+			<documentation>
+				A collection of user.
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="user" type="dgc:userReference" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="searchResultItemCollection">
+		<annotation>
+			<documentation>
+				List of search result items
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="searchResultItem" type="dgc:searchResultItemType"
+				minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="vocabularyCollection">
+		<annotation>
+			<documentation>
+				List of vocabularies, to
+				be used when multiple need to
+				be transmitted.
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="vocabulary" type="dgc:vocabulary"
+				minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="representationCollection">
+		<annotation>
+			<documentation>
+				Collection of representation.
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="representation" type="dgc:representation"
+				minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="simpleTermCollection">
+		<sequence>
+			<element name="simpleTerm" type="dgc:simpleTerm" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="termCollection">
+		<annotation>
+			<documentation>
+				List of terms, to be used when
+				multiple need to be
+				transmitted.
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="term" type="dgc:term" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="binaryFactTypeFormCollection">
+		<annotation>
+			<documentation>
+				List of binary fact type forms, to be used when
+				multiple need to be transmitted.
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="binaryFactTypeForm" type="dgc:binaryFactTypeForm" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="characteristicFormCollecton">
+		<annotation>
+			<documentation>
+				List of characteristic forms, to be used when
+				multiple
+				need to be transmitted.
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="characteristicForm" type="dgc:characteristicForm" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="attributeTypeCollection">
+		<sequence>
+			<element name="attributeType" type="dgc:attributeType" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="attributeCollection">
+		<sequence>
+			<element name="attribute" type="dgc:attribute" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="attributeAndRelationTypesConfigurationCategoryCollection">
+		<sequence>
+			<element name="attributeAndRelationTypesConfigurationCategory" type="dgc:attributeAndRelationTypesConfigurationCategory" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<!-- Singular Elements -->
+	<element name="searchResultItem" type="dgc:searchResultItemType" />
+	<element name="configProperty" type="dgc:configurationPropertyType" />
+
+	<!-- Collections of Elements -->
+	<element name="configuration" type="dgc:configurationPropertiesSetType" />
+	<element name="searchResultItems" type="dgc:searchResultItemCollection" />
+	
+	<element name="communities" type="dgc:communityCollection" />
+	<element name="vocabularies" type="dgc:vocabularyCollection" />
+	<element name="representations" type="dgc:representationCollection" />
+	<element name="simpleTerms" type="dgc:simpleTermCollection" />
+	<element name="terms" type="dgc:termCollection" />
+	<element name="binaryFactTypeForms" type="dgc:binaryFactTypeFormCollection" />
+	<element name="characteristicForms" type="dgc:characteristicFormCollecton" />
+	<element name="attributeTypes" type="dgc:attributeTypeCollection" />
+	<element name="attributes" type="dgc:attributeCollection" />
+	<element name="relations" type="dgc:relationCollection" />
+	<element name="attributeAndRelationTypesConfigurationCategories" type="dgc:attributeAndRelationTypesConfigurationCategoryCollection" />
+	
+	<!-- Collections of Reference Elements -->
+	<element name="communityReferences" type="dgc:communityReferenceSet" />
+	<element name="vocabularyReferences" type="dgc:vocabularyReferenceSet" />
+	<element name="representationReferences" type="dgc:representationReferenceSet" />
+	<element name="termReferences" type="dgc:termReferenceSet" />
+	<element name="characteristicFormReferences" type="dgc:characteristicFormReferenceSet" />
+	<element name="binaryFactTypeFormReferences" type="dgc:binaryFactTypeFormReferenceSet" />
+	<element name="attributeReferences" type="dgc:attributeReferenceSet" />
+	<element name="relationReferences" type="dgc:relationReferenceSet" />
+
+	<!-- Exception -->
+	<!-- Jersey Exception -->
+	<element name="notFoundException" type="dgc:notFoundException" />
+	<!-- Generic Exception -->
+    <element name="exception" type="dgc:exception" />
+    <!-- DGC Exception -->
+    <element name="dgcException" type="dgc:dgcException" />
+    <element name="illegalArgumentException" type="dgc:illegalArgumentException" />
+    <element name="entityNotFoundException" type="dgc:entityNotFoundException" />
+    <element name="authorizationException" type="dgc:authorizationException" />
+    <element name="licenseKeyException" type="dgc:licenseKeyException" />
+    
+    <!-- Job representation -->
+    <complexType name="jobType">
+		<annotation>
+			<documentation>Represents all the information of a job in the back-end.</documentation>	
+		</annotation>
+		<attribute name="id" type="string" />
+		<attribute name="creationDate" type="long" />
+		<attribute name="startDate" type="long" />
+		<attribute name="endDate" type="long" />
+		<attribute name="state" type="string" />
+		<attribute name="message" type="string" />
+		<attribute name="percentage" type="double" />
+		<attribute name="owner" type="string" />
+		<attribute name="cancelable" type="boolean" />
+	</complexType>
+	
+	<complexType name="jobCollection">
+		<annotation>
+			<documentation>
+				A collection of jobs.
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="job" type="dgc:jobType" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	
+	<element name="job" type="dgc:jobType" />
+	<element name="jobs" type="dgc:jobCollection" />
+	
+    <!-- |||||||||| Enumeration Types |||||||||| -->
+
+        
+        <simpleType name="phoneType">
+                <annotation>
+                        <documentation>
+                                The different types of phones
+                                <ul>
+                                        <li>Fax</li>
+                                        <li>Mobile</li>
+                                        <li>Other</li>
+                                        <li>Pager</li>
+                                        <li>Private</li>
+                                        <li>Work</li>
+                                </ul>
+                        </documentation>
+                </annotation>
+                <restriction base="string">
+                        <enumeration value="Fax" />
+                        <enumeration value="Mobile" />
+                        <enumeration value="Other" />
+                        <enumeration value="Pager" />
+                        <enumeration value="Private" />
+                        <enumeration value="Work" />
+                </restriction>
+        </simpleType>
+        
+        <simpleType name="addressType">
+                <annotation>
+                        <documentation>
+                                The different types of phones
+                                <ul>
+                                        <li>Home</li>
+                                        <li>Work</li>
+                                </ul>
+                        </documentation>
+                </annotation>
+                <restriction base="string">
+                        <enumeration value="Home" />
+                        <enumeration value="Work" />
+                </restriction>
+        </simpleType>
+        
+        <simpleType name="websiteType">
+                <annotation>
+                        <documentation>
+                                The different types of phones
+                                <ul>
+                                        <li>Home</li>
+                                        <li>Work</li>
+                                </ul>
+                        </documentation>
+                </annotation>
+                <restriction base="string">
+                        <enumeration value="Facebook" />
+                        <enumeration value="Linkedin" />
+                        <enumeration value="MySpace" />
+                        <enumeration value="Twitter" />
+                        <enumeration value="Website" />
+                </restriction>
+        </simpleType>
+ 
+        <simpleType name="instantMessagingAccountType">
+                <annotation>
+                        <documentation>
+                                The different types of phones
+                                <ul>
+                                        <li>Home</li>
+                                        <li>Work</li>
+                                </ul>
+                        </documentation>
+                </annotation>
+                <restriction base="string">
+                        <enumeration value="aol" />
+                        <enumeration value="gtalk" />
+                        <enumeration value="icq" />
+                        <enumeration value="jabber" />
+                        <enumeration value="liveMessenger" />
+                        <enumeration value="skype" />
+                        <enumeration value="yahooMessenger" />
+                </restriction>
+        </simpleType>
+
+ 
+	
+	
+</schema>

@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<project name="UI Core" basedir=".">
+	<taskdef resource="net/sf/antcontrib/antlib.xml">
+	  <classpath>
+	    <pathelement location="${basedir}/../com.collibra.tools/ant/ant-contrib-1.0b3.jar"/>
+	  </classpath>
+	</taskdef>
+
+  <property name="src" location="${basedir}" />
+  <property name="js" location="${basedir}/../com.collibra.tools/js" />
+  <property name="css" location="${basedir}/../com.collibra.tools/css" />
+
+  <property name="jsdoc_version" value="2.4.0" />
+  <property name="jshint_rhino_version" value="1.7r3" />
+  <property name="less_version" value="1.2.1" />
+
+  <property file="build.properties" />
+
+  <path id="ui.core.js">
+    <fileset dir="${src}" includes="src/**/*.js" excludes="**/externs.js **/libs/** **/tests/** **/doc/** src/generated/** **/test/** **/less.js **/library/js/ie/*.js **/resources/library/core/**" />
+  </path>
+
+  <!--****************************
+    **        DOCUMENT          **
+    ****************************-->
+
+  <property name="jsdoc.target" location="${basedir}/target/site/apidocs" />
+
+  <property name="jsdoc.development" value="false" />
+
+  <condition property="jsdoc.dev_info" value="### Running DEVELOPMENT mode ###" else="">
+    <istrue value="${jsdoc.development}"/>
+  </condition>
+  <condition property="jsdoc.dev_quiet" value="" else="-q">
+    <istrue value="${jsdoc.development}"/>
+  </condition>
+  
+  <path id="jsdoc.core">
+    <fileset dir="${src}\src\main\resources_unprocessed" includes="**/*.js" excludes="**/libs/* **/tests/* **/doc*" />
+  </path>
+
+  <path id="jsdoc.modules">
+    <fileset dir="${basedir}/src/main/resources/modules" includes="**/*.js" excludes="**/libs/* **/tests/* **/i18n/*" />
+  </path>
+
+  <pathconvert property="jsdoc_core" refid="jsdoc.core" dirsep="/" pathsep="' '" />
+  <pathconvert property="jsdoc_modules" refid="jsdoc.modules" dirsep="/" pathsep="' '" />
+  
+  <property name="jsdoc.all" location="${jsdoc_core}' '${jsdoc_modules}" />
+  <property name="jsdoc.test" location="C:\Users\gkaczan\workspace\dgc-parent\com.collibra.tools\js\jsdoc\2.4.0\templates\codeview\testfile.js" />
+  
+  <!-- This part generates the API documentation. -->
+  <target name="document">
+    <echo message="=== Documenting JavaScript Core ==" />
+    <echo message="${jsdoc.dev_info}" />
+    <delete dir="${jsdoc.target}" />
+    <mkdir dir="${jsdoc.target}" />
+    <exec executable="java" failonerror="true">
+      <arg value="-jar" />
+      <arg value="${js}/jsdoc/${jsdoc_version}/jsrun.jar" />
+      <arg value="${js}/jsdoc/${jsdoc_version}/app/run.js" />
+      <arg value="-r=4" />
+      <arg value="-s" />
+      <arg value="${jsdoc.dev_quiet}" />
+      <arg value='-D="development:${jsdoc.development}"' />
+      <arg value="-t=${js}/jsdoc/${jsdoc_version}/templates/codeview" />
+      <arg value="-d=${jsdoc.target}/" />
+      <arg line="'${jsdoc.all}'" />
+    </exec>
+    <echo message="You can find the API documentation in ${jsdoc.target}." />
+    <echo message="Use this path to view it in your browser:" />
+    <echo message=" " />
+    <echo message="${jsdoc.target}/index.html" />
+    <echo message="==================================" />
+  </target>
+</project>

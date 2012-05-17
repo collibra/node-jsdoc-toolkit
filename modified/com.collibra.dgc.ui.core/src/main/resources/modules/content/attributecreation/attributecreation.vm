@@ -1,0 +1,142 @@
+#**
+* Attribute Creation Module
+*
+* Copyright Collibra 2011
+* @author Michal Hans <michal@collibra.com>
+* @author Grzegorz Pawlowski <grzegorz@collibra.com>
+*#
+
+##TODO: add translations
+##TODO: add option pulling for LIST TYPE - wait for "model"
+##TODO: finish DATE (after uielement is added to a JS file) (add id after it's added to REST)
+##TODO: finish TIME (after uielement is added to a JS file) (add id after it's added to REST)
+##TODO: finish DATETIME (after uielement is added to a JS file) (add id after it's added to REST)
+##TODO: finish DYNAMIC_LIST (after uielement is added to a JS file) (add id after it's added to REST)
+##TODO: finish MULTI_VALUE_LIST (after uielement is added to a JS file)
+
+#**
+ * Print control buttons - "Save" and "Cancel".
+ *#
+#macro(insertButtons)
+  <div class="buttons">
+    <span class="btn-success attributecreation-button-save"><i class="icon-save"></i> Save</span>
+    <span class="btn-danger attributecreation-button-cancel"><i class="icon-delete white"></i> Cancel</span>
+  </div>
+#end
+
+#**
+ * Get options for select lists.
+ *#
+#macro(getOptions)
+  ##TODO: add option pulling for LIST TYPE - wait for "model"
+  <option value="1">Option One</option>
+  <option value="2">Option Two</option>
+  <option value="3">Option Three</option>
+  <option value="4">Option Four</option>
+#end
+
+
+<div id="attributecreation">
+  <div class="attributecreation-wrapper">
+    <div class="attributecreation-container">
+
+      <!-- TYPE: CUSTOM - WYSIWYG EDITOR -->
+      <div id="attributeCreationStringAttribute" class="attributecreation-content attributecreation-type-custom">
+        <h3 class="attributecreation-header">New Custom Attribute</h3>
+        <div class="attributecreation-form">
+          <div class="field">
+            <textarea id="attributecreation-custom-value"></textarea>
+          </div>
+        </div>
+        <div class="clearfloats"></div>
+      </div>
+      <!-- END OF TYPE -->
+
+      <!-- TYPE: LIST - SINGLE VALUE -->
+      <div id="attributeCreationSingleValueListAttribute" class="attributecreation-content attributecreation-type-list">
+        <h3 class="attributecreation-header">New List Attribute</h3>
+        <div class="attributecreation-form">
+          <div class="description">Search for existing [Attribute name] or enter a non-existant one to add it.</div>
+          <div class="field">
+            <select id="attributecreation-list-value" style="width:200px">
+              #getOptions()
+            </select>
+          </div>
+        </div>
+
+        #insertButtons()
+        <div class="clearfloats"></div>
+      </div>
+      <!-- END OF TYPE -->
+
+      <!-- TYPE: LIST - MULTIPLE VALUE -->
+      <div id="attributeCreationMultiValueListAttribute" class="attributecreation-content attributecreation-type-multiplelist">
+        <h3 class="attributecreation-header">New Multiple List Attribute</h3>
+        <div class="attributecreation-form">
+          <div class="description">Search for existing [Attribute name] or enter a non-existant one to add it.</div>
+          <div class="field">
+            <select id="attributecreation-list-multiple-value" style="width:200px">
+              #getOptions()
+            </select>
+          </div>
+        </div>
+
+        #insertButtons()
+        <div class="clearfloats"></div>
+      </div>
+      <!-- END OF TYPE -->
+
+      <!-- TYPE: DYNAMIC LIST -->
+      <div id="attributeCreationD" class="attributecreation-content attributecreation-type-dynamiclist">
+        <h3 class="attributecreation-header">New Dynamic List Attribute</h3>
+        <div class="attributecreation-form">
+          <div class="description">Search for existing [Attribute name] or enter a non-existant one to add it.</div>
+          <div class="field"><input type="text" class="textinput" placeholder="Search ..."/></div>
+        </div>
+
+        #insertButtons()
+        <div class="clearfloats"></div>
+      </div>
+      <!-- END OF TYPE -->
+
+      <!-- TYPE: DATE -->
+      <div id="attributeCreationA" class="attributecreation-content attributecreation-type-date">
+        <h3 class="attributecreation-header">New Date Attribute</h3>
+        <div class="attributecreation-form">
+          <div class="field"><input type="text" class="textinput icon" placeholder="Date"/></div>
+        </div>
+
+        #insertButtons()
+        <div class="clearfloats"></div>
+      </div>
+      <!-- END OF TYPE -->
+
+      <!-- TYPE: TIME -->
+      <div id="attributeCreationB" class="attributecreation-content attributecreation-type-time">
+        <h3 class="attributecreation-header">New Time Attribute</h3>
+        <div class="attributecreation-form">
+          TODO: style and add uielement
+        </div>
+
+        #insertButtons()
+        <div class="clearfloats"></div>
+      </div>
+      <!-- END OF TYPE -->
+
+      <!-- TYPE: DATETIME -->
+      <div id="attributeCreationC" class="attributecreation-content attributecreation-type-datetime">
+        <h3 class="attributecreation-header">New DateTime Attribute</h3>
+        <div class="attributecreation-form">
+          TODO: style and add uielement
+        </div>
+
+        #insertButtons()
+        <div class="clearfloats"></div>
+      </div>
+      <!-- END OF TYPE -->
+      
+      <div class="attributecreation-resizer resizer-1"></div>
+      <div class="attributecreation-resizer resizer-2"></div>
+    </div>
+  </div>
+</div>

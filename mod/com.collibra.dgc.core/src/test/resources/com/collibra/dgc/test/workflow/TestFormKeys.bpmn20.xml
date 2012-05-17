@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:signavio="http://www.signavio.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" exporter="Signavio Process Editor, http://www.signavio.com" exporterVersion="" id="sid-da17a598-2605-45e6-b332-950a4e87bb41" targetNamespace="http://www.signavio.com/bpmn20" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+   <process id="ProcessWithStartFormKey" isExecutable="true" name="ProcessWithStartFormKey">
+      <startEvent id="StartNoneEvent" name="StartNoneEvent" activiti:formKey="startformkey.form"/>
+      
+      <userTask id="Perform" name="Perform" >
+      		<humanPerformer>
+				<resourceAssignmentExpression>
+					<formalExpression>user1</formalExpression>
+				</resourceAssignmentExpression>
+			</humanPerformer>			 
+      </userTask>
+      
+      <endEvent id="EndNoneEvent" name="EndNoneEvent" />
+      
+      <sequenceFlow id="S11" name="S11" sourceRef="StartNoneEvent" targetRef="Perform" />
+      <sequenceFlow id="S12" name="S12" sourceRef="Perform" targetRef="EndNoneEvent" />      
+   </process>
+   
+   <process id="ProcessWithFormKey" isExecutable="true" name="ProcessWithFormKey">
+      <startEvent id="Start2" name="Start2"/>
+      
+      <userTask id="usertask" name="usertask" activiti:formKey="usertask.form">
+      		<humanPerformer>
+				<resourceAssignmentExpression>
+					<formalExpression>user2</formalExpression>
+				</resourceAssignmentExpression>
+			</humanPerformer>			 
+      </userTask>
+      
+      <endEvent id="End2" name="End2" />
+      
+      <sequenceFlow id="S21" name="S21" sourceRef="Start2" targetRef="usertask" />
+      <sequenceFlow id="S22" name="S22" sourceRef="usertask" targetRef="End2" />      
+   </process>
+   
+</definitions>

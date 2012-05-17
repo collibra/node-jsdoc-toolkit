@@ -1,0 +1,1 @@
+}(core.libs.get('jquery'), core.libs.get('jquery')));

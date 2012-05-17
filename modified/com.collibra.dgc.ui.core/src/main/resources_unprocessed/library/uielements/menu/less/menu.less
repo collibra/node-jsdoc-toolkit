@@ -1,0 +1,210 @@
+/*
+  * Style for menu's.
+  *
+  * Copyright Collibra NV/SA
+  * @author <a href="mailto:michal@collibra.com">Michal Hans</a>
+  */
+
+@menuWidth: auto;
+@menuBackgound: #F4F4F4;
+@menuBackgroundHover: #88B93F;
+@menuBackgroundDefault: #D2DBC5;
+@menuBorder: 1px solid #B6B6B6;
+@menuBoxShadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+
+#menu-bgoverlay {
+  background: transparent;
+  display: none;
+  height: 100%;
+  left:0;
+  position: absolute;
+  top:0;
+  width: 100%;
+  z-index: 998;
+}
+
+.ui-menu-initiator{
+  cursor: pointer;
+}
+
+.ui-menu {
+  cursor: pointer;
+  display: block;
+  height: 0;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 0;
+  z-index: 999;
+  
+  .btn {
+    background: none;
+    border: none;
+    display: block;
+    filter: none;
+    margin: 0px;
+    text-align: left;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    white-space: nowrap;
+    padding-right: 25px;
+    min-width: 100px;
+
+    .border-radius(0);
+    .boxShadow(none);
+    
+    &.disabled{
+      background: none;
+      filter: none;
+    }
+  }
+  
+  .ui-menu-items-wrapper{
+    display: none;
+    position: absolute;
+    padding: 2px;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    
+    &.show{
+      display: block;
+    }
+  
+    UL {
+      list-style:none;
+      margin: 0;
+      padding: 0;
+      width: @menuWidth;
+      background: @menuBackgound;
+      border:@menuBorder;
+      .border-radius();
+      .boxShadow(@menuBoxShadow);
+      
+      LI {
+        position:relative;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        
+        & > SPAN.btn.default{
+          background: @menuBackgroundDefault;
+        }
+        
+        &:hover, & > SPAN.btn.hover, & > SPAN.btn:hover{
+          background: @menuBackgroundHover;
+          
+          &.disabled {
+            background: @menuBackgound;
+          }
+          
+          & > .ui-menu-submenu-icon > .triangle-right {
+            border-left-color: #fff;
+          }
+        }
+        
+        .ui-menu-submenu-icon{
+            height: 5px;
+            margin-top: -4px;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            width: 5px;
+        }
+        
+        .ui-menu-item-separator {
+          display:block;
+          height: 0px;
+          margin: 5px;
+          border-top: @menuBorder;
+        }
+        
+        //sortable
+        .ui-menu-item-sortable-handler {
+          display: block;
+          float: left;
+          background: url("${contextPath}resources/library/images/controls.png") -19px -96px;
+          margin: 4px 5px 0 0;
+          width: 10px;
+          height: 18px;
+          cursor: move;
+        }
+        
+        &.ui-sortable-handler {
+          SPAN.btn {
+            background: @menuBackgroundHover;
+          }
+        }
+        
+        &.ui-sortable-placeholder {
+          background: #ddd;
+          min-height: 30px;
+        }
+        
+        //selectable
+        .ui-menu-item-selectable-input {
+          
+        }
+        
+        .radioCheck.checkboxInput{
+          margin-left: 0px;
+          margin-right: 5px;
+        }
+        
+        .label {
+          display: inline-block;
+        }
+        //additional actions
+        .additional-actions {
+          display: block;
+          position: absolute;
+          right: 0;
+          top: 50%;
+          margin-top: -13px;
+          
+          &.left {
+            right: auto;
+            display: inline;
+          }
+          
+          .additional-action {
+            &:hover {
+              &.icon-edit {
+                background-image: url("${contextPath}resources/library/images/icons/14x14/yellow.png");
+              }
+              &.icon-trash {
+                background-image: url("${contextPath}resources/library/images/icons/14x14/red.png");
+              }
+            }
+          }
+        }
+        .additional-actions-placeholders {
+          .additional-actions-placeholder {
+            width: 14px;
+            height: 14px;
+            margin-left: -1px;
+            margin-right: 6px;
+            display: inline-block;
+          }
+        }
+      }
+      
+    }
+  }
+}
+
+
+/* Browser Fixes */
+.ie7 {
+  .ui-menu-items-wrapper{
+    UL {
+      width: 160px;
+      
+      LI {
+        .additional-actions {
+          margin-top: -7px;
+        }
+      }
+    }
+  }
+}

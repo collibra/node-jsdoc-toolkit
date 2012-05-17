@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!-- 
+	This is the configuration file containing all the default values.
+ -->
+<configuration>
+	<core>
+		<datasource>
+			<url>jdbc:hsqldb:mem</url>
+			<username>sa</username>
+			<password></password>
+			<driver>org.hsqldb.jdbcDriver</driver>
+			<dialect>org.hibernate.dialect.HSQLDialect</dialect>
+			<pool>
+				<initial>5</initial>
+				<max>20</max>
+			</pool>
+			<!-- If true, the database will be dropped and recreated on startup. Used for testing -->
+			<recreate>true</recreate>
+			<!-- The database name is only used for testing environment (needed by bootstrapper) -->
+			<database>PUBLIC</database>
+		</datasource>
+	</core>
+</configuration>

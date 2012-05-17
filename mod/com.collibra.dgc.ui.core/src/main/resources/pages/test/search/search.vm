@@ -1,0 +1,32 @@
+<script language="JavaScript" type="text/javascript">
+core.dom.ready(function() {
+  core.module.use('modules/navigation/search', function(Search) {
+    window.Search = Search;
+    
+    core.debug.show(Search.getOptions());
+
+    Search.setOptions({
+      categories: {
+        term:{
+          active:false
+        },
+        vocabulary:{
+          enabled:false
+        },
+        community:{
+          active:false,
+          show:false
+        }
+      },
+      grouping:{
+        active:true
+      }
+     });
+
+    Search.search('me');
+    
+    core.debug.show(Search.getOptions());
+
+  });
+});
+</script>

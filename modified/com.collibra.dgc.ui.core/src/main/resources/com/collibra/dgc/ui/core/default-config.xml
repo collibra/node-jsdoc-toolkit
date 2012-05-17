@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!--
+	This is the configuration file containing all the default values.
+ -->
+<configuration>
+	<system>
+		<ui>
+			<override-page-definitions>false</override-page-definitions>
+			<optimize>
+				<javascript>true</javascript>
+				<css>true</css>
+			</optimize>
+		</ui>
+	</system>
+</configuration>

@@ -1,0 +1,59 @@
+// Reset margin and padding for body and html.
+.bodyhtml {
+  margin: 0px;
+  padding: 0px;
+}
+
+HTML {
+  margin: 0px;
+  padding: 0px;
+}
+
+BODY {
+  margin: 0px;
+  padding: 0px;
+  color: black;
+  position: relative;
+  background-color: #515151;
+  background-image: url("../shared/header/images/patterns/background.gif");
+}
+
+#maincontainer {
+  min-width: 1080px;
+  min-height: 634px;
+  padding: 0px 70px;
+  background: url("../shared/header/images/gradients/background.png") top right no-repeat;
+}
+
+#header {
+  height: 95px;
+  position: relative;
+}
+
+#logowrapper{
+  display:block;
+  float:left;
+}
+
+#logo {
+  margin: 5px 0px 0px 35px;
+  cursor: pointer;
+}
+
+#contentwrapper {
+  position: relative;
+  border: 4px solid white;
+  -moz-background-clip: padding;
+  -moz-border-radius: 15px;
+  -webkit-background-clip: padding-box;
+  -webkit-border-radius: 15px;
+  background-clip: padding-box;
+  border-radius: 15px;
+  background-color: white;
+  margin-bottom: 88px;
+  padding: 30px;
+}
+
+#contentwrapper div {
+  margin-bottom: 30px;
+}

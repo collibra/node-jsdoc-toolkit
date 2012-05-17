@@ -1,0 +1,85 @@
+<div style="display:none">
+  <div class="notification default with-avatar">
+    <div class="avatar-wrapper">
+      <div class="avatar"><img src="/com.collibra.dgc.war/resources/pages/shared/header/images/logo.png"></div>
+    </div>
+    <div class="content-wrapper">
+      <div class="title">New Term</div>
+      <div class="close"><span class="icon-delete"></span></div>
+      <div class="content"><a href="#">Clovis</a> added a new term to <a href="#">Vocabulary A</a>: <a href="#">term A</a></div>
+    </div>
+  </div>
+  
+  <div class="notification default">
+    <div class="avatar-wrapper">
+      <div class="avatar"><img src="/com.collibra.dgc.war/resources/pages/shared/header/images/logo.png"></div>
+    </div>
+    <div class="content-wrapper">
+      <div class="title">Default</div>
+      <div class="close"><span class="icon-delete"></span></div>
+      <div class="content">Lorem ipsum</div>
+      <div class="separator"></div>
+      <div class="more"><span class="icon-eye"></span>What can I do?</div>
+    </div>
+  </div>
+  
+  <div class="notification error">
+    <div class="avatar-wrapper">
+      <div class="avatar"><img src="/com.collibra.dgc.war/resources/pages/shared/header/images/logo.png"></div>
+    </div>
+    <div class="content-wrapper">
+      <div class="title">Error</div>
+      <div class="close"><span class="icon-delete"></span></div>
+      <div class="content">Connection to the server lost.</div>
+      <div class="separator"></div>
+      <div class="more"><span class="icon-eye"></span>What can I do?</div>
+      <div class="more-info" style="display:block">  ## HIDED BY DEFAULT ###
+       Please refresh the page and try again. If problem still exist contact Your <a href="#">administrator</a>.
+      </div>
+    </div>
+  </div>
+  
+  <div class="notification success">
+    <div class="avatar-wrapper">
+      <div class="avatar"><img src="/com.collibra.dgc.war/resources/pages/shared/header/images/logo.png"></div>
+    </div>
+    <div class="content-wrapper">
+      <div class="title">Description</div>
+      <div class="close"><span class="icon-delete"></span></div>
+      <div class="content">Description was successfully added</div>
+    </div>
+  </div>
+  
+  <div class="notification warning">
+    <div class="avatar-wrapper">
+      <div class="avatar"><img src="/com.collibra.dgc.war/resources/pages/shared/header/images/logo.png"></div>
+    </div>
+    <div class="content-wrapper">
+      <div class="title">Import</div>
+      <div class="close"><span class="icon-delete"></span></div>
+      <div class="content">There were warnings during import of: <strong>file1.xls</strong></div>
+      <div class="separator"></div>
+      <div class="more"><span class="icon-eye"></span>See warnings</div>
+      <div class="more-info">
+       Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+      </div>
+    </div>
+  </div>
+  
+  
+</div>
+
+<script language="JavaScript" type="text/javascript">
+core.dom.ready(function() {
+  core.module.use(['library/uielements/notifications/notification', 'modules/content/notificationmanager'], function(Notification, NotificationManager) {
+    window.Notification = Notification;
+    window.NotificationManager = NotificationManager;
+    
+    noti1 = Notification.create({content: {message: 'Message 1', title: 'Title of notification 1', user: '/com.collibra.dgc.war/resources/pages/test/notifications/avatar.jpg'}, type: 'TYPE_DEFAULT', sticky:true});
+    noti2 = Notification.create({content: {message: 'Message 2', title: 'Title of notification 2'}, type: 'TYPE_SUCCESS', sticky:true, more:{enabled: true, message:'Yes we can 2!!'}});
+    noti3 = Notification.create({content: {message: 'Message 3', title: 'Title of notification 3(console log onClick)', user: '/com.collibra.dgc.war/resources/pages/test/notifications/avatar.jpg'}, type: 'TYPE_ERROR', sticky:true, more:{enabled: true, message:'Yes we can 3!!', onClick: function() {core.debug.show('I specified action on click')}}});
+    noti4 = Notification.create({content: {message: 'Message 4', title: 'Title of notification 4', user: '/com.collibra.dgc.war/resources/pages/test/notifications/avatar.jpg'}, type: 'TYPE_WARNING', sticky:false, more:{enabled: true, message:'Yes we can 4!!'}});
+    noti5 = Notification.create({content: {message: 'Message 5', title: 'Title of notification 5'}, type: 'TYPE_WARNING', sticky:true, more:{enabled: true, message:'Yes we can 5!!'}});
+  });
+});
+</script>

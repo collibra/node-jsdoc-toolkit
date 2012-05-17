@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:signavio="http://www.signavio.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" exporter="Signavio Process Editor, http://www.signavio.com" exporterVersion="" id="sid-8f4323cf-e110-4994-abce-39a6ca1942f0" targetNamespace="http://www.signavio.com/bpmn20" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+   <process id="Articulation_Process" isExecutable="true" name="Articulation_Process">
+      <extensionElements>
+      	<activiti:executionListener class="com.collibra.dgc.core.workflow.activiti.executionlistener.ArticulationProcessRACIInitializer" event="start">
+	      		<!-- Responsible - This role is mandatory -->
+	      		<activiti:field name="responsibleRole" stringValue="Admin(Community), Steward(Community)" />
+	      		<!-- Accountable - This role is mandatory -->
+	      		<activiti:field name="accountableRole" stringValue="Admin(Community), Steward(Community)" />
+	      		<!-- Consulted -->
+	      		<activiti:field name="consultedRole" stringValue="Stakeholder(Community)" />
+	      		
+	      		<!-- Reassignment -->
+	      		<activiti:field name="reassignRole" stringValue="Admin(Community)" />	      		
+	      		<!-- State of the representation when the process starts -->	      		
+	      		<activiti:field name="targetState" stringValue="Candidate" />	      		
+      	</activiti:executionListener>
+     </extensionElements> 
+   
+      <startEvent id="StartNoneEvent" name="StartNoneEvent" activiti:formKey="WorkflowCode.VocabularyEntryWorkflowStart"/>
+      
+      <!-- Articulate task is assigned to 'Responsible' users. -->
+      <userTask id="Articulate" name="Articulate">
+      	 <documentation>bsg.workflow.Articulation_Process.task.Articulate</documentation>
+      	 <extensionElements>
+    		<activiti:taskListener event="create" class="com.collibra.dgc.core.workflow.activiti.tasklistener.ArticulationStartTaskListener" />
+  		 </extensionElements>
+      </userTask>
+      
+      <!-- When the articulation is not done and 'Accountable' makes a decision to close or reassign this gateway routes the case accordingly.  -->
+      <exclusiveGateway gatewayDirection="Diverging" id="Exclusive_Databased_Gateway" name="Exclusive_Databased_Gateway" />
+      
+      <!-- If the 'Articulate' task is not completed by 'Responsible' then this task is create for the 'Accountable' informing that articulation task
+           is not completed. The 'Accountable' user can then decide to close the task or re-assign to one of the users from role 'Reassignment'. -->
+      <userTask id="Articulation_Not_Done" name="Articulation Not Done" activiti:formKey="WorkflowCode.ArticulationWorkflowArticulationNotDone">
+      	<documentation>bsg.workflow.Articulation_Process.task.ArticulationNotDone</documentation>
+      	 <extensionElements>
+    		<activiti:taskListener event="create" class="com.collibra.dgc.core.workflow.activiti.tasklistener.ArticulationNotDoneStartTaskListener" />
+  		 </extensionElements>
+      </userTask>
+      
+      <!-- Timer for completing arituclation -->
+      <boundaryEvent attachedToRef="Articulate" cancelActivity="true" id="IntermediateTimerEvent" name="IntermediateTimerEvent">
+      	 <documentation>Timer for completing articulation </documentation>
+         <timerEventDefinition id="sid-21dd021e-8664-4d47-bcee-f3020da04e14">
+         	<timeDuration>P7D</timeDuration> <!-- 7 days  -->
+         </timerEventDefinition>
+      </boundaryEvent>
+      
+      <endEvent id="EndNoneEvent" name="EndNoneEvent" />
+      
+      <!-- Sends email notification to Accountable and Consulted -->
+      <serviceTask id="Notify" name="Notify" activiti:type="mail">
+         <documentation>Sends email notification to Accountable and Consulted</documentation>
+         <extensionElements>
+		    <activiti:field name="from" stringValue="glossary@collibra.com" />
+		    <activiti:field name="to" expression="${toEmail}" />
+		    <activiti:field name="subject" expression="Articulation Completed" />
+		    <activiti:field name="html">
+		      <activiti:expression>
+		        <![CDATA[
+		          <html>
+		          	<head></head>
+		            <body>
+		              Hello!<br/><br/>
+		              Articulation was completed for the term <a href="${representationURL}"> ${representationName}</a> by ${sender}.<br /><br/>	              
+		            </body>
+		          </html>
+		        ]]>
+		      </activiti:expression>
+		    </activiti:field>            
+         </extensionElements>
+      </serviceTask>
+      
+      <endEvent id="EndNoneEvent_2" name="EndNoneEvent" />
+      
+      <sequenceFlow id="SequenceFlow_2" name="SequenceFlow" sourceRef="StartNoneEvent" targetRef="Articulate" />
+      <sequenceFlow id="SequenceFlow_3" name="SequenceFlow" sourceRef="Articulate" targetRef="Notify" />
+      <sequenceFlow id="SequenceFlow" name="SequenceFlow" sourceRef="Notify" targetRef="EndNoneEvent_2" />
+      <sequenceFlow id="SequenceFlow_4" name="SequenceFlow" sourceRef="IntermediateTimerEvent" targetRef="Articulation_Not_Done" />
+      <sequenceFlow id="SequenceFlow_5" name="SequenceFlow" sourceRef="Articulation_Not_Done" targetRef="Exclusive_Databased_Gateway" />
+      <sequenceFlow id="Close" name="Close" sourceRef="Exclusive_Databased_Gateway" targetRef="EndNoneEvent">
+         <conditionExpression id="sid-a3213903-3f30-43cc-95e2-96b64378713e_Close" xsi:type="tFormalExpression">${close}</conditionExpression>
+      </sequenceFlow>
+      <sequenceFlow id="Reassign" name="Reassign" sourceRef="Exclusive_Databased_Gateway" targetRef="Articulate">
+         <conditionExpression id="sid-a3213903-3f30-43cc-95e2-96b64378713e_Reassign" xsi:type="tFormalExpression">${!close}</conditionExpression>
+      </sequenceFlow>
+   </process>
+   <!-- bpmndi:BPMNDiagram id="sid-b452d21c-e5b3-48e5-89cf-38a5b9b6a017">
+      <bpmndi:BPMNPlane bpmnElement="Articulation_Process" id="sid-6bb980f2-3bd7-4bca-b2e0-f18b9ce65829">
+         <bpmndi:BPMNShape bpmnElement="StartNoneEvent" id="StartNoneEvent_gui">
+            <omgdc:Bounds height="30.0" width="30.0" x="184.0" y="127.0"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="Articulate" id="Articulate_gui">
+            <omgdc:Bounds height="80.0" width="100.0" x="259.0" y="102.0"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="Exclusive_Databased_Gateway" id="Exclusive_Databased_Gateway_gui" isMarkerVisible="true">
+            <omgdc:Bounds height="40.0" width="40.0" x="525.0" y="305.0"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="Articulation_Not_Done" id="Articulation_Not_Done_gui">
+            <omgdc:Bounds height="80.0" width="100.0" x="360.0" y="285.0"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="IntermediateTimerEvent" id="IntermediateTimerEvent_gui">
+            <omgdc:Bounds height="30.0" width="30.0" x="270.0" y="167.99719930988846"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="EndNoneEvent" id="EndNoneEvent_gui">
+            <omgdc:Bounds height="28.0" width="28.0" x="630.0" y="311.0"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="Notify" id="Notify_gui">
+            <omgdc:Bounds height="80.0" width="100.0" x="404.0" y="102.0"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="EndNoneEvent_2" id="EndNoneEvent_2_gui">
+            <omgdc:Bounds height="28.0" width="28.0" x="549.0" y="128.0"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNEdge bpmnElement="Reassign" id="Reassign_gui">
+            <omgdi:waypoint x="536.0" y="305.0"/>
+            <omgdi:waypoint x="357.0" y="182.0"/>
+         </bpmndi:BPMNEdge>
+         <bpmndi:BPMNEdge bpmnElement="Close" id="Close_gui">
+            <omgdi:waypoint x="565.0" y="325.0"/>
+            <omgdi:waypoint x="630.0" y="325.0"/>
+         </bpmndi:BPMNEdge>
+         <bpmndi:BPMNEdge bpmnElement="SequenceFlow" id="SequenceFlow_gui">
+            <omgdi:waypoint x="504.0" y="142.0"/>
+            <omgdi:waypoint x="549.0" y="142.0"/>
+         </bpmndi:BPMNEdge>
+         <bpmndi:BPMNEdge bpmnElement="SequenceFlow_4" id="SequenceFlow_4_gui">
+            <omgdi:waypoint x="285.0" y="197.0"/>
+            <omgdi:waypoint x="285.0" y="325.0"/>
+            <omgdi:waypoint x="360.0" y="325.0"/>
+         </bpmndi:BPMNEdge>
+         <bpmndi:BPMNEdge bpmnElement="SequenceFlow_5" id="SequenceFlow_5_gui">
+            <omgdi:waypoint x="460.0" y="325.0"/>
+            <omgdi:waypoint x="525.0" y="325.0"/>
+         </bpmndi:BPMNEdge>
+         <bpmndi:BPMNEdge bpmnElement="SequenceFlow_2" id="SequenceFlow_2_gui">
+            <omgdi:waypoint x="214.0" y="142.0"/>
+            <omgdi:waypoint x="259.0" y="142.0"/>
+         </bpmndi:BPMNEdge>
+         <bpmndi:BPMNEdge bpmnElement="SequenceFlow_3" id="SequenceFlow_3_gui">
+            <omgdi:waypoint x="359.0" y="142.0"/>
+            <omgdi:waypoint x="404.0" y="142.0"/>
+         </bpmndi:BPMNEdge>
+      </bpmndi:BPMNPlane>
+   </bpmndi:BPMNDiagram-->
+</definitions>

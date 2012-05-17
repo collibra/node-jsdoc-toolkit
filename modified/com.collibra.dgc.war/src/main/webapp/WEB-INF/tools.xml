@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<toolbox>
+  <tool>
+    <key>sorttool</key>
+    <class>org.apache.velocity.tools.generic.SortTool</class>
+  </tool>
+  <tool>
+    <key>mathtool</key>
+    <class>org.apache.velocity.tools.generic.MathTool</class>
+  </tool>
+  <tool>
+    <key>datetool</key>
+    <class>org.apache.velocity.tools.generic.DateTool</class>
+  </tool>
+</toolbox>

@@ -1,0 +1,253 @@
+/**
+ * LESS/CSS code for Widget
+ *
+ * Copyright Collibra 2012.
+ * @author Michal Hans <michal@collibra.com>
+ */
+ 
+@widgetMinHeight: 190px;
+@widgetMinWidth: 275px;
+
+@widgetTitleColor: #db563e;
+@widgetFontColor: #3a4551;
+@widgetBorder: 1px solid #d6d6d6;
+@widgetBgColor: #fff;
+
+@widgetEditingBgColor: #f6f6f6;
+@widgetEditingActiveMenuBgColor: #A3CF16;
+
+@widgetLoadingBgColor: @widgetEditingBgColor;
+
+@widgetMoveTitleColor: #fff;
+@widgetMoveTitleBgColor: #4d4d4d;
+
+
+.widget {
+  background-color: transparent !important;
+  display: block;
+  margin: 0 7px 5px;
+  padding: 23px 4px;
+  
+  .widget-container {
+    background: @widgetBgColor;
+    border: @widgetBorder;
+    color: @widgetFontColor;
+    min-height: @widgetMinHeight;
+    min-width: @widgetMinWidth;
+    position: relative;
+  }
+  
+  .widget-overlay {
+    background: none repeat scroll 0 0 grey;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+
+    .opacity(0.7);
+  }
+  
+  .widget-overlay-remove {
+    margin-top: -10px;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    width: 100%;
+    
+    .widget-overlay-remove-label {
+      color: #fff;
+      display: inline-block;
+      font-size: 1.2em;
+      margin-right: 20px;
+      text-shadow: 0px 1px 2px #000;
+    }
+    
+    .widget-overlay-remove-buttons {
+      display: inline-block;
+    }
+  }
+  
+  .widget-settings {
+    display: none;
+    padding-top: 15px;
+    
+    .widget-settings-common {
+      padding: 5px;
+    }
+    
+    FIELDSET {
+      border-top: @widgetBorder;
+      border: none;
+      margin: 10px 0 0 0;
+      padding: 5px;
+      
+      LEGEND {
+        color: #8E8E8E;
+      }
+      
+      P {
+        margin: 3px 0;
+        padding: 0;
+      }
+    }
+  }
+  
+  .widget-settings-buttons {
+    bottom: 10px;
+    position: absolute;
+    right: 10px;
+  }
+  
+  .widget-title {
+    color: @widgetTitleColor;
+    font-size: 1.4em;
+    position: absolute;
+    text-transform: capitalize;
+    top: -25px;
+
+    .lucidaGrande;
+  }
+  
+  .widget-menu {
+    display: none;
+    position: absolute;
+    right: -8px;
+    top: -10px;
+    z-index: 1;
+    
+    .widget-menu-items {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      
+      .widget-menu-item {
+        background: url("${contextPath}resources/library/images/controls.png") 0 -130px no-repeat;
+        cursor: pointer;
+        display: inline-block;
+        height: 26px;
+        margin: 0;
+        padding: 0;
+        width: 26px;
+        text-align: center;
+        position: relative;
+        
+        &:hover, &.focused, &.active {
+          background-position: 0 -156px;
+        }
+        
+        > I {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          margin-top: -7px;
+          margin-left: -7px;
+        }
+      }
+    }
+    
+  }
+  
+  /* ON EDIT */
+  &.state-editing {
+    .widget-container{
+      background: @widgetEditingBgColor;
+    }
+    .widget-menu{
+      display:block;
+    }
+  }
+  
+  &.bare.state-editing {
+    padding: 23px 4px;
+    
+    .widget-container{
+      background: @widgetEditingBgColor;
+
+      .widget-title{
+        display: block;
+      }
+
+      .widget-content {
+        padding: 10px;
+        
+        .attributes-type-container:last-child{
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+  
+  /* ON MOVE */
+  &.state-moving {
+    margin-top: 25px;
+    padding-top: 0px;
+    
+    .widget-title {
+      background: @widgetMoveTitleBgColor;
+      border-radius: 2px;
+      color: @widgetMoveTitleColor;
+      display: inline-block;
+      margin: 5px;
+      padding: 5px 11px;
+      top: 0;
+    }
+  }
+  
+  /* ON LOAD */
+  &.state-loading {
+
+    .widget-container{
+      background: @widgetLoadingBgColor;
+    }
+    
+    .widget-content{
+      text-align: center;
+    }
+  }
+  
+  &.bare {
+    padding: 0;
+    
+    &.state-loading {
+      .widget-container {
+        min-height: @widgetMinHeight;
+      }
+    }
+    
+    .widget-container {
+      border: none;
+      background: transparent;
+      min-height: 0;
+    }
+    
+    .widget-title {
+      display: none;
+    }
+  }
+  
+  
+  .widget-loading-content{
+    color:  #3a4551;
+    font-size: 1.4em;
+    padding: 70px 20px 0;
+
+    .lucidaGrande;
+    
+    .loading-indicator {
+      background: url("${contextPath}resources/library/images/loaders/loading-bar.gif") no-repeat;
+      clear: left;
+      display: block;
+      height: 15px;
+      margin: 5px auto;
+      width: 128px;
+    }
+  }
+}
+
+/* IE7 */
+.ie7 {
+  .widget-menu-item {
+    zoom: 1;
+    display: inline !important;
+  }
+}

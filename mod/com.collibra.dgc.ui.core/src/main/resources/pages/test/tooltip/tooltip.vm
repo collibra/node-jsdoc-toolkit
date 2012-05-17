@@ -1,0 +1,121 @@
+<style>
+.test-tooltip td {
+  width: 100px;
+  text-align: center;
+}
+
+.test-tooltip li{
+  padding: 30px;
+}
+
+.test-tooltip .tooltip{
+  cursor: help;
+}
+</style>
+<div class="test-tooltip" style="width:50%; margin:20px auto;">
+  <h3>Advanced positioning</h3>
+  
+  <table>
+    <tr>
+      <td><span class="tooltip" title="Here goes title for default tooltip <br />Here goes title for default tooltip <br />Here goes title for default tooltip" tooltip-position="above-left">[ above-left ]</span></td>
+      <td><span class="tooltip" title="Here goes title for default tooltip <br />Here goes title for default tooltip <br />Here goes title for default tooltip" tooltip-position="above">[ above ]</span></td>
+      <td><span class="tooltip" title="Here goes title for default tooltip <br />Here goes title for default tooltip <br />Here goes title for default tooltip" tooltip-position="above-right">[ above-right ]</span></td>
+    </tr>
+    <tr>
+      <td><span class="tooltip" title="Here goes title for default tooltip <br />Here goes title for default tooltip <br />Here goes title for default tooltip <br />Here goes title for default tooltip <br />Here goes title for default tooltip" tooltip-position="left-top">[ left-top ]</span></td>
+      <td><span> --- </span></td>
+      <td><span class="tooltip" title="Here goes title for default tooltip <br />Here goes title for default tooltip <br />Here goes title for default tooltip <br />Here goes title for default tooltip <br />Here goes title for default tooltip" tooltip-position="right-top">[ right-top ]</span></td>
+    </tr>
+    <tr>
+      <td><span class="tooltip" title="Here goes title for default tooltip <br />Here goes title for default tooltip <br />Here goes title for default tooltip" tooltip-position="left">[ left ]</span></td>
+      <td><span> --- </span></td>
+      <td><span class="tooltip" title="Here goes title for default tooltip <br />Here goes title for default tooltip <br />Here goes title for default tooltip" tooltip-position="right">[ right ]</span></td>
+    </tr>
+    <tr>
+      <td><span class="tooltip" title="Here goes title for default tooltip <br />Here goes title for default tooltip <br />Here goes title for default tooltip <br />Here goes title for default tooltip <br />Here goes title for default tooltip" tooltip-position="left-bottom">[ left-bottom ]</span></td>
+      <td><span> --- </span></td>
+      <td><span class="tooltip" title="Here goes title for default tooltip <br />Here goes title for default tooltip <br />Here goes title for default tooltip <br />Here goes title for default tooltip <br />Here goes title for default tooltip" tooltip-position="right-bottom">[ right-bottom ]</span></td>
+	</tr>
+    <tr>
+      <td><span class="tooltip" title="Here goes title for default tooltip <br />Here goes title for default tooltip <br />Here goes title for default tooltip" tooltip-position="below-left">[ below-left ]</span></td>
+      <td><span class="tooltip" title="Here goes title for default tooltip <br />Here goes title for default tooltip <br />Here goes title for default tooltip" tooltip-position="below">[ below ]</span></td>
+      <td><span class="tooltip" title="Here goes title for default tooltip <br />Here goes title for default tooltip <br />Here goes title for default tooltip" tooltip-position="below-right">[ below-right ]</span></td>
+    </tr>
+  </table>
+</div>
+
+
+<div class="test-tooltip" style="width:50%; margin:20px auto;">
+  <div class="browser"></div>
+  <h2>Tooltip</h2>
+  <ul style="float: left;">
+    <li><span class="tooltip" title="Here goes title for default tooltip">Default</span></li>
+    <li><span class="tooltip-warning" title="Here goes title for warning tooltip">Warning</span></li>
+    <li><span class="tooltip-success" title="Here goes title for success tooltip">Success</span></li>
+    <li><span class="tooltip-danger" title="Here goes title for danger tooltip">Danger</span></li>
+    <li></li>
+    <li><span class="tooltip t1" title="Here goes title for default tooltip">t1 Default</span></li>
+    <li><span class="tooltip-warning t1" title="Here goes title for warning tooltip">t1 Warning</span></li>
+    <li><span class="tooltip-success t1" title="Here goes title for success tooltip">t1 Success</span></li>
+    <li><span class="tooltip-danger t1" title="Here goes title for danger tooltip">t1 Danger</span></li>
+  </ul>
+  <ul style="float: right;">
+    <li><span class="tooltip t2" title="Here goes title for default tooltip">Default</span></li>
+    <li><span class="tooltip-warning t2" title="Here goes title for warning tooltip">Warning</span></li>
+    <li><span class="tooltip-success t2" title="Here goes title for success tooltip">Success</span></li>
+    <li><span class="tooltip-danger t2" title="Here goes title for danger tooltip">Danger</span></li>
+    <li></li>
+    <li><span class="tooltip t3" title="Here goes title for default tooltip">Default</span></li>
+    <li><span class="tooltip-warning t3" title="Here goes title for warning tooltip">Warning</span></li>
+    <li><span class="tooltip-success t3" title="Here goes title for success tooltip">Success</span></li>
+    <li><span class="tooltip-danger t3" title="Here goes title for danger tooltip">Danger</span></li>
+  </ul>
+  <div style="clear: both;"></div>
+  <h2>Test position based on attribute 'tooltip-position'</h2>
+  <ul style="float: left;">
+    <li><span class="tooltip positionAttribute" title="Here goes title for default tooltip" tooltip-position="above">Default</span></li>
+    <li><span class="tooltip-warning positionAttribute" title="Here goes title for warning tooltip" tooltip-position="above">Warning</span></li>
+    <li><span class="tooltip-success positionAttribute" title="Here goes title for success tooltip" tooltip-position="above">Success</span></li>
+    <li><span class="tooltip-danger positionAttribute" title="Here goes title for danger tooltip" tooltip-position="above">Danger</span></li>
+    <li></li>
+    <li><span class="tooltip positionAttribute" title="Here goes title for default tooltip" tooltip-position="left">Default</span></li>
+    <li><span class="tooltip-warning positionAttribute" title="Here goes title for warning tooltip" tooltip-position="left">Warning</span></li>
+    <li><span class="tooltip-success positionAttribute" title="Here goes title for success tooltip" tooltip-position="left">Success</span></li>
+    <li><span class="tooltip-danger positionAttribute" title="Here goes title for danger tooltip" tooltip-position="left">Danger</span></li>
+  </ul>
+  <ul style="float: right;">
+    <li><span class="tooltip positionAttribute" title="Here goes title for default tooltip" tooltip-position="right">Default</span></li>
+    <li><span class="tooltip-warning positionAttribute" title="Here goes title for warning tooltip" tooltip-position="right">Warning</span></li>
+    <li><span class="tooltip-success positionAttribute" title="Here goes title for success tooltip" tooltip-position="right">Success</span></li>
+    <li><span class="tooltip-danger positionAttribute" title="Here goes title for danger tooltip" tooltip-position="right">Danger</span></li>
+    <li></li>
+    <li><span class="tooltip positionAttribute" title="Here goes title for default tooltip"  tooltip-position="below">Default</span></li>
+    <li><span class="tooltip-warning positionAttribute" title="Here goes title for warning tooltip">Warning</span></li>
+    <li><span class="tooltip-success positionAttribute" title="Here goes title for success tooltip">Success</span></li>
+    <li><span class="tooltip-danger positionAttribute" title="Here goes title for danger tooltip">Danger</span></li>
+  </ul>
+</div>
+
+
+
+<script language="JavaScript" type="text/javascript">
+core.dom.ready(function() {
+  core.module.use('library/uielements/tooltip', function(Tooltip) {
+    window.Tooltip = Tooltip;
+
+    Tooltip.create('.t1', {orientation: Tooltip.ORIENTATION_ABOVE_LEFT});
+    Tooltip.create('.t2', {orientation: Tooltip.ORIENTATION_ABOVE_RIGHT});
+    Tooltip.create('.t3', {orientation: Tooltip.ORIENTATION_BELOW_LEFT});
+    
+    //show tooltips with position based on attribute
+    core.dom.each(core.dom.select('.positionAttribute'), function(tip) {
+      tip.mouseenter();
+      Tooltip.show(tip);
+    });
+
+    //Show browser type
+    core.dom.select('.browser').text('Browser: '+navigator.userAgent);
+
+  });
+});
+</script>

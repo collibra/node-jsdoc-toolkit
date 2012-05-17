@@ -1,0 +1,5 @@
+Customer=Hudson
+Company=Collibra
+Expire=10-10-3000
+NumberOfConcurrentUsers=9999
+GuestAccess=true

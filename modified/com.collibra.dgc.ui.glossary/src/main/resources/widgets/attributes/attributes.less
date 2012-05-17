@@ -1,0 +1,182 @@
+/**
+ * LESS/CSS code for widget/attributes.
+ *
+ * Copyright Collibra 2012.
+ * @author Michal Hans <michal@collibra.com>
+ */
+ 
+@attributesTitleColor: #db563e;
+@attributesFontColor: #3a4551;
+@attributesBorder: 1px solid #d6d6d6;
+@attributesBgColor: #fff;
+@attributesLightFontColor: #575757;
+@attributesInfoFontColor: #727272;
+
+@widgetEditingBgColor: #f6f6f6;
+ 
+.attributes-type-container {
+  margin-bottom: 20px;
+  
+  .attributes-type-container-title {
+    color: @attributesTitleColor;
+    font-size: 1.4em;
+    margin-bottom: 5px;
+    letter-spacing: -0.5px;
+
+    .lucidaGrande;
+  }
+  
+  .attribute-container {
+    position: relative;
+    margin-top:-1px;
+    border: @attributesBorder;
+    background: @attributesBgColor;
+    
+    &:first-child {
+      .border-top-left-radius();
+      .border-top-right-radius();
+    }
+    
+    &:last-child {
+      .border-bottom-left-radius();
+      .border-bottom-right-radius();
+    }
+    
+    .attribute-type-title {
+      color: @attributesTitleColor;
+      font-size: 1.4em;
+      position: absolute;
+      margin-top: -23px;
+      letter-spacing: -0.5px;
+
+      .lucidaGrande;
+    }
+    
+    .attribute-mode-view {
+      padding: 5px 10px;
+      
+      .attribute-menu {
+        .attribute-menu-item {
+          font-size: 1.1em;
+          color: @attributesLightFontColor;
+          cursor: pointer;
+          
+          &.edit{
+            margin-right: 10px;
+
+            &:hover, &.hover {
+              I {
+                background-image: url("${contextPath}resources/library/images/icons/14x14/yellow.png");
+              }
+            }
+          }
+          
+          &:hover, &.hover {
+            I {
+              background-image: url("${contextPath}resources/library/images/icons/14x14/red.png");
+            }
+          }
+        }
+        
+        UL {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          text-align: right;
+          
+          LI {
+            display: inline-block;
+          }
+        }
+      }
+      
+      .attribute-content {
+        color: black;
+        font-size: 1.2em;
+        margin: 5px 0;
+      }
+      
+      .attribute-info {
+        color: @attributesInfoFontColor;
+        font-size: 1.1em;
+        text-align: right;
+        
+        .attribute-info-author {
+          margin-right: 10px;
+          display: inline-block;
+        }
+        
+        .attribute-info-date {
+          display: inline-block;
+        }
+      }
+    }
+    
+    .attribute-mode-edit{
+      background: #F6F6F6;
+      padding: 3px;
+      
+      .wysiwyg {
+        background: transparent;
+        border: none;
+        
+        IFRAME {
+          border: none;
+          padding: 0;
+          margin: 5px 0;
+        }
+      }
+      
+      .texteditor.buttons-bottom {
+
+        .wysiwyg-buttons {
+          bottom: -39px;
+          right: 7px;
+        }
+      } 
+    }
+    
+    .attribute-mode-remove {
+      .attribute-remove-buttons{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 220px;
+        margin-left: -110px;
+        margin-top: -20px;
+        text-align: center;
+        background: #A5A5A5;
+        
+        BUTTON {
+          display: inline-block;
+          vertical-align: middle;
+        }
+        
+        .attribute-remove-label {
+          color: #fff;
+          display: inline-block;
+          font-size: 1.2em;
+          margin-right: 20px;
+          text-shadow: 0px 1px 2px #000;
+        }
+        
+      }
+    }
+  }
+
+}
+
+/* IE7 */
+.ie7 {
+  .attribute-menu {
+    LI, .attribute-menu-item {
+      zoom: 1;
+      display: inline !important;
+    }
+  }
+  
+  .attribute-info-author, .attribute-info-date {
+    zoom: 1;
+    display: inline !important;
+  }
+}

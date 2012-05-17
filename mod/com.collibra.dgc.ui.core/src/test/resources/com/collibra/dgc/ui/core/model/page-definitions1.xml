@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page-definition name="PageDefinition1" description="This is the description of page definition 1">
+	<configuration>
+           <!-- As page module we take the 'withtabs' page. -->
+           <module name="pages/blank">
+               <!-- The regions element is reserved for specifying the modules that need to be inserted at the specific regions of the module. -->
+               <regions>
+                   <!-- The 'blank' module only has 1 region called 'content' -->
+                   <content>
+                       <!-- The only module we put in there is the tabbar module which will show the tabs on the left and the content on the right -->
+                       <module name="widgets/tabbar">
+                           <!-- For the tabbar module, you have to specify the 'tabs' property (which again contains sub-properties for every tab) -->
+                           <tabs>
+                               <tab1 index="1" id="overview" />
+                               <tab2>
+                                   <index>2</index>
+                                   <id>another</id>
+                               </tab2>   
+                           </tabs>
+                           <!-- For tabs we have dynamic regions, which are named after the tabs to match them together -->
+                           <regions>
+                               <!-- The first tab 'overview' wants to show the 'business term attributes' and 'example' attributes on the left and the taxonomy widget on the right. -->
+                               <tab1>
+                                   <module name="pages/two-columns">
+                                       <!-- For the two-columns module, we can configure the widths of the columns -->
+                                       <left-column-width>75%</left-column-width>
+                                       <right-column-width>25%</right-column-width>
+                                       <!-- And here again we define the reserved 'regions' element to specify which modules should go in the two columns. -->
+                                       <regions>
+                                           <!-- Define that we want to see some attribute modules in the left column -->
+                                           <left-column>
+                                               <!-- First show the attributes of attribute group 'Business term attributes' -->
+                                               <module name="widgets/attributes" group="groupX" />
+                                               <!-- Secondly show the 'examples' attribute -->
+                                               <module name="widgets/attributes">
+                                                   <attribute>[resource-id of the example attribute type]</attribute>
+                                               </module>     
+                                           </left-column>
+                                           <!-- Define that we want to see the taxonomy in the right column -->
+                                           <right-column>
+                                               <module name="widgets/taxonomy">
+                                                   <view>full</view>
+                                               </module>
+                                           </right-column>
+                                       </regions>
+                                   </module> 
+                               </tab1>
+                           </regions>    
+                       </module>
+                   </content>
+               </regions>
+           </module>
+       </configuration>
+       <!-- Determine when this will match -->
+       <matching-rules>
+           <rule path="term" type="00000000-0000-0000-0000-000000005033"/>
+       </matching-rules>
+</page-definition>

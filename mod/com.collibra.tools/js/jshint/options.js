@@ -1,0 +1,17 @@
+/*jshint
+browser:true
+bitwise:true
+curly:true
+eqeqeq:true
+forin:true
+immed:true
+latedef:true
+noarg:true
+noempty:true
+nonew:true
+undef:true
+strict:true
+trailing:true
+plusplus:true
+maxerr:999
+*/

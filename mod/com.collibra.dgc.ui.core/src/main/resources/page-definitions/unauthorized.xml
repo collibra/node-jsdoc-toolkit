@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page-definition name="Unauthorized" description="">
+	<configuration>
+           <module name="pages/shared/page">
+               <regions>
+                   <content>
+                       <module name="pages/unauthorized" />
+                   </content>
+               </regions>
+           </module>
+       </configuration>
+       <matching-rules>
+           <rule path="unauthorized" />
+       </matching-rules>
+</page-definition>

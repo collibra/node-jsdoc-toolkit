@@ -1,0 +1,115 @@
+/**
+ * LESS/CSS code for modules/menus/main.
+ *
+ * Copyright Collibra 2012.
+ * @author Clovis Six <clovis@collibra.com>
+ */
+
+#mainmenu {
+  float: right;
+  margin: 28px 40px 0 0;
+  height: 67px;
+
+  .contextarrow {
+	  border-color: transparent transparent white;
+	  border-style: solid;
+	  border-width: 13px 8px;
+	  bottom: -4px;
+	  height: 0px;
+	  width: 0px;
+	  position: absolute;
+	  width: 0px;
+	  z-index: 9;
+  }
+
+  A {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .menuitem {
+    width: 88px;
+    float: right;
+    cursor: pointer;
+
+    > .image {
+      height: 25px;
+      width: 25px;
+      margin: 0 auto;
+      background-image: url("${modulePath}images/icons.png");
+
+      &.settings {
+        background-position: 0px -50px;
+      }
+
+      &.dashboard {
+        background-position: 0px -25px;
+      }
+
+      &.signin {
+        background-position: 0px -75px;
+      }
+
+      &.register {
+        background-position: 0px -100px;
+      }
+    }
+
+    > .label {
+		  text-align: center;
+		  font-size: 1.3em;
+		  color: #CFCFCF;
+		  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.6);
+		  width: 73px;
+		  word-wrap: break-word;
+		  height: 28px;
+		  margin: 8px auto;
+		  overflow: hidden;
+
+      .lucidaGrandeBold;
+		}
+
+    &:hover, &.selected {
+      > .image {
+        background-position: -25px 0px;
+
+        &.settings {
+          background-position: -25px -50px;
+        }
+
+        &.dashboard {
+          background-position: -25px -25px;
+        }
+
+        &.signin {
+          background-position: -25px -75px;
+        }
+
+        &.register {
+          background-position: -25px -100px;
+        }
+      }
+
+      > .label {
+        color: #99c45a;
+      }
+    }
+  }
+
+  > .separator {
+    margin-top: 5px;
+    width: 1px;
+    height: 25px;
+    background-color: #a9a9a9;
+    float: right;
+  }
+}
+
+.ie7 {
+  #mainmenu {
+    .contextarrow {
+      border-color: transparent transparent white;
+    }
+  }
+}

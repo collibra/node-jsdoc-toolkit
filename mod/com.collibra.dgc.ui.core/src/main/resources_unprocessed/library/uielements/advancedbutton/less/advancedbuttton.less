@@ -1,0 +1,108 @@
+/*
+  * Advanced Buttons Styles
+  *
+  * Copyright Collibra NV/SA
+  * @author <a href="mailto:michal@collibra.com">Michal Hans</a>
+  */
+  
+@btn-dark: #EEE;
+@btn-light: #FFF;
+@advancedBtnHoverTriangleColor: #2E2E2E;
+
+.btn {
+  &.advanced {
+    position: relative;
+    padding: 0 10px;
+    
+    &:hover {
+      background-color: @controlBackgroundColor;
+      background-position: 0px 0px;
+      .background-linear-gradient(@btn-light, @btn-light, 25%, @btn-dark);
+      filter: none;
+    }
+    
+    &.hover {
+      background-color: @btn-dark;
+      background-position: 0px -15px;
+    }
+    
+    &.split {
+      padding-right: 25px;
+      
+      
+      
+      &.separated {
+        padding-right: 35px;
+        
+        .menu-trigger {
+          background-color: @controlBackgroundColor;
+          border-left: @controlBorderWidth @controlBorderStyle @controlBorderColor;
+          
+          .border-top-right-radius();
+          .border-bottom-right-radius();
+          .background-linear-gradient(@btn-light, @btn-light, 25%, @btn-dark);
+          
+          &.active {
+            @btn-box-shadow-active: 0 2px 4px rgba(0, 0, 0, 0.15) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+            .boxShadow(@btn-box-shadow-active);
+          }
+          
+          &:hover, &.hover {
+            background: @btn-dark;
+            background-position: 0px -15px;
+            filter: none;
+          }
+        }
+      }
+      
+      .menu-trigger {
+        display: block;
+        height: 100%;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 26px;
+        
+        &:hover, &.hover, &.active{
+          .triangle-down {
+            border-top-color: @advancedBtnHoverTriangleColor;
+          }
+        }
+        
+        .triangle-down {
+          left: 50%;
+          margin-left: -4px;
+          margin-top: -2px;
+          position: absolute;
+          top: 50%;
+        }
+      }
+    }
+    
+    
+    &:active {
+      @btn-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+      
+      filter: none;
+      
+      .boxShadow(@btn-box-shadow);
+    }
+    
+    &.active {
+      @btn-box-shadow-active: 0 2px 4px rgba(0, 0, 0, 0.15) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+      .boxShadow(@btn-box-shadow-active);
+    }
+
+    .radioCheck.checkboxInput {
+      margin: -6px 8px -3px 0;
+    }
+  }
+}
+// Advanced Buttons Chrome & Safari
+.ie9 {
+  .btn.advanced {
+    .radioCheck.checkboxInput {
+      margin-bottom: -2px;
+    }
+  }
+}

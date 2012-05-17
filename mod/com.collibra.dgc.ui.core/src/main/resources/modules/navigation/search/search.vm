@@ -1,0 +1,96 @@
+###
+### Search
+###
+### The main search functionality. This search overlaps the current
+### content with the search results.
+###
+### Copyright Collibra 2012.
+### @author Clovis Six <clovis@collibra.com>
+### @author Michal Hans <michal@collibra.com>
+###
+
+#set($modulePath = "$!{contextPath}resources/modules/naviagtion/search/")
+#set($moduleVMPath = "/modules/naviagtion/search/")
+
+#**
+#set($searchResultTypeDocument      = $xwiki.getDocument('Settings.Search'))
+#set($searchResultTypeClass         = 'ConfigCode.SearchResultType')
+#set($searchResultTypeObjects       = $searchResultTypeDocument.getObjects($searchResultTypeClass))
+#set($searchTypesList                = [])
+
+## Get all result types
+#if($searchResultTypeObjects.size()>0)
+  #foreach($searchResultTypeObject in $searchResultTypeObjects)
+    #set($searchTypeMap = {})
+    #set($discard = $searchTypeMap.put( "preetynameplural", $xwiki.parseContent($searchResultTypeObject.get('preetynameplural')) ))
+    #set($discard = $searchTypeMap.put( "resultname", $searchResultTypeObject.get('resultname') ))
+    #set($discard = $searchTypeMap.put( "resultshortname", $searchResultTypeObject.get('resultshortname') ))
+    #set($discard = $searchTypeMap.put( "order", $searchResultTypeObject.get('order') ))
+    #set($discard = $searchTypeMap.put( "filter", $searchResultTypeObject.get('filter') ))
+    #set($discard = $searchTypesList.add( $searchTypeMap ))
+  #end
+#end
+**#
+## Temp Data
+#set($searchTypesList = [{'preetynameplural':'Terms', 'order':'1', 'resultshortname':'TE', 'filter':'Yes', 'resultname':'term'}, {'preetynameplural':'Vocabularies', 'order':'3', 'resultshortname':'VC', 'filter':'Yes', 'resultname':'vocabulary'}, {'preetynameplural':'Communities', 'order':'6', 'resultshortname':'CO', 'filter':'Yes', 'resultname':'community'}, {'preetynameplural':'Attributes', 'order':'2', 'resultshortname':'AT', 'filter':'Yes', 'resultname':'attribute'}, {'preetynameplural':'Names', 'order':'4', 'resultshortname':'NA', 'filter':'Yes', 'resultname':'name'}, {'preetynameplural':'Subcommunities', 'order':'7', 'resultshortname':'SC', 'filter':'No', 'resultname':'subcommunity'}] )
+
+## Sort all result types by definied order
+#set($searchTypesList = $sorttool.sort($searchTypesList,"order"))
+
+<div id="searchmenu">
+
+  <div id="searchmenubar">
+    <div class="label"><span class="counter"></span> $msg.get("bsg.global.autosearch.results")</div>
+    <div class="searchmenuitems">
+    #foreach($searchType in $searchTypesList)
+      #if($searchType.filter=="Yes")
+        #set($resultType = $searchType.resultname)
+        #set($resultTypeLabel = $searchType.preetynameplural)
+        <div class="searchmenuitem searchfilter">
+          <input type="checkbox" checked="checked" name="filter_$resultType" id="filter_$resultType" value="$resultType" /><label for="filter_$resultType">$resultTypeLabel</label>
+        </div>
+      #end
+    #end
+    #set($groupLabel = $msg.get("bsg.global.autosearch.group"))
+      <div id="groupsearchresults" class="searchmenuitem searchgroup">
+        <input type="checkbox" name="searchmenuitemCheckbox_group" id="searchmenuitemCheckbox_group" value="searchmenuitemCheckbox_group" /><label for="searchmenuitemCheckbox_group">$groupLabel</label>
+      </div>
+    </div>
+  </div>
+
+  <div id="searchmenucontent">
+    <div class="loader"></div>
+    <div class="searchcontent"><div style="position:relative">
+      <div class="leftcolumn">
+        <!-- SEARCH RESULTS -->
+        <div id="searchresults"></div>
+
+      </div>
+      <div class="rightcolumn">
+        <div id="searchpreview" #** style="display:none" **# >
+          <!-- RESULT PREVIEW -->
+          <div class="arrow-left-border"></div><div class="arrow-left"></div>
+          <div class="previewmain">
+            <div class="previewheader">
+              <div class="previewicon"><div></div></div>
+
+              <div class="previewtitle"></div>
+
+              <div class="breadcrumbs"></div>
+            </div>
+
+            <div class="previewcontent">
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="noresults">
+        $!msg.get("bsg.global.autosearch.noresults")
+      </div>
+      </div>
+    </div>
+  </div>
+
+</div>

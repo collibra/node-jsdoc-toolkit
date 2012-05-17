@@ -1,0 +1,466 @@
+{! Link.base = "../"; /* all generated links will be relative to this */ !}
+
+<div id="module">
+  <div class="innerContent">
+    <article>
+      <header>
+        <div class="section pageheader border-radius">
+          {!
+            var classType = "Core library";
+          !}
+          <h1 class="title"><span>{+data.fname+}</span></h1>
+          <div class="description">{+resolveLinks(summarize(data.desc))+}</div>
+          <if test="data.fname.split('.').length === 1">
+            <div class="path" title="Path"><span class="icon-home"></span>
+              {!
+                output += data.comment.getTag("module")[0];
+              !}
+            </div>
+          </if>
+        </div>
+      </header>
+  <!--
+  #### Field Summary
+  -->
+          <if test="data.properties.length">
+            <section>
+              {! var ownProperties = data.properties.filter(function($){return $.memberOf == data.alias && !$.isNamespace}).sort(makeSortby("name")); !}
+              <div class="section border-radius">
+                <h2 class="sectiontitle">Field Summary</h2>
+                <div class="summaryfilterwrapper">
+                  <input class="collibraSearchInput" type="text" name="methodSummaryFilter" value="Filter properties..." />
+                </div>
+                <div class="methodsummary">
+                  <if test="ownProperties.length">
+                    <ul class="methodsummarylist">
+                      {!
+                        var methodSummaryCount = 0;
+                      !}
+                      <for each="member" in="ownProperties">
+                        <li>
+                          <div class="methodname"><a href="#.{+member.name.replace(/\^\d+$/, '')+}">{+member.name.replace(/\^\d+$/, '')+}</a></div>
+                          <div class="methoddescription">{+resolveLinks(summarize(member.desc))+}</div>
+                        </li>
+                      </for>
+                    </ul>
+                  </if>
+
+                  <if test="data.inheritsFrom.length">
+                    <nav>
+                      <ul class="methodsummarylist inherit" >
+                      {!
+                        var borrowedMembers = data.properties.filter(function($) {return $.memberOf != data.alias});
+                        var contributers = [];
+                        borrowedMembers.map(function($) {if (contributers.indexOf($.memberOf) < 0) contributers.push($.memberOf)});
+                        for (var i = 0, l = contributers.length; i < l; i++) {
+                          output +=
+                            "<div class='parentclass'>Properties borrowed from class <span class='fixedFont'>"+new Link().toSymbol(contributers[i])+"</span>: </div>"
+                            +
+                            borrowedMembers
+                            .filter(
+                              function($) { return $.memberOf == contributers[i] }
+                            )
+                            .sort(makeSortby("name"))
+                            .map(
+                              function($) {
+                                var link = "";
+                                link += "<div class='classlink'>";
+                                link += new Link().toSymbol($.alias).withText($.name);
+                                link += "</div>";
+                                return link;
+                              }
+                            )
+                            .join(" ");
+                        }
+                      !}
+                      </ul>
+                    </nav>
+                  </if>
+
+                </div>
+              </div>
+            </section>
+          </if>
+
+  <!--
+  #### METHODS SUMMARY
+  -->
+          <if test="data.methods.length">
+            <section>
+              {! var ownMethods = data.methods.filter(function($){return $.memberOf == data.alias  && !$.isNamespace}).sort(makeSortby("name")); !}
+              <div class="section border-radius">
+                <h2 class="sectiontitle">Method Summary</h2>
+                <div class="summaryfilterwrapper">
+                  <input class="collibraSearchInput" type="text" name="methodSummaryFilter" value="Filter methods..." />
+                </div>
+                <div class="methodsummary">
+                  <if test="ownMethods.length">
+                    <ul class="methodsummarylist">
+                      {!
+                        var methodSummaryCount = 0;
+                      !}
+                      <for each="member" in="ownMethods">
+                        <li>
+                          <div class="methodname"><a href="#.{+member.name.replace(/\^\d+$/, '')+}">{+member.name.replace(/\^\d+$/, '')+}</a></div><div class="methodarguments"><span class="argument">{+makeSignature(member.params)+}</span></div>
+                          <div class="methoddescription">{+resolveLinks(summarize(member.desc))+}</div>
+                        </li>
+                      </for>
+                    </ul>
+                  </if>
+
+                  <if test="data.inheritsFrom.length">
+                    <nav>
+                      <ul class="methodsummarylist inherit" >
+                      {!
+                        var borrowedMembers = data.methods.filter(function($) {return $.memberOf != data.alias});
+                        var contributers = [];
+                        borrowedMembers.map(function($) {if (contributers.indexOf($.memberOf) < 0) contributers.push($.memberOf)});
+                        for (var i = 0, l = contributers.length; i < l; i++) {
+                          output +=
+                            "<div class='parentclass'>Methods borrowed from class <span class='fixedFont'>"+new Link().toSymbol(contributers[i])+"</span>: </div>"
+                            +
+                            borrowedMembers
+                            .filter(
+                              function($) { return $.memberOf == contributers[i] }
+                            )
+                            .sort(makeSortby("name"))
+                            .map(
+                              function($) {
+                                var link = "";
+                                link += "<div class='classlink'>";
+                                link += new Link().toSymbol($.alias).withText($.name);
+                                link += "</div>";
+                                return link;
+                              }
+                            )
+                            .join(" ");
+                        }
+                      !}
+                      </ul>
+                    </nav>
+                  </if>
+
+                </div>
+              </div>
+            </section>
+          </if>
+
+  <!--
+  #### EVENTS SUMMARY
+  -->
+
+          <if test="data.events.length">
+            <section>
+              {! var ownEvents = data.events.filter(function($){return $.memberOf == data.alias  && !$.isNamespace}).sort(makeSortby("name")); !}
+              <div class="section border-radius">
+                <h2 class="sectiontitle">Events Summary</h2>
+                <div class="summaryfilterwrapper">
+                  <input class="collibraSearchInput" type="text" name="methodSummaryFilter" value="Filter methods..." />
+                </div>
+                <div class="methodsummary">
+                  <if test="ownEvents.length">
+                    <ul class="methodsummarylist">
+                      {!
+                        var methodSummaryCount = 0;
+                      !}
+                      <for each="member" in="ownEvents">
+                        <li>
+                          <div class="methodname"><a href="#.{+member.name.replace(/\^\d+$/, '')+}">{+member.name.replace(/\^\d+$/, '')+}</a></div><div class="methodarguments"><span class="argument">{+makeSignature(member.params)+}</span></div>
+                          <div class="methoddescription">{+resolveLinks(summarize(member.desc))+}</div>
+                        </li>
+                      </for>
+                    </ul>
+                  </if>
+
+                  <if test="data.inheritsFrom.length">
+                    <nav>
+                      <ul class="methodsummarylist inherit" >
+                      {!
+                        var borrowedMembers = data.events.filter(function($) {return $.memberOf != data.alias});
+                        var contributers = [];
+                        borrowedMembers.map(function($) {if (contributers.indexOf($.memberOf) < 0) contributers.push($.memberOf)});
+                        for (var i = 0, l = contributers.length; i < l; i++) {
+                          output +=
+                            "<div class='parentclass'>Events borrowed from class <span class='fixedFont'>"+new Link().toSymbol(contributers[i])+"</span>: </div>"
+                            +
+                            borrowedMembers
+                            .filter(
+                              function($) { return $.memberOf == contributers[i] }
+                            )
+                            .sort(makeSortby("name"))
+                            .map(
+                              function($) {
+                                var link = "";
+                                link += "<div class='classlink'>";
+                                link += new Link().toSymbol($.alias).withText($.name);
+                                link += "</div>";
+                                return link;
+                              }
+                            )
+                            .join(" ");
+                        }
+                      !}
+                      </ul>
+                    </nav>
+                  </if>
+
+                </div>
+              </div>
+            </section>
+          </if>
+
+  <!--
+  #### FIELD DETAILS
+  -->
+      <if test="defined(ownProperties) && ownProperties.length">
+        <section>
+          <div class="details section border-radius">
+            <div class="innerProps">
+              <h2 class="sectiontitle">
+                Field Detail
+              </h2>
+              
+
+            <ul class="sectionitems">
+              <for each="member" in="ownProperties">
+                <li class='sectionitem'>
+                  <div class="itemheader" id="{+Link.symbolNameToLinkName(member)+}">
+                    <if test="member.isStatic && member.memberOf != '_global_'"><span class="light"></span></if><span class="itemname">{+member.name.replace(/\^\d+$/, '')+}</span>
+                    <if test="member.type"><span class="itemtype">{{+new Link().toSymbol(member.type)+}}</span></if>
+                  </div>
+                  <div class="itemcontent">
+                    <!-- PATH -->
+                    <if test="member.srcFile != data.srcFile">
+                      <div class="definedin"><span class="label">Defined in:</span>{+new Link().toSrc(member.srcFile)+}.</div>
+                    </if>
+                    <!-- #PATH -->
+
+                    <div class="description">
+                      {+resolveLinks(member.desc)+}
+                    </div>
+                    
+                    <!-- EXAMPLES -->
+                    <if test="member.example.length">
+                      <div class="itemsubsection">
+                        <h3>Example</h3>
+                        <for each="example" in="member.example">
+                          <pre class="code">{+example+}</pre>
+                        </for>
+                      </div>
+                    </if>
+                    <!-- #EXAMPLES -->
+
+                    <if test="member.deprecated || member.since || member.exceptions.length || member.returns.length || member.requires.length || member.see.length">
+                    
+                        <if test="member.deprecated">
+                          <div class="itemsubsection">
+                            <h3>Deprecated</h3>
+                            <div class="deprecated">
+                              {+ resolveLinks(member.deprecated) +}
+                            </div>
+                          </div>
+                        </if>
+                        
+                        <if test="member.since">
+                          <div class="itemsubsection">
+                            <h3>Since</h3>
+                            <div class="since">{+ member.since +}</div>
+                          </div>
+                        </if>
+                        
+                        <if test="member.exceptions.length">
+                          <div class="itemsubsection">
+                            <h3>Throws</h3>
+                            <div class="exceptions">
+                              <for each="item" in="member.exceptions">
+                                <div class="paramtype">{+((item.type)?"{"+(new Link().toSymbol(item.type))+"}" : "")+} <b>{+item.name+}</b></div> 
+                                <div class="description">{+resolveLinks(item.desc)+}</div>
+                              </for>
+                            </div>
+                          </div> 
+                        </if>
+                        
+                        <if test="member.returns.length">
+                          <div class="itemsubsection">
+                            <h3>Return Value</h3>
+                            <div class="returns">
+                              <for each="item" in="member.returns">
+                                <div class="paramtype">{+((item.type)?"{"+(new Link().toSymbol(item.type))+"}" : "")+}</div> 
+                                <div class="description">{+resolveLinks(item.desc)+}</div>
+                              </for>
+                            </div>
+                          </div>  
+                        </if>
+                        
+                        <if test="member.requires.length">
+                          <div class="itemsubsection">
+                            <h3>Requires</h3>
+                            <div class="requires">
+                              <for each="item" in="member.requires">
+                                <div class="item">{+ resolveLinks(item) +}</div> 
+                              </for>
+                            </div>
+                          </div> 
+                        </if>
+                        
+                        <if test="member.see.length">
+                          <div class="itemsubsection">
+                            <h3>See</h3>
+                            <div class="requires">
+                              <for each="item" in="member.see">
+                                <div class="item">{+ new Link().toSymbol(item) +}</div> 
+                              </for>
+                            </div>
+                          </div> 
+                        </if>
+                    </if>
+
+                    <!-- AUTHORS -->
+              <if test="(/^true$/i).test(JSDOC.opt.D.development)">
+              <div class="authors">
+                {!
+                  if (member.author && (member.respA || member.respI)) {
+                    print("Error: @author tag used along with @responsibleAPI and/or @responsibleImplementation. Use either not both. Will now exit..");
+                    throw Error();
+                  }
+                !}
+                
+                <if test="member.author && !(member.respA || member.respI)">
+                  <span class="api"><span class="icon-eye"></span>API: {+member.author+}</span>
+                  <span class="implementation"><span class="icon-cogwheel"></span>Impementation: {+member.author+}</span>
+                </if>
+                <if test="!member.author && (member.respA || member.respI)">
+                  <if test="member.respA"><span class="api"><span class="icon-eye"></span>API: {+member.respA+}</span></if>
+                  <if test="member.respI"><span class="implementation"><span class="icon-cogwheel"></span>Impementation: {+member.respI+}</span></if>
+                </if>
+                
+              </div>
+              </if>
+              <!-- #AUTHORS -->
+                  </div>
+                </li>
+              </for>
+            </ul>
+
+            </div>
+          </div>
+        </section>
+      </if>
+  <!--
+  #### METHOD DETAILS
+  -->   
+      <if test="defined(ownMethods) && ownMethods.length">
+        {+subtemplate("subtemplates/methods.tmpl", {ownMethods: ownMethods})+}
+      </if>
+  <!--
+  #### EVENT DETAILS
+  -->   
+      <if test="defined(ownEvents) && ownEvents.length">
+        <section>
+          <div class="details section border-radius">
+            <div class="innerProps">
+              <h2 class="sectionTitle">
+                Event Detail
+              </h2>
+              
+              <for each="member" in="ownEvents">
+                <div class="fixedFont heading" id="event:{+Link.symbolNameToLinkName(member)+}">
+                  <span class='lighter'>
+                  {!
+                    if (member.isPrivate) output += "&lt;private&gt; ";
+                    if (member.isInner) output += "&lt;inner&gt; ";
+                    if (member.isStatic) output += "&lt;static&gt; ";
+                  !}
+                  </span>
+                  
+                  <if test="member.type"><span class="light">{{+new Link().toSymbol(member.type)+}}</span></if>
+                  
+                  <if test="member.isStatic && member.memberOf != '_global_'"><span class="light">{+member.memberOf+}.</span></if><b>{+member.name+}</b>{+makeSignature(member.params)+}
+                </div>
+                
+                <div class="description">
+                  {+resolveLinks(member.desc)+}
+                  
+                  <if test="member.srcFile != data.srcFile">
+                    <br />
+                    <i>Defined in: </i> {+new Link().toSrc(member.srcFile)+}.
+                  </if>
+                  
+                  <if test="member.author"><br /><i>Author: </i>{+member.author+}.</if>
+                </div>
+                
+                <if test="member.example.length">
+                  <for each="example" in="member.example">
+                    <pre class="code">{+example+}</pre>
+                  </for>
+                </if>
+                
+                <if test="member.params.length">
+                  <dl class="detailList params">
+                    <dt class="heading">Arguments:</dt>
+                    <for each="item" in="member.params">
+                      <dt>
+                        {+((item.type)?"<span class=\"light fixedFont\">{"+(new Link().toSymbol(item.type))+"}</span> " : "")+}<b>{+item.name+}</b>
+                        <if test="item.isOptional"><i>Optional<if test="item.defaultValue">, Default: {+item.defaultValue+}</if></i></if>
+                      </dt>
+                      <dd>{+ resolveLinks(item.desc) +}</dd>
+                    </for>
+                  </dl>
+                </if>
+                
+                <if test="member.deprecated || member.since || member.exceptions.length || member.returns.length || member.see.length">
+                  <dl class="detailList nomargin">
+                    <if test="member.deprecated">
+                      <dt class="heading">Deprecated:</dt>
+                      <dt>{+ resolveLinks(member.deprecated) +}</dt>
+                    </if>
+                    
+                    <if test="member.since">
+                      <dt class="heading">Since:</dt>
+                      <dd>{+ member.since +}</dd>
+                    </if>
+                    
+                    <if test="member.exceptions.length">
+                      <dt class="heading">Throws:</dt>
+                      <for each="item" in="member.exceptions">
+                        <dt>
+                          {+((item.type)?"<span class=\"light fixedFont\">{"+(new Link().toSymbol(item.type))+"}</span> " : "")+} <b>{+item.name+}</b>
+                        </dt>
+                        <dd>{+ resolveLinks(item.desc) +}</dd>
+                      </for>
+                    </if>
+                    
+                    <if test="member.returns.length">
+                      <dt class="heading">Return Value:</dt>
+                      <for each="item" in="member.returns">
+                        <dd>{+((item.type)?"<span class=\"light fixedFont\">{"+(new Link().toSymbol(item.type))+"}</span> " : "")+}{+resolveLinks(item.desc)+}</dd>
+                      </for>
+                    </if>
+                    
+                    <if test="member.requires.length">
+                      <dt class="heading">Requires:</dt>
+                      <for each="item" in="member.requires">
+                        <dd>{+ resolveLinks(item) +}</dd>
+                      </for>
+                    </if>
+                    
+                    <if test="member.see.length">
+                      <dt class="heading">See:</dt>
+                      <for each="item" in="member.see">
+                        <dd>{+ new Link().toSymbol(item) +}</dd>
+                      </for>
+                    </if>
+                  </dl>
+                </if>
+                
+                <if test="!$member_last"><div class="hr"></div></if>
+              </for>
+            </div>
+          </div>
+        </section>
+      </if>
+    </article>
+  </div>
+</div>
+
+{+subtemplate("subtemplates/foot.tmpl")+}

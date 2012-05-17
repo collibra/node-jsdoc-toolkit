@@ -1,0 +1,41 @@
+<div class="content" style="margin:20px auto; width: 900px;">
+	<h1>Welcome to Collibra Data Governance Center</h1>
+	<div>
+		Using this wizard you can initialize your new instance of DGC.
+	</div>
+	
+	<form action="" method="post" id="initializeForm">
+        <table align="left" border="0" cellspacing="0" cellpadding="3" style="margin-top: 20px; font-size: 11px;">
+            <tr>
+                <td>$msg.get("initialize.database")</td>
+                <td>
+                    <select name="driver" id="driver">
+					  <option value="org.h2.Driver">Embedded Database (Testing only)</option>
+                      <option value="oracle.jdbc.driver.OracleDriver">Oracle</option>
+                      <option value="com.mysql.jdbc.Driver">MySQL</option>
+					  <option value="com.microsoft.sqlserver.jdbc.SQLServerDriver">Microsoft SQL Server</option>
+                    </select>
+				</td>
+            </tr>
+            <tr id="url-row">
+                <td>$msg.get("initialize.url")</td>
+                <td><input type="text" name="url" id="url" maxlength="50" style="width: 400px;"></td>
+            </tr>
+			<tr id="username-row">
+                <td>$msg.get("initialize.username")</td>
+                <td><input type="text" name="username" id="username" maxlength="50" style="width: 400px;"></td>
+            </tr>
+			<tr id="password-row">
+                <td>$msg.get("initialize.password")</td>
+                <td><input type="password" name="password" id="password" maxlength="50" style="width: 400px;"></td>
+            </tr>
+			<tr id="database-row">
+                <td>$msg.get("initialize.database")</td>
+                <td><input type="text" name="database" id="database" maxlength="50" style="width: 400px;"></td>
+            </tr>
+        </table>
+		<div>
+			<input type="submit" name="submit" id="submit" value="$msg.get("initialize.initialize")"><img id="loadingIcon" style="display: none;" src="${contextPath}resources/internal/pages/initialize/images/ajax-loader.gif" alt="Initializing database"/>
+		</div>
+    </form>
+</div>

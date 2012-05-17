@@ -1,0 +1,48 @@
+<br /><br />
+From json
+<br>
+<div id="t1"></div>
+
+<br /><br />
+
+
+
+<script language="JavaScript" type="text/javascript">
+core.dom.ready(function() {
+  core.module.use('library/uielements/tree', function(tree) {
+    window.t = tree;
+    
+    window.$ = core.libs.get("jquery");
+    
+    
+    t.create("#t1", {
+      content: {
+        "rest" : "http://localhost/tree.php",
+        ajax: {
+          
+          onSuccess: function(){
+           //alert(1);
+          },
+          onError: function(){
+           //alert(2);
+          }
+        }
+      },
+      disableSelection: true,
+      selectLimit: 0,
+      move: {
+        enabled: true,
+        type: t.MOVE_SHIFT,
+        validation: function(node) {return true;}
+      },
+      nodes: {
+        load: ["#q"],
+        loadOpen: true
+      },
+      saveState: false
+    });
+    
+  });
+  
+});
+</script>

@@ -1,0 +1,111 @@
+#if($params.get('config'))
+	#set($jsonConfig = $params.get('config')[0])
+#else
+	#set($jsonConfig	= '{"reportconfig":{"columnViewOrder":["term","Vocabulary","Definition","Status"],"displayLength":-1,"term":{"sortDESC":true,"status":{"name":"Status","filter":{}},"vocabulary":{"name":"Vocabulary","filter":{}},"name":"term","stringattribute":{"name":"Definition","attributetype":"')
+	#set($jsonConfig 	= $jsonConfig + $attributeTypeComponent.getDefinitionAttributeType().getId())
+	#set($jsonConfig	= $jsonConfig + '","filter":{}}},"displayStart":0}}')
+#end
+#set($jsonConfig = $jsonConfig.replaceAll("\\n", ""))
+#set($reportConfig	= $reportComponent.buiderReportConfigFromJSON($jsonConfig))
+
+<div class="test-datatable">
+<div class="halfpage left">
+	<div class="datatable-content">
+	
+	<h3>Available attribute types:</h3>
+	<ul>
+		#foreach($attrType in $attributeTypeComponent.getAttributeTypes())
+			<li>$attrType.verbalise() - $attrType.getResourceId().toString()</li>
+		#end
+	</ul>
+
+	<h3>Enter the report json configuration to create your table</h3>
+	
+	<form action="" method="post" id="configureTable">
+		<p><textarea id="config" name="config">$jsonConfig</textarea></p>
+        
+        <p><input id="submit" type="submit" name="submit" value="show report"></p>
+
+    </form>
+	</div>
+</div>
+<div class="halfpage right">
+	<h3>Filter columns</h3>
+	<ul class="input-normal operator">
+		<li type="$reportConfig.getTermColumnConfig().getName()">
+			<select class="operator-select" name="$reportConfig.getTermColumnConfig().getName()" style="width: 100px">
+				<option value="INCLUDES">INCLUDES</option>
+				<option value="EQUALS">EQUALS</option>
+			</select>
+			<input type="text" placeholder="$reportConfig.getTermColumnConfig().getName() filter value" #if($reportConfig.getTermColumnConfig().isFiltered()) value="$reportConfig.getTermColumnConfig().getPropertyFilter().getValue()" #end/>
+		</li>
+	#foreach($contentColumn in $reportConfig.getTermColumnConfig().getColumnConfigs())
+		<li type="$contentColumn.getName()">
+			<select class="operator-select" name="$contentColumn.getName()" style="width: 100px">
+				<option value="INCLUDES">INCLUDES</option>
+				<option value="EQUALS">EQUALS</option>
+			</select>
+			<input type="text" placeholder="$contentColumn.getName() filter value" #if($contentColumn.isFiltered()) value="$contentColumn.getPropertyFilter().getValue()" #end name="$contentColumn.getName()"/>
+		</li>
+	#end
+	</ul>
+	<p><input id="filter" type="submit" name="filter" value="filter report"></p>
+</div>
+
+<div class="datatable">
+
+##set($jsonConfig 	= $params.get('config'))
+
+## build columns
+#set($columns = "[")
+
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="table" width="100%">
+	<thead>
+		<tr>
+		#set($first = true)
+		#foreach($columnName in $reportConfig.getColumnViewOrder())
+			<th>$columnName</th>
+			#if($first) #set($first = false) #else #set($columns = $columns + ",") #end
+			#set($columns = $columns + '{ mDataProp : "' + $columnName + '", sDefaultContent: "" }')
+		#end
+		#set($columns = $columns + "]")
+		</tr>
+	</thead>
+	<tbody>
+	</tbody>
+</table>
+
+<script type="text/javascript" charset="utf-8">
+  core.module.use('modules/test-datatables', function(TestDataTables) {
+    TestDataTables.initTable(${jsonConfig.replaceAll("\\n", "")}, ${columns});
+    
+    $ = core.libs.get('jquery');
+    
+    $('input#filter').click(function() {
+    	core.debug.show("clicked on filter button");
+    	var config = ${jsonConfig.replaceAll("\\n", "")};
+    	$('ul.operator li').each(function() {
+    		TestDataTables.addFilter(config, $(this).attr('type'), $(this).find('select').val(), $(this).find('input').val());
+   		});
+    	TestDataTables.setConfig(config);
+    	TestDataTables.reDraw();
+    	$('#config').val(JSON.stringify(config));
+    });
+  });
+
+  core.module.use('library/uielements/dropdown', function(dropdown) {
+    d = dropdown;
+    
+    d.create('.operator-select', {
+      autoComplete: {
+        enabled: false,
+        useAjax: false
+      }
+    });
+  
+  });
+    
+</script>
+
+</div>
+</div>

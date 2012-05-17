@@ -1,0 +1,222 @@
+/**
+ * LESS/CSS code for modules/layout/tabbar.
+ *
+ * Copyright Collibra 2012.
+ * @author Michal Hans <michal@collibra.com>
+ */
+
+
+@tabbarBackground: url("${modulePath}images/background.png");
+@tabbarTabFontSize: 1.2em;
+@tabbarTabFontColor: #2f2f2f;
+@tabbarActiveTabFontColor: @red;
+@tabbarMouseOverColor: @red;
+@tabbarMouseOverIconsColorBg: url("${contextPath}resources/library/images/icons/14x14/red.png");
+
+#tabbar {
+  position: relative;
+
+  UL {
+    list-style:none;
+    margin: 0px;
+    padding: 10px 0;
+    position: relative;
+    z-index: 2;
+
+    &.tabmenu {
+
+      LI {
+        margin: 4px 0px;
+        position: relative;
+        padding: 5px 0px 5px 20px;
+        
+        .label {
+          padding: 5px;
+          color: @tabbarTabFontColor;
+          display: block;
+          cursor: pointer;
+          font-size: @tabbarTabFontSize;
+          text-transform: capitalize;
+
+          .lucidaGrandeBold;
+          .transition(color, 100ms);
+          
+          &:hover {
+            color: @tabbarMouseOverColor;
+
+            .transition(color, 100ms, ease-in);
+          }
+        }
+        
+        .tabsettings {
+          display: none;
+          position: absolute;
+          left: 5px;
+          top: 10px;
+          cursor: pointer;
+          
+          &:hover, &.edit {
+            I {
+              background-image: url("${contextPath}resources/library/images/icons/14x14/red.png");
+            }
+          }
+        }
+        
+        &.active {
+
+          .tabsettings {
+            display: block;
+          }
+          
+          .label {
+            cursor: default;
+            color: @tabbarActiveTabFontColor;
+
+            &:hover {
+              color: @tabbarActiveTabFontColor;
+            }
+          }
+        }
+        
+        &.moremenu {
+          margin: 5px 5px 5px 20px;
+          padding: 5px;
+          cursor: pointer;
+          
+          .label{
+            font-size: 1.1em;
+            padding: 0px;
+            display: inline-block;
+          }
+          
+          I {
+            margin: -2px 5px 0 0;
+          }
+          
+          &:hover {
+            .label{
+              color: @tabbarMouseOverColor;
+            }
+
+            I {
+              background-image: @tabbarMouseOverIconsColorBg;
+            }
+          }
+        }
+        
+        .notification {
+          background: @tabbarActiveTabFontColor;
+          border: 3px solid #FFFFFF;
+          border-radius: 20px 20px 20px 20px;
+          height: 16px;
+          left: -10px;
+          line-height: 16px;
+          position: absolute;
+          text-align: center;
+          top: 50%;
+          margin-top: -11px;
+          width: 16px;
+          font-size: 0.8em;
+          box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
+          
+          .counter{
+            color: #fff;
+            text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+          }
+        }
+      }
+      
+      .action {
+        margin: 5px 0 0 5px;
+        padding: 5px;
+        font-size: 1.1em;
+        cursor: pointer;
+        display: none;
+        text-transform: capitalize;
+        
+        &:hover {
+          color: @tabbarMouseOverColor;
+          I {
+            background-image: @tabbarMouseOverIconsColorBg;
+          }
+        }
+        
+        div[module] {
+          display: inline-block;
+        }
+      }
+    }
+  }
+
+  DIV.active-tabmenu-item-wrapper{
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    overflow: hidden;
+
+    .active-tabmenu-item-bg {
+      background: none repeat scroll 0 0 #FFFFFF;
+      box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
+      margin: 4px 0;
+    }
+  }
+}
+
+.twocolumnlayout {  
+  .leftcolumn-background {
+    left: 0;
+    background: @tabbarBackground !important;
+    .opacity(0.7);
+    .boxShadow(inset -2px 0 2px 0 rgba(0, 0, 0, 0.2));
+    filter: none;
+  }
+}
+
+.ie7 {
+  #tabbar {
+    [class*="icon-"]{
+      zoom: 1;
+      display: inline !important;
+    }
+    div[module] {
+      zoom: 1;
+      display: inline !important;
+      margin-left: 5px;
+    }
+  }
+}
+
+@FontSize: 14px;
+
+.twocolumnlayout {
+  position: relative;
+
+  .leftcolumn-background{
+    position:absolute;
+    width: 155px;
+    height: 100%;
+  }
+  
+  .leftcolumn {
+    position: relative;
+    width: 155px;
+    float:left;
+  }
+  
+  .rightcolumn {
+    margin-left: 155px;
+    padding-bottom: 30px;
+  }
+}
+
+/*
+ * Main page content
+ */
+.pagecontent{
+  font-size: 1em;
+  line-height: 150%;
+  
+  > DIV {
+    padding: 20px;
+  }
+}

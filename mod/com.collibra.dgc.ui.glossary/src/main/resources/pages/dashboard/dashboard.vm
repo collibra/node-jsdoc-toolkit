@@ -1,0 +1,9 @@
+## Include navigation and search.
+#renderModule('pages/shared/navigation', true)
+
+<div class="content">
+    <h1>Welcome in the Collibra Data Governance Center</h1>
+	<div>...here we will have the dashboard...</div>
+	<div>$pd.getProperty("property1")</div>
+	<div>$pd.getProperty("parent1").get("child1")</div>
+</div>

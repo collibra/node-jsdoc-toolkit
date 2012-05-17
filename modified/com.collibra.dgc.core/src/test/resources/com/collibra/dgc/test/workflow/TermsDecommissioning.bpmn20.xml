@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:signavio="http://www.signavio.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" exporter="Signavio Process Editor, http://www.signavio.com" exporterVersion="" id="sid-ce6f6759-66bd-4c67-a7fe-7b532639288a" targetNamespace="http://www.signavio.com/bpmn20" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+   <process id="Decommissioning" isExecutable="true" name="Decommissioning">
+      <extensionElements>
+      	<activiti:executionListener class="com.collibra.glossary.workflow.activiti.executionlistener.RACIProcessInitializer" event="start">
+      			<!-- NOTE: the values can be CSVs  -->
+	      		<!-- Responsible -->
+	      		<activiti:field name="responsibleRole" stringValue="Admin, Steward, Steward(Community)" />	      		
+      	</activiti:executionListener>
+     </extensionElements> 
+   
+      <startEvent id="StartNoneEvent" name="StartNoneEvent" />
+      
+      <!-- The terms have been selected for decommission, so the 'Owner' (user who starts decomission) can announce the start. -->
+      <userTask id="Start_Decommission" name="Start Decommission">
+        <documentation>bsg.workflow.decommission.start</documentation>
+      	<extensionElements>
+	    		<activiti:taskListener event="complete" class="com.collibra.glossary.workflow.activiti.tasklistener.StartDecommissionTaskCompletedListener" >
+	    			<activiti:field name="targetState" stringValue="Being Decommissioned" />
+	    		</activiti:taskListener>
+	  	</extensionElements>		 
+	  	
+     	 <humanPerformer>
+			<resourceAssignmentExpression>
+				<formalExpression>#{owner}</formalExpression>
+			</resourceAssignmentExpression>
+		 </humanPerformer>
+      </userTask>
+      
+      <!-- Notify all users associated with the term being decomissioned in any role-->
+      <serviceTask id="Notify_All_Users_for_each_Term" name="Notify All Users for each Term" activiti:type="mail">
+      	 <documentation>Notify all users associated with the term being decomissioned in any role</documentation>
+         <extensionElements>
+		    <activiti:field name="from" stringValue="glossary@collibra.com" />
+		    <activiti:field name="to" expression="${toEmail}" />
+		    <activiti:field name="subject" expression="Decommission" />
+		    <activiti:field name="html">
+		      <activiti:expression>
+		        <![CDATA[
+		          <html>
+		            <body>
+		              Hello!<br/><br/>
+		              Decommissioning.... <br>	
+		              ${termsBeingDecommissionedMailContent}	              
+		            </body>
+		          </html>
+		        ]]>
+		      </activiti:expression>
+		    </activiti:field>            
+         </extensionElements>
+         <multiInstanceLoopCharacteristics behavior="All" id="sid-3db92b5f-aa45-47e2-9bb2-5c4da0915d31" isSequential="false">
+         	<loopDataInputRef>usersEmailList</loopDataInputRef>
+    		<inputDataItem name="toEmail" />                  
+         </multiInstanceLoopCharacteristics>
+      </serviceTask>
+      
+      <parallelGateway gatewayDirection="Diverging" id="ParallelGateway" name="ParallelGateway" />      
+      
+      <!-- Assigned to each 'Responsible' user because their response is mandatory to decommission.  -->
+      <userTask id="Responsible_User_Response" name="Term User Response">
+        <documentation>bsg.workflow.decommission.responsibleUserResponse</documentation>
+      	<extensionElements>
+	    		<activiti:taskListener event="complete" class="com.collibra.glossary.workflow.activiti.tasklistener.DecommissionUserResponseReceivedListener" />
+	  	</extensionElements>		 
+      
+         <humanPerformer>
+			<resourceAssignmentExpression>
+				<formalExpression>#{assignee}</formalExpression>
+			</resourceAssignmentExpression>
+		 </humanPerformer>         
+         
+         <multiInstanceLoopCharacteristics behavior="All" id="sid-9f16e1ca-9f7f-4e10-8d87-b0eb441d1e11" isSequential="false">
+			<loopDataInputRef>responsibleList</loopDataInputRef>
+    		<inputDataItem name="assignee" />         
+         </multiInstanceLoopCharacteristics>
+      </userTask>
+      
+      <exclusiveGateway gatewayDirection="Converging" id="Exclusive_Databased_Gateway" name="Exclusive_Databased_Gateway" />
+
+      <exclusiveGateway gatewayDirection="Unspecified" id="All_Responsible_Responded_" name="All Responsible Responded?" />
+      
+      <!-- Assigned to each user associated with the term being decommissioned but not 'Responsible', hence the response from this user is not mandatory -->
+      <userTask id="Other_User_Response" name="Other User Response">
+         <documentation>bsg.workflow.decommission.otherUserReponse</documentation>
+         <humanPerformer>
+			<resourceAssignmentExpression>
+				<formalExpression>#{assignee}</formalExpression>
+			</resourceAssignmentExpression>
+		 </humanPerformer>                  
+                  
+         <multiInstanceLoopCharacteristics behavior="All" id="sid-a368dd8a-e7c9-4a2f-b348-46f42185392b" isSequential="false">
+			<loopDataInputRef>othersList</loopDataInputRef>
+    		<inputDataItem name="assignee" />         
+         </multiInstanceLoopCharacteristics>         
+      </userTask>
+     
+      <!-- Assigned to owner (user) who started the decommission to make final decision for each term.  -->
+      <userTask id="Decommission" name="Decommission">
+         <documentation>bsg.workflow.decommission.decommission</documentation>
+      	 <extensionElements>
+	    		<activiti:taskListener event="complete" class="com.collibra.glossary.workflow.activiti.tasklistener.CompleteDecommissionTaskCompletedListener" >
+	    			<activiti:field name="targetState" stringValue="Obsolete" />
+	    		</activiti:taskListener>
+	  	 </extensionElements>		 		 
+      
+     	 <humanPerformer>
+			<resourceAssignmentExpression>
+				<formalExpression>#{owner}</formalExpression>
+			</resourceAssignmentExpression>
+		 </humanPerformer>
+      
+         <multiInstanceLoopCharacteristics behavior="All" id="sid-96a268f0-f01c-44e6-8327-a47912872b0c" isSequential="false">
+			<loopDataInputRef>selectedTermResourceIds</loopDataInputRef>
+    		<inputDataItem name="representationResourceId" />         
+         </multiInstanceLoopCharacteristics>
+      </userTask>
+      
+      <!-- Send notfication email to 'Owner' if the 'Responsible' users have not responded for decomissioning of terms -->
+      <serviceTask id="Notify_Steward" name="Notify Steward" activiti:type="mail">
+         <documentation>Send notfication email to 'Owner' if the 'Responsible' users have not responded for decomissioning of terms</documentation>
+         <extensionElements>
+         	<activiti:taskListener event="complete" class="com.collibra.glossary.workflow.activiti.tasklistener." >
+	    			<activiti:field name="targetState" stringValue="Obsolete" />
+	    	</activiti:taskListener>
+         
+		    <activiti:field name="from" stringValue="glossary@collibra.com" />
+		    <activiti:field name="to" expression="${ownerEmail}" />
+		    <activiti:field name="subject" expression="Deadline passed for decommission" />
+		    <activiti:field name="html">
+		      <activiti:expression>
+		        <![CDATA[
+		          <html>
+		            <body>
+		              Hello! <br/><br/>
+		              Deadline passed for decommission request of <br>
+		              ${termsBeingDecommissionedMailContent}
+		            </body>
+		          </html>
+		        ]]>
+		      </activiti:expression>
+		    </activiti:field>                        
+         </extensionElements>
+         <incoming>SequenceFlow_7</incoming>
+         <outgoing>SequenceFlow_8</outgoing>
+      </serviceTask>
+      
+      <!-- Timer for 'Responsible' users to respond. -->
+      <boundaryEvent attachedToRef="Responsible_User_Response" cancelActivity="true" id="IntermediateTimerEvent" name="IntermediateTimerEvent" parallelMultiple="false">
+         <timerEventDefinition id="sid-0bada517-c6c3-4836-ac8d-224d10f32742">
+         	 <timeCycle>#{userResponseTimeout}</timeCycle> <!-- Configurable as process variable -->
+         </timerEventDefinition>
+      </boundaryEvent>
+      
+      <endEvent id="EndNoneEvent" name="EndNoneEvent" />
+      
+      <endEvent id="EndNoneEvent_2" name="EndNoneEvent"/>
+      
+      <sequenceFlow id="SequenceFlow_1" name="SequenceFlow" sourceRef="StartNoneEvent" targetRef="Start_Decommission">
+         <documentation id="sid-1b9ce5d4-a31d-4670-b2a7-3d8aa11dfa02">Original Name: "" Original ID: "sid-01C77E4C-1800-4B77-BDAF-5F7FDF4F0B4D"</documentation>
+      </sequenceFlow>
+      <sequenceFlow id="SequenceFlow_2" name="SequenceFlow" sourceRef="Start_Decommission" targetRef="Notify_All_Users_for_each_Term">
+         <documentation id="sid-77bd2a66-c5fb-46bf-ad03-a055fee83585">Original Name: "" Original ID: "sid-F6553675-E4EB-4891-8EF5-A56E9C8EEDCF"</documentation>
+      </sequenceFlow>
+
+      <sequenceFlow id="SequenceFlow_3" name="SequenceFlow" sourceRef="Notify_All_Users_for_each_Term" targetRef="ParallelGateway">
+         <documentation id="sid-1f6b05c6-b31b-4155-87e2-2e212f08e571">Original Name: "" Original ID: "sid-B0F84237-638B-43C1-9247-129B580CDD62"</documentation>
+      </sequenceFlow>
+      <sequenceFlow id="SequenceFlow_11" name="SequenceFlow" sourceRef="ParallelGateway" targetRef="Responsible_User_Response">
+         <documentation id="sid-a2f85a2f-4c5a-4b8f-bd40-f4ae554aea0d">Original Name: "" Original ID: "sid-7AFD1F20-F091-4481-8C90-E120AE89FAA0"</documentation>
+      </sequenceFlow>
+      <sequenceFlow id="SequenceFlow_12" name="SequenceFlow" sourceRef="Responsible_User_Response" targetRef="Exclusive_Databased_Gateway">
+         <documentation id="sid-26091438-5525-4061-9c76-2935ce9c6816">Original Name: "" Original ID: "sid-6B0940CE-3B36-40B7-A4CB-09DC42361E81"</documentation>
+      </sequenceFlow>
+            
+      <sequenceFlow id="SequenceFlow_6" name="SequenceFlow" sourceRef="Exclusive_Databased_Gateway" targetRef="Decommission">
+         <documentation id="sid-347a1d0f-14fc-430c-8baf-f9b99ca1143f">Original Name: "" Original ID: "sid-6B0940CE-3B36-40B7-A4CB-09DC42361E81"</documentation>
+      </sequenceFlow>
+      <sequenceFlow id="SequenceFlow" name="SequenceFlow" sourceRef="Decommission" targetRef="EndNoneEvent">
+         <documentation id="sid-17b99560-8789-4321-b8b9-b0a9ee0dfe48">Original Name: "" Original ID: "sid-74E3DBEB-2B1D-4794-B3DC-7213E6D2C462"</documentation>
+      </sequenceFlow>
+      <sequenceFlow id="SequenceFlow_7" name="SequenceFlow" sourceRef="IntermediateTimerEvent" targetRef="Notify_Steward">
+         <documentation id="sid-365eb85a-1be5-4e5f-be98-000bf1edc512">Original Name: "" Original ID: "sid-C8305761-AB14-4C3A-80B0-084229BBF394"</documentation>
+      </sequenceFlow>
+      <sequenceFlow id="SequenceFlow_8" name="SequenceFlow" sourceRef="Notify_Steward" targetRef="Decommission">
+         <documentation id="sid-c0536e03-0233-4a95-8a20-2c155e993451">Original Name: "" Original ID: "sid-42CCB227-F30E-42C8-A7ED-2D41D6FDE658"</documentation>
+      </sequenceFlow>
+
+      <sequenceFlow id="SequenceFlow_9" name="SequenceFlow" sourceRef="Other_User_Response" targetRef="All_Responsible_Responded_">
+         <documentation id="sid-21e9f646-a37a-4d04-8e96-3b65c0707650">Original Name: "" Original ID: "sid-ACF14A14-3846-445C-9911-9DF5C5F7FCBD"</documentation>
+      </sequenceFlow>
+      <sequenceFlow id="SequenceFlow_10" name="SequenceFlow" sourceRef="ParallelGateway" targetRef="Other_User_Response">
+         <documentation id="sid-877eec62-93dc-4370-9e6f-3f03ee9ee2a9">Original Name: "" Original ID: "sid-6164FDC2-2685-4E84-8620-3C9CA1AD565E"</documentation>
+      </sequenceFlow>
+      <sequenceFlow id="Yes" name="Yes" sourceRef="All_Responsible_Responded_" targetRef="Exclusive_Databased_Gateway">
+         <conditionExpression id="sid-a3213903-3f30-43cc-95e2-96b64378713e_yes" xsi:type="tFormalExpression">${allResponsibleUsersResponded}</conditionExpression>
+      </sequenceFlow>
+      <sequenceFlow id="No" name="No" sourceRef="All_Responsible_Responded_" targetRef="EndNoneEvent_2">
+         <conditionExpression id="sid-a3213903-3f30-43cc-95e2-96b64378713e_no" xsi:type="tFormalExpression">${!allResponsibleUsersResponded}</conditionExpression>
+      </sequenceFlow>
+      
+      
+      <association associationDirection="None" id="sid-A915DA9A-A633-4A04-B37B-3AF5C25725A1" sourceRef="Responsible_User_Response" targetRef="TextAnnotation_2"/>
+      <association associationDirection="None" id="sid-27964AD1-EC28-4BF0-A7AD-B8DE3E04D062" sourceRef="Decommission" targetRef="TextAnnotation_3"/>
+      <association associationDirection="None" id="sid-9CBDAFDC-6C30-4A39-87CC-B7951D1140F2" sourceRef="Notify_All_Users_for_each_Term" targetRef="TextAnnotation"/>
+      <textAnnotation id="TextAnnotation_2" textFormat="text/plain">
+         <documentation id="sid-9d88ae83-7f53-482a-9235-ff769bc84d15">Original Name: "" Original ID: "sid-48B39254-EF89-46F1-8593-5AB7A5AA3929"</documentation>
+         <text>For each user an instance of this task is created. In each instance all the terms related to user are provided to record the response. If not all the responses are received then a boundary timer event is fired after a deadline is passed, as a result all instances of this task are removed and steward will be notified about completing decommissioning of terms.</text>
+      </textAnnotation>
+      <textAnnotation id="TextAnnotation" textFormat="text/plain">
+         <documentation id="sid-73863339-4e6e-400a-ae30-071fd1219fc5">Original Name: "" Original ID: "sid-299287F1-C06E-472D-B72D-D591EB5D4F1B"</documentation>
+         <text>Each user related to terms being decommissioned will get notification mail.</text>
+      </textAnnotation>
+      <textAnnotation id="TextAnnotation_3" textFormat="text/plain">
+         <documentation id="sid-58ba0f54-33ff-40dd-965d-84de870a07f4">Original Name: "" Original ID: "sid-0C380037-C698-4BB2-A381-EA5C19A71C4C"</documentation>
+         <text>For each term to be decommissioned the steward can see the response from others and choose to decommission or not. Note that there will be a parallel task created for each of the term and all are assigned to Steward. The UI logic can take care of combining all the task instances from this process assigned to steward in one UI.</text>
+      </textAnnotation>
+   </process>
+</definitions>

@@ -1,0 +1,38 @@
+<script type="text/javascript">
+<!--
+core.dom.ready(function() {
+  core.module.use('Community', function(communityModule) {
+    window.cm = communityModule;
+    window.mo = cm.create("ee5bf21d-9589-4573-8cc3-c7758d39e34e", function() {
+    });
+    
+    
+    mo.get("name", function(v){
+      core.dom.select("#cm").text(v);
+    }, true)
+  });
+  
+  core.module.use('model/vocabulary', function(vocabularyModule) {
+    window.vm = vocabularyModule;
+    window.vmo = vm.create("313fee54-71dc-4787-8202-1954571eaa89");
+  });
+   
+    manualUpdate = function() {
+      core.REST.update("http://localhost:8080/com.collibra.dgc.war/rest/latest/community/ee5bf21d-9589-4573-8cc3-c7758d39e34e", {
+        rid: "",
+        "name": "updated externally " + ~~(Math.random() * 1000)
+      });
+    }
+});
+//-->
+</script><br><br>
+Sign in first if you want to play.<br><br>
+                      
+<div style="margin: 50px; width: 285px;"><div id="cm" style="margin: 20px; background: none repeat scroll 0% 0% linen; padding: 8px;"></div>
+<button onclick='mo.set("name", Math.random())'>1. set("name", Math.random())</button>
+<button onclick='mo.get("name", function(v){core.dom.select("#cm").text(v);})'>2. get("name", function(v){alert(v)})</button><br>
+<button onclick='mo.save()'>3. save()</button>
+<br>
+<button onclick='manualUpdate()'>1. update name field in database manually</button>
+<button onclick='mo.update()'>2. update()</button>
+</div>

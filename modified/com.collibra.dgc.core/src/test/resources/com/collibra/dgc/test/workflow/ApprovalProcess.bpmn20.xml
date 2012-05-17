@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:signavio="http://www.signavio.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" exporter="Signavio Process Editor, http://www.signavio.com" exporterVersion="" id="sid-d96127a8-c598-4c1e-b901-b768b63ca749" targetNamespace="http://www.signavio.com/bpmn20" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+   <process id="Approval_Process" isExecutable="true" name="Approval_Process">
+   	<extensionElements>
+      	<activiti:executionListener class="com.collibra.dgc.core.workflow.activiti.executionlistener.ApprovalProcessRACIInitializer" event="start">
+	      		<!-- Responsible -->
+	      		<activiti:field name="responsibleRole" stringValue="Admin(Community)" />
+	      		<!-- Accountable - This role is mandatory -->
+	      		<activiti:field name="accountableRole" stringValue="Steward(Community)" />
+	      		<!-- Consulted -->
+	      		<activiti:field name="consultedRole" stringValue="Stakeholder(Community)" />
+	      		<!-- Informed -->
+	      		<activiti:field name="informedRole" stringValue="Stakeholder(Community)" />
+	      		
+	      		<!-- State of the representation when the process starts -->	      		
+	      		<activiti:field name="targetState" stringValue="Approval Pending" />	      		
+      	</activiti:executionListener>
+      </extensionElements>
+   
+      <startEvent id="StartNoneEvent" name="StartNoneEvent" activiti:formKey="WorkflowCode.VocabularyEntryWorkflowStart"/>
+      
+      <!-- 'Accountable' users will get the tasks to approve -->
+      <userTask id="Approve" name="Approve" activiti:formKey="WorkflowCode.ApprovalWorkflowApprove">
+         <documentation id="sid-db4e9e0a-11e9-419e-83e0-c0d1becb8dc9">bsg.workflow.Approval_Process.task.Approve</documentation>
+         <extensionElements>
+         	<activiti:taskListener event="create" class="com.collibra.dgc.core.workflow.activiti.tasklistener.ApproversInjector" />
+         	<activiti:taskListener event="complete" class="com.collibra.dgc.core.workflow.activiti.tasklistener.ApproveTaskCompleted" />
+         </extensionElements>
+      </userTask>
+      
+      <!-- Once the approver made the decision based on the target state to be set like 'Approved' or 'Rejected the diverging gateway is used. -->
+      <exclusiveGateway gatewayDirection="Diverging" id="Exclusive_Databased_Gateway_2" name="Exclusive_Databased_Gateway" />
+      
+      <!-- Change the representation status to 'Accepted' (defined by targetState) -->
+      <serviceTask id="Change_state_to__Accepted_" name="Change state to 'Accepted'" activiti:class="com.collibra.dgc.core.workflow.activiti.delegate.StateChanger">
+      	<documentation>Change the representation status to 'Accepted' (defined by targetState)</documentation>
+     	<extensionElements>
+      		<activiti:field name="targetState" stringValue="Accepted" />
+      	</extensionElements>             
+      </serviceTask>
+      
+      <!-- Converging gateway after changing the state of the representation -->
+      <exclusiveGateway gatewayDirection="Converging" id="Exclusive_Databased_Gateway" name="Exclusive_Databased_Gateway" />
+      
+      <!-- Change the representation status to 'Rejected' (defined by targetState) -->
+      <serviceTask id="Change_state_to__Rejected_" name="Change state to 'Rejected'" activiti:class="com.collibra.dgc.core.workflow.activiti.delegate.StateChanger">
+      	<documentation>Change the representation status to 'Rejected' (defined by targetState)</documentation>
+     	<extensionElements>
+      		<activiti:field name="targetState" stringValue="Rejected" />
+      	</extensionElements>             
+      </serviceTask>
+      
+      <!-- Sends email notification to Responsible, Accountable, Consulted and Informed -->
+      <serviceTask id="Approve_Notify" name="Notify Approved" activiti:type="mail">
+      	 <documentation>Sends email notification to Responsible, Accountable, Consulted and Informed</documentation>
+         <extensionElements>
+		    <activiti:field name="from" stringValue="glossary@collibra.com" />
+		    <activiti:field name="to" expression="${toEmail}" />
+		    <activiti:field name="subject" expression="${representationName} ${decisionValue} by ${sender}" />
+		    <activiti:field name="html">
+		      <activiti:expression>
+		        <![CDATA[
+		          <html>
+		            <body>
+		              Hello!<br/><br/>
+		              Term <a href="${representationURL}"> ${representationName}</a> has been ${decisionValue} by ${sender}.<br/>	              
+		            </body>
+		          </html>
+		        ]]>
+		      </activiti:expression>
+		    </activiti:field>            
+         </extensionElements>
+      </serviceTask>
+      
+      <!-- Sends email notification to Responsible, Accountable, Consulted and Informed -->
+      <serviceTask id="Reject_Notify" name="Notify Rejected" activiti:type="mail">
+      	 <documentation>Sends email notification to Responsible, Accountable, Consulted and Informed</documentation>
+         <extensionElements>
+		    <activiti:field name="from" stringValue="glossary@collibra.com" />
+		    <activiti:field name="to" expression="${toEmail}" />
+		    <activiti:field name="subject" expression="${representationName} ${decisionValue} by ${sender}" />
+		    <activiti:field name="html">
+		      <activiti:expression>
+		        <![CDATA[
+		          <html>
+		            <body>
+		              Hello!<br/><br/>
+		              Term <a href="${representationURL}"> ${representationName}</a> has been ${decisionValue} by ${sender}.<br/> Reason: ${decisionReason}<br/>	              
+		            </body>
+		          </html>
+		        ]]>
+		      </activiti:expression>
+		    </activiti:field>            
+         </extensionElements>
+      </serviceTask>
+      
+      
+      <endEvent id="EndNoneEvent" name="EndNoneEvent" />
+      
+      <sequenceFlow id="SequenceFlow_3" name="SequenceFlow" sourceRef="StartNoneEvent" targetRef="Approve" />
+      <sequenceFlow id="SequenceFlow" name="SequenceFlow" sourceRef="Approve" targetRef="Exclusive_Databased_Gateway_2" />
+      <sequenceFlow id="Accept" name="Accept" sourceRef="Exclusive_Databased_Gateway_2" targetRef="Change_state_to__Accepted_">
+         <conditionExpression id="sid-d05f3a62-fd87-47c2-bd86-0601e543eaa1_Accepted" xsi:type="tFormalExpression">${accepted}</conditionExpression>
+      </sequenceFlow>
+      <sequenceFlow id="Reject" name="Reject" sourceRef="Exclusive_Databased_Gateway_2" targetRef="Change_state_to__Rejected_">
+         <conditionExpression id="sid-88fdd5b7-a228-4ac9-b69e-243c5022cd7f_Rejected" xsi:type="tFormalExpression">${!accepted}</conditionExpression>
+      </sequenceFlow>
+      <sequenceFlow id="SequenceFlow_4" name="SequenceFlow" sourceRef="Change_state_to__Accepted_" targetRef="Approve_Notify" />
+      <sequenceFlow id="SequenceFlow_5" name="SequenceFlow" sourceRef="Change_state_to__Rejected_" targetRef="Reject_Notify" />
+
+      <sequenceFlow id="SequenceFlow_6" name="SequenceFlow" sourceRef="Approve_Notify" targetRef="Exclusive_Databased_Gateway" />
+      <sequenceFlow id="SequenceFlow_7" name="SequenceFlow" sourceRef="Reject_Notify" targetRef="Exclusive_Databased_Gateway" />
+      
+      <sequenceFlow id="SequenceFlow_2" name="SequenceFlow" sourceRef="Exclusive_Databased_Gateway" targetRef="EndNoneEvent" />
+   </process>
+   
+   <!-- bpmndi:BPMNDiagram id="sid-326cd8e5-aae1-4ca5-9c9d-04936d12aa3c">
+      <bpmndi:BPMNPlane bpmnElement="Approval_Process" id="sid-8c75bac4-5786-4bf2-a879-dff979937da5">
+         <bpmndi:BPMNShape bpmnElement="StartNoneEvent" id="StartNoneEvent_gui">
+            <omgdc:Bounds height="30.0" width="30.0" x="120.0" y="235.0"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="Approve" id="Approve_gui">
+            <omgdc:Bounds height="80.0" width="100.0" x="195.0" y="210.0"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="Exclusive_Databased_Gateway_2" id="Exclusive_Databased_Gateway_2_gui" isMarkerVisible="true">
+            <omgdc:Bounds height="40.0" width="40.0" x="360.0" y="230.0"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="Change_state_to__Accepted_" id="Change_state_to__Accepted__gui">
+            <omgdc:Bounds height="80.0" width="100.0" x="445.0" y="120.0"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="Exclusive_Databased_Gateway" id="Exclusive_Databased_Gateway_gui" isMarkerVisible="true">
+            <omgdc:Bounds height="40.0" width="40.0" x="615.0" y="230.0"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="Change_state_to__Rejected_" id="Change_state_to__Rejected__gui">
+            <omgdc:Bounds height="80.0" width="100.0" x="445.0" y="285.0"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="EndNoneEvent" id="EndNoneEvent_gui">
+            <omgdc:Bounds height="28.0" width="28.0" x="845.0" y="236.0"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNEdge bpmnElement="SequenceFlow_6" id="SequenceFlow_6_gui">
+            <omgdi:waypoint x="800.0" y="250.0"/>
+            <omgdi:waypoint x="845.0" y="250.0"/>
+         </bpmndi:BPMNEdge>
+         <bpmndi:BPMNEdge bpmnElement="SequenceFlow_4" id="SequenceFlow_4_gui">
+            <omgdi:waypoint x="545.0" y="160.0"/>
+            <omgdi:waypoint x="635.5" y="160.0"/>
+            <omgdi:waypoint x="635.0" y="230.0"/>
+         </bpmndi:BPMNEdge>
+         <bpmndi:BPMNEdge bpmnElement="SequenceFlow_5" id="SequenceFlow_5_gui">
+            <omgdi:waypoint x="545.0" y="325.0"/>
+            <omgdi:waypoint x="635.0" y="325.0"/>
+            <omgdi:waypoint x="635.0" y="270.0"/>
+         </bpmndi:BPMNEdge>
+         <bpmndi:BPMNEdge bpmnElement="Reject" id="Reject_gui">
+            <omgdi:waypoint x="380.0" y="270.0"/>
+            <omgdi:waypoint x="380.5" y="325.0"/>
+            <omgdi:waypoint x="445.0" y="325.0"/>
+         </bpmndi:BPMNEdge>
+         <bpmndi:BPMNEdge bpmnElement="SequenceFlow_2" id="SequenceFlow_2_gui">
+            <omgdi:waypoint x="655.0" y="250.0"/>
+            <omgdi:waypoint x="700.0" y="250.0"/>
+         </bpmndi:BPMNEdge>
+         <bpmndi:BPMNEdge bpmnElement="Accept" id="Accept_gui">
+            <omgdi:waypoint x="380.0" y="230.0"/>
+            <omgdi:waypoint x="380.5" y="160.0"/>
+            <omgdi:waypoint x="445.0" y="160.0"/>
+         </bpmndi:BPMNEdge>
+         <bpmndi:BPMNEdge bpmnElement="SequenceFlow_3" id="SequenceFlow_3_gui">
+            <omgdi:waypoint x="150.0" y="250.0"/>
+            <omgdi:waypoint x="195.0" y="250.0"/>
+         </bpmndi:BPMNEdge>
+         <bpmndi:BPMNEdge bpmnElement="SequenceFlow" id="SequenceFlow_gui">
+            <omgdi:waypoint x="295.0" y="250.0"/>
+            <omgdi:waypoint x="360.0" y="250.0"/>
+         </bpmndi:BPMNEdge>
+      </bpmndi:BPMNPlane>
+   </bpmndi:BPMNDiagram-->
+</definitions>

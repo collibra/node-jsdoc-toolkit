@@ -1,0 +1,280 @@
+/*---------------------------------------------------
+    Following is based on  LESS Elements 0.6
+  ---------------------------------------------------*/
+
+.gradient(@color: #F5F5F5, @start: #EEE, @stop: #FFF) {
+  background: -moz-linear-gradient(center bottom, @start 0%, @stop 100%);
+  background: -ms-linear-gradient(bottom, @start, @stop);
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, @start), color-stop(1, @stop));
+  background: @color;
+}
+
+.background-linear-gradient(@startColor, @middleColor, @middlePosition, @endColor) {
+  background-image: -moz-linear-gradient(top, @startColor, @middleColor @middlePosition, @endColor);
+  background-image: -ms-linear-gradient(@startColor, @middleColor @middlePosition, @endColor);
+  background-image: -o-linear-gradient(@startColor, @middleColor @middlePosition, @endColor);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(@startColor), color-stop(@middlePosition, @middleColor), to(@endColor));
+  background-image: -webkit-linear-gradient(@startColor, @middleColor @middlePosition, @endColor);
+  background-image: linear-gradient(@startColor, @middleColor @middlePosition, @endColor);
+  filter: ~"progid:DXImageTransform.Microsoft.gradient(startColorstr='@{startColor}', endColorstr='@{endColor}', GradientType=0)";
+}
+
+.border(@top-color: #EEE, @right-color: #EEE, @bottom-color: #EEE, @left-color: #EEE) {
+  border-bottom: solid 1px @bottom-color;
+  border-left: solid 1px @left-color;
+  border-right: solid 1px @right-color;
+  border-top: solid 1px @top-color;
+}
+
+.boxShadow(@values) {
+  -moz-box-shadow: @values;
+  -webkit-box-shadow: @values;
+  box-shadow: @values;
+}
+
+.box-shadow(@x-axis: 0, @y-axis: 1px, @blur: 2px, @alpha: 0.1, @red: 0, @green: 0, @blue: 0, @iecolor: #000000) {
+  -moz-box-shadow: @x-axis @y-axis @blur rgba(@red, @green, @blue, @alpha);
+  -webkit-box-shadow: @x-axis @y-axis @blur rgba(@red, @green, @blue, @alpha);
+  box-shadow: @x-axis @y-axis @blur rgba(@red, @green, @blue, @alpha);
+  filter: ~"progid:DXImageTransform.Microsoft.Shadow(color='@{iecolor}', Direction=135, Strength=@{blur})";
+}
+
+.border-radius(@radius: 3px) {
+  -moz-background-clip: padding;
+  -moz-border-radius: @radius;
+  -webkit-background-clip: padding-box;
+  -webkit-border-radius: @radius;
+  background-clip: padding-box;
+  border-radius: @radius;
+}
+
+.border-top-left-radius(@radius: 3px) {
+  -moz-background-clip: padding;
+  -moz-border-radius-topleft: @radius;
+  -webkit-background-clip: padding-box;
+  -webkit-border-top-left-radius: @radius;
+  background-clip: padding-box;
+  border-top-left-radius: @radius;
+}
+
+.border-top-right-radius(@radius: 3px) {
+  -moz-background-clip: padding;
+  -moz-border-radius-topright: @radius;
+  -webkit-background-clip: padding-box;
+  -webkit-border-top-right-radius: @radius;
+  background-clip: padding-box;
+  border-top-right-radius: @radius;
+}
+
+.border-bottom-left-radius(@radius: 3px) {
+  -moz-background-clip: padding;
+  -moz-border-radius-bottomleft: @radius;
+  -webkit-background-clip: padding-box;
+  -webkit-border-bottom-left-radius: @radius;
+  background-clip: padding-box;
+  border-bottom-left-radius: @radius;
+}
+
+.border-bottom-right-radius(@radius: 3px) {
+  -moz-background-clip: padding;
+  -moz-border-radius-bottomright: @radius;
+  -webkit-background-clip: padding-box;
+  -webkit-border-bottom-right-radius: @radius;
+  background-clip: padding-box;
+  border-bottom-right-radius: @radius;
+}
+
+.rounded(@topright: 0, @bottomright: 0, @bottomleft: 0, @topleft: 0) {
+  -moz-background-clip: padding;
+  -moz-border-radius-bottomleft: @bottomleft;
+  -moz-border-radius-bottomright: @bottomright;
+  -moz-border-radius-topleft: @topleft;
+  -moz-border-radius-topright: @topright;
+  -webkit-background-clip: padding-box;
+  -webkit-border-bottom-left-radius: @bottomleft;
+  -webkit-border-bottom-right-radius: @bottomright;
+  -webkit-border-top-left-radius: @topleft;
+  -webkit-border-top-right-radius: @topright;
+  background-clip: padding-box;
+  border-bottom-left-radius: @bottomleft;
+  border-bottom-right-radius: @bottomright;
+  border-top-left-radius: @topleft;
+  border-top-right-radius: @topright;
+}
+
+.opacity(@opacity: 0.5) {
+  -moz-opacity: @opacity;
+  -khtml-opacity: @opacity;
+  -webkit-opacity: @opacity;
+  opacity: @opacity;
+  @opac: @opacity * 100;
+  filter: alpha(opacity=@opac);
+}
+
+.rotation(@deg:5deg){
+  -webkit-transform: rotate(@deg);
+  -moz-transform: rotate(@deg);
+  transform: rotate(@deg);
+}
+
+.scale(@ratio:1.5){
+  -webkit-transform:scale(@ratio);
+  -moz-transform:scale(@ratio);
+  transform:scale(@ratio);
+}
+
+.transition(@property:all, @duration:0.2s, @ease:ease-out) {
+  -webkit-transition: @property @duration @ease;
+  -moz-transition: @property @duration @ease;
+  -ms-transition: @property @duration @ease;
+  -o-transistion: @property @duration @ease;
+  transition: @property @duration @ease;
+}
+
+.inner-shadow(@horizontal:0, @vertical:1px, @blur:2px, @alpha: 0.4, @red: 0, @green: 0, @blue: 0) {
+  -webkit-box-shadow: inset @horizontal @vertical @blur rgba(@red, @green, @blue, @alpha);
+  -moz-box-shadow: inset @horizontal @vertical @blur rgba(@red, @green, @blue, @alpha);
+  box-shadow: inset @horizontal @vertical @blur rgba(@red, @green, @blue, @alpha);
+}
+
+/**
+ * Standardized Colors.
+ */
+
+// Standard Colours
+@lightestRed: #fab8a1;
+@lightRed: #f79371;
+@red: #db563e;
+@darkRed: #bc3e2b;
+@darkestRed: #923022;
+@dirtyRed: #b6624b;
+
+@lightestGreen: #bedc81;
+@lightGreen: #a9d159;
+@green: #97c859;
+@darkGreen: #96b84d;
+@darkestGreen: #79963c;
+@dirtyGreen: #699267;
+
+@lightestYellow: #fff1b4;
+@lightYellow: #ffe881;
+@yellow: #fdce43;
+@darkYellow: #febf43;
+@darkestYellow: #feae10;
+@dirtyYellow: #feae10;
+
+@lightestBlue: #d2effc;
+@lightBlue: #a2def9;
+@blue: #89ccea;
+@darkBlue: #33afd7;
+@darkestBlue: #2391b4;
+@dirtyBlue: #5f97ad;
+
+// States
+@errorColor: @darkRed;
+@successColor: @lightGreen;
+@warningColor: @lightYellow;
+
+// Controls
+@controlBackgroundColor: #F6F6F6;
+@controlBackgroundColorFocus: white;
+@controlBorderColor: #B6B6B6;
+@controlDisabledFontColor: #616161;
+@controlFontColor: #2e2e2e;
+@controlLabelFontColor: #c3c3c3;
+@controlValidationBorderColor: #B6B6B6;
+
+// Buttons
+@buttonDisabledBorderColor: #e3e3e3;
+@buttonDisabledFontColor: #8c8c8c;
+
+/**
+ * Standardized Border Values.
+ */
+
+// General
+@borderStyle: solid;
+@borderWidth: 1px;
+
+// Controls
+@controlBorderRadius: 3px;
+@controlBorderStyle: solid;
+@controlBorderWidth: 1px;
+@controlValidationBorderStyle: double;
+@controlValidationBorderWidth: 3px;
+
+
+/**
+ * Standardized Font Sizes.
+ */
+
+// Controls
+@controlFontSize: 1.2em;
+
+/**
+ * Standardized Margins
+ */
+
+// Controls
+@controlMargin: 6px;
+
+/**
+ * Standardized Fonts
+ */
+
+@font: "Lucida Grande", Arial;
+
+/**
+ * Standardized Icons
+ */
+
+@iconHeight: 14px;
+@iconWidth: 14px;
+
+.gillSansLight {
+  font-family: 'Gill Sans Light', Arial;
+  font-weight: normal;
+}
+
+.lucidaGrande {
+  font-family: 'Lucida Grande', Helvetica;
+  font-weight: normal;
+}
+
+.lucidaGrandeBold {
+  font-family: 'Lucida Grande Bold', Helvetica;
+  font-weight: bold;
+  letter-spacing: -0.5px;
+}
+
+/**
+ * Global style definitions.
+ */
+
+.clearfloats { clear: both; }
+.clearfloatsleft { clear: left; }
+.clearfloatsright { clear: right; }
+
+* {
+  &:focus {
+    outline: none;
+  }
+
+  &:active {
+    outline: none;
+  }
+
+  &:visited {
+    outline: none;
+  }
+}
+
+.bold { font-weight: bold; }
+.centered { text-align: center; }
+.italic { font-style: italic; }
+.lowercase { text-transform: lowercase; }
+.red { color: #D8675B; }
+.underline { text-decoration: underline; }
+
+.hidden { display: none; }
+.invisible { visibility: hidden; }

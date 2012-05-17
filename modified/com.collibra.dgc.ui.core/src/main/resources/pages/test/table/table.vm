@@ -1,0 +1,297 @@
+<style>
+  li { margin: 20px 0; }
+  DIV.buttons {
+    border: 1px solid black;
+  }
+  
+  .functionality-button {
+    cursor: pointer;
+    border: 1px solid black;
+    padding: 10px;
+    float: left;
+    margin: 5px;
+  }
+  
+  .functionality-button.disabled {
+    background-color: grey;
+    cursor: not-allowed;
+  }
+</style>
+                                 
+<div class="test-table" style="width:80%; margin:20px auto;">
+
+  <div class="browser"></div>
+
+  <div class="buttons"></div>
+
+  #### Simple Table ####
+  <h3 class="table_desc">Simple Table</h3>
+  <div class="datatable-wrapper" style="width: 100%;">
+  
+  
+  ### FILTER BUTTON ###
+  <span class="btn" id="table-filter-button">Filter</span><br />
+  <script language="JavaScript" type="text/javascript">
+core.dom.ready(function() {
+  core.module.use(['library/uielements/advancedbutton'], function(AdvancedButton) {
+
+     var filterItems = [
+        {
+          label: 'Add',
+          name: 'add-filter',
+          icon: 'icon-add',
+          on: {'click': function() { alert('Add filter!'); }},
+          group: 0
+        },
+        {
+          label: '1st Saved filter',
+          name: '1st-saved-filter',
+          selectable: true,
+          group: 1,
+          actionButtons: [
+            {
+              icon: 'icon-edit',
+              on: {'click': function() { alert('Edit 1st!'); }}
+            },
+            {
+              icon: 'icon-trash',
+              on: {'click': function() { alert('Delete 1st!'); }}
+            }
+          ]
+        },
+        {
+          label: '2nd Saved filter',
+          name: '2nd-saved-filter',
+          selectable: true,
+          group: 1,
+          actionButtons: [
+            {
+              icon: 'icon-edit',
+              on: {'click': function() { alert('Edit 2nd!'); }}
+            },
+            {
+              icon: 'icon-trash',
+              on: {'click': function() { alert('Delete 2nd!'); }}
+            }
+          ]
+        }
+      ];
+      
+     AdvancedButton.create('#table-filter-button', {menu: filterItems, type: 'TYPE_MENU', checkbox: {show: true, check: true, onChange: function() {core.debug.show('onchange');}}});
+  });
+});
+</script>
+### end of FILTER BUTTON ###
+    
+    ## Static data
+    <table id="t1" style="display: none; width: 100%;">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Definition</th>
+        <th>Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="selected">
+        <td>Term 0</td>
+        <td>This is a definition of Term 0</td>
+        <td><a href="#">Sample Type<a></td>
+      </tr>
+      #foreach($row in [1..100])
+      <tr>
+        <td>Term ${row}</td>
+        <td>This is a definition of Term ${row}</td>
+        <td><a href="#">Sample Type</a></td>
+      </tr>
+      #end
+    </tbody>
+  </table>
+  </div>
+
+<br />
+
+<script language="JavaScript" type="text/javascript">
+var tableSkeleton = '<table id="basictable">' +
+                      '<thead>' +
+                        '<th data-propname="term" data-tabletype="term">Name</th>' +
+                        '<th data-propname="Definition" data-tabletype="stringattribute" data-attributetype="$attributeTypeComponent.getDefinitionAttributeType().getId()">Definition</th>' +
+                        '<th data-propname="Status" data-tabletype="status">Status</th>' +
+                      '</thead>' +
+                      '<tbody>' +
+                      '</tbody>' +
+                    '</table>';
+
+core.dom.ready(function() {
+  //Show browser type
+  core.dom.select('.browser').text('Browser: '+navigator.userAgent);
+
+  core.module.use('library/uielements/table', function(Table) {
+    window.Table = Table;
+
+    //Basic table
+    core.dom.create('<div class="functionality-button">Basic Table</div>').on('click', function() {
+      Table.destroy('#basictable', true);
+      core.dom.select('DIV.datatable-wrapper').append(tableSkeleton);
+      Table.destroy('#t1', false);
+      core.dom.select('TABLE#t1').hide();
+      core.dom.select('H3.table_desc').text('Basic Table');
+      Table.create('#basictable', {
+        url: 'http://localhost:8080/com.collibra.dgc.war/rest/1.0/report',
+        counting: false,
+        pagination: false,
+        sorting: false,
+        selectable: false
+      });
+    }).appendTo('DIV.buttons');
+
+    //Pagination
+    core.dom.create('<div class="functionality-button">Pagination</div>').on('click', function() {
+        Table.destroy('#basictable', true);
+        core.dom.select('DIV.datatable-wrapper').append(tableSkeleton);
+        Table.destroy('#t1', false);
+        core.dom.select('TABLE#t1').hide();
+        core.dom.select('H3.table_desc').text('Pagination');
+        Table.create('#basictable', {
+          url: 'http://localhost:8080/com.collibra.dgc.war/rest/1.0/report',
+          display: {
+            length: 10
+          },
+          counting: false,
+          pagination: true,
+          sorting: false,
+          selectable: false
+        });
+    }).appendTo('DIV.buttons');
+
+    //Record counting
+    core.dom.create('<div class="functionality-button">Record counting</div>').on('click', function() {
+        Table.destroy('#basictable', true);
+        core.dom.select('DIV.datatable-wrapper').append(tableSkeleton);
+        Table.destroy('#t1', false);
+        core.dom.select('TABLE#t1').hide();
+        core.dom.select('H3.table_desc').text('Record counting');
+        Table.create('#basictable', {
+          url: 'http://localhost:8080/com.collibra.dgc.war/rest/1.0/report',
+          display: {
+            length: 10
+          },
+          counting: true,
+          pagination: false,
+          sorting: false,
+          selectable: false
+        });
+    }).appendTo('DIV.buttons');
+
+    //Sorting
+    core.dom.create('<div class="functionality-button">Sorting</div>').on('click', function() {
+        Table.destroy('#basictable', true);
+        core.dom.select('DIV.datatable-wrapper').append(tableSkeleton);
+        Table.destroy('#t1', false);
+        core.dom.select('TABLE#t1').hide();
+        core.dom.select('H3.table_desc').text('Sorting');
+        Table.create('#basictable', {
+          url: 'http://localhost:8080/com.collibra.dgc.war/rest/1.0/report',
+          display: {
+            length: 10
+          },
+          counting: true,
+          pagination: true,
+          sorting: true,
+          selectable: false
+        });
+    }).appendTo('DIV.buttons');
+
+    //Column selection/Moving
+    core.dom.create('<div class="functionality-button">Column selection/Moving</div>').on('click', function() {
+        Table.destroy('#basictable', true);
+        core.dom.select('DIV.datatable-wrapper').append(tableSkeleton);
+        Table.destroy('#t1', false);
+        core.dom.select('TABLE#t1').hide();
+        core.dom.select('H3.table_desc').text('Column selection/Moving');
+        Table.create('#basictable', {
+          url: 'http://localhost:8080/com.collibra.dgc.war/rest/1.0/report',
+          display: {
+            length: 10
+          },
+          counting: true,
+          pagination: true,
+          columnsConfig: true
+        });
+    }).click().appendTo('DIV.buttons');
+
+    //Selection
+    core.dom.create('<div class="functionality-button">Selection</div>').on('click', function() {
+        Table.destroy('#basictable', true);
+        core.dom.select('DIV.datatable-wrapper').append(tableSkeleton);
+        Table.destroy('#t1', false);
+        core.dom.select('TABLE#t1').hide();
+        core.dom.select('H3.table_desc').text('Selection');
+        Table.create('#basictable', {
+          url: 'http://localhost:8080/com.collibra.dgc.war/rest/1.0/report',
+          display: {
+            length: 10
+          },
+          counting: true,
+          pagination: true,
+          sorting: true
+        });
+    }).appendTo('DIV.buttons');
+
+    //Adv Filter
+    core.dom.create('<div class="functionality-button disabled">Adv Filter</div>').on('click', function() {
+        return false;//TODO
+        Table.destroy('#basictable', true);
+        core.dom.select('DIV.datatable-wrapper').append(tableSkeleton);
+        Table.destroy('#t1', false);
+        core.dom.select('TABLE#t1').hide();
+        core.dom.select('H3.table_desc').text('Adv Filter');
+        Table.create('#basictable', {
+          url: 'http://localhost:8080/com.collibra.dgc.war/rest/1.0/report',
+          display: {
+            length: 10
+          },
+          counting: true,
+          pagination: true
+        });
+    }).appendTo('DIV.buttons');
+
+    //Deletion
+    core.dom.create('<div class="functionality-button">Deletion</div>').on('click', function() {
+        Table.destroy('#basictable', true);
+        core.dom.select('DIV.datatable-wrapper').append(tableSkeleton);
+        Table.destroy('#t1', false);
+        core.dom.select('TABLE#t1').hide();
+        core.dom.select('H3.table_desc').text('Deletion');
+        Table.create('#basictable', {
+          url: 'http://localhost:8080/com.collibra.dgc.war/rest/1.0/report',
+          display: {
+            length: 10
+          },
+          counting: true,
+          pagination: true,
+          deletable: true
+        });
+    }).appendTo('DIV.buttons');
+    
+
+    //Static Data
+    core.dom.create('<div class="functionality-button">Static Data</div>').on('click', function() {
+        Table.destroy('#basictable', true);
+        Table.destroy('#t1', false);
+        core.dom.select('TABLE#t1').show();
+        core.dom.select('H3.table_desc').text('Static Data');
+        Table.create('#t1', {
+          display: {
+            length: 10
+          },
+          counting: true,
+          pagination: true
+        });
+    }).appendTo('DIV.buttons');
+
+    core.dom.create('<div style="clear: both;"></div>').appendTo('DIV.buttons');
+  });
+
+});
+</script>

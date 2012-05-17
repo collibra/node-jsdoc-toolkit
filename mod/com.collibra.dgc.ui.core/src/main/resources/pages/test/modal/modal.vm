@@ -1,0 +1,94 @@
+<style>
+  li { margin: 20px 0; }
+</style>
+<div id="t1" style="width:80%; margin:20px auto;">
+
+<button id="bt1" class="modalbutton"> Modal t1 initiator</button>
+
+<button id="bt2" class="modalbutton">Modal t2 initiator</button>
+
+  <p id="takeme">
+  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed feugiat pede. Sed nec risus. Phasellus vitae turpis. Etiam commodo pulvinar interdum. Nulla a placerat ornare ultrices posuere sit amet leo. Mauris urna. Nunc erat id lacus non felis. Nam eget nibh vel nulla. Cras in risus.
+  </p>
+  <p>
+  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed feugiat pede. Sed nec risus. Phasellus vitae turpis. Etiam commodo pulvinar interdum. Nulla a placerat ornare ultrices posuere sit amet leo. Mauris urna. Nunc erat id lacus non felis. Nam eget nibh vel nulla. Cras in risus.
+  </p>
+  <p>
+  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed feugiat pede. Sed nec risus. Phasellus vitae turpis. Etiam commodo pulvinar interdum. Nulla a placerat ornare ultrices posuere sit amet leo. Mauris urna. Nunc erat id lacus non felis. Nam eget nibh vel nulla. Cras in risus.
+  </p><p>
+  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed feugiat pede. Sed nec risus. Phasellus vitae turpis. Etiam commodo pulvinar interdum. Nulla a placerat ornare ultrices posuere sit amet leo. Mauris urna. Nunc erat id lacus non felis. Nam eget nibh vel nulla. Cras in risus.
+  </p><p>
+  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed feugiat pede. Sed nec risus. Phasellus vitae turpis. Etiam commodo pulvinar interdum. Nulla a placerat ornare ultrices posuere sit amet leo. Mauris urna. Nunc erat id lacus non felis. Nam eget nibh vel nulla. Cras in risus.
+  </p><p>
+  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed feugiat pede. Sed nec risus. Phasellus vitae turpis. Etiam commodo pulvinar interdum. Nulla a placerat ornare ultrices posuere sit amet leo. Mauris urna. Nunc erat id lacus non felis. Nam eget nibh vel nulla. Cras in risus.
+  </p><p>
+  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed feugiat pede. Sed nec risus. Phasellus vitae turpis. Etiam commodo pulvinar interdum. Nulla a placerat ornare ultrices posuere sit amet leo. Mauris urna. Nunc erat id lacus non felis. Nam eget nibh vel nulla. Cras in risus.
+  </p><p>
+  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed feugiat pede. Sed nec risus. Phasellus vitae turpis. Etiam commodo pulvinar interdum. Nulla a placerat ornare ultrices posuere sit amet leo. Mauris urna. Nunc erat id lacus non felis. Nam eget nibh vel nulla. Cras in risus.
+  </p><p>
+  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed feugiat pede. Sed nec risus. Phasellus vitae turpis. Etiam commodo pulvinar interdum. Nulla a placerat ornare ultrices posuere sit amet leo. Mauris urna. Nunc erat id lacus non felis. Nam eget nibh vel nulla. Cras in risus.
+  </p><p>
+  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed feugiat pede. Sed nec risus. Phasellus vitae turpis. Etiam commodo pulvinar interdum. Nulla a placerat ornare ultrices posuere sit amet leo. Mauris urna. Nunc erat id lacus non felis. Nam eget nibh vel nulla. Cras in risus.
+  </p><p>
+  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed feugiat pede. Sed nec risus. Phasellus vitae turpis. Etiam commodo pulvinar interdum. Nulla a placerat ornare ultrices posuere sit amet leo. Mauris urna. Nunc erat id lacus non felis. Nam eget nibh vel nulla. Cras in risus.
+  </p><p>
+  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed feugiat pede. Sed nec risus. Phasellus vitae turpis. Etiam commodo pulvinar interdum. Nulla a placerat ornare ultrices posuere sit amet leo. Mauris urna. Nunc erat id lacus non felis. Nam eget nibh vel nulla. Cras in risus.
+  </p><p>
+  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed feugiat pede. Sed nec risus. Phasellus vitae turpis. Etiam commodo pulvinar interdum. Nulla a placerat ornare ultrices posuere sit amet leo. Mauris urna. Nunc erat id lacus non felis. Nam eget nibh vel nulla. Cras in risus.
+  </p><p>
+  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed feugiat pede. Sed nec risus. Phasellus vitae turpis. Etiam commodo pulvinar interdum. Nulla a placerat ornare ultrices posuere sit amet leo. Mauris urna. Nunc erat id lacus non felis. Nam eget nibh vel nulla. Cras in risus.
+  </p><p>
+  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed feugiat pede. Sed nec risus. Phasellus vitae turpis. Etiam commodo pulvinar interdum. Nulla a placerat ornare ultrices posuere sit amet leo. Mauris urna. Nunc erat id lacus non felis. Nam eget nibh vel nulla. Cras in risus.
+  </p>
+</div>
+
+
+
+<script language="JavaScript" type="text/javascript">
+core.dom.ready(function() {
+
+  core.module.use('library/uielements/modal', function(Modal) {
+    window.Modal = Modal;
+    
+    Modal.create(core.dom.select('#bt1'), {
+      title: 'Modal Window',
+      subtitle: 'Here goes modal window subtitle',
+      description: 'Here is an optional place for the short description',
+      content: 'Take me (string) as a content!', 
+      //{
+      //  element: core.dom.select('#takeme')
+      //},
+      dimensions: {
+        height: 400,
+        width: '60%'
+      },
+      hide: {
+        enabled: true,
+        onClose: function() { core.debug.show('Modal closed.'); }
+      }
+    });
+    
+    Modal.create(core.dom.select('#bt2'), {
+      hide: {
+        enabled: true,
+        onClose: function() { core.debug.show('Modal closed.'); }
+      },
+      title: 'Header',
+      fullOverlay: false,
+      content: {
+        url: 'http://localhost:8080/com.collibra.dgc.war/test/buttons',
+        onLoad: function(){ core.debug.show('Content Loaded'); }
+      },
+      dimensions: {
+        height: 400,
+        width: '60%'
+      }
+    });
+    
+
+    //Show browser type
+    core.dom.select('.browser').text('Browser: '+navigator.userAgent);
+
+  });
+});
+</script>
