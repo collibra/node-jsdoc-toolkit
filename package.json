@@ -1,6 +1,6 @@
 {
   "author": "Collibra <clovis@collibra.com>",
-  "name": "jsdoc",
+  "name": "collibra-jsdoc",
   "description": "JSDoc Toolkit",
   "version": "0.1",
   "repository": {
