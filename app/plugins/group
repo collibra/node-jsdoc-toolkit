@@ -1,0 +1,11 @@
+JSDOC.PluginManager.registerPlugin(
+    "JSDOC.group",
+    {
+        onSymbol: function(symbol) {
+            print(symbol);
+        },
+        onDocCommentSrc : function(symbol) {
+            print(symbol);
+        }
+    }
+);
